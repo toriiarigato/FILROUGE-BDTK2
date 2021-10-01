@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>monCompte</title>
+        <link rel="stylesheet" href="../ASSETS/CSS/all.min.css">
+        <link rel="stylesheet" href="../ASSETS/CSS/bootstrap.min.css">
+        <link rel="stylesheet" href="../ASSETS/CSS/monCompte.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="../ASSETS/FONT/SKETCHYRegular 400.otf">
+</head>
+<body>
+    
+    <div class="container d-flex flex-nowrap text justify-content-around h-100 d-inline-block  ">
+        <div id="colonne1" class="border border-3 rounded rounded-3 shadow p-3 mb-5 bg-body rounded">
+            <div name="titre">
+            <h1>Mon Compte</h1>
+            </div>
+            <div name="identifiant">
+                <p>Connecté en tant que:
+                Lebarbare Conan</p>
+                <div><img src="../albums/KARADOK.png" alt=""></div>
+                <input type="button" value="Changer mon avatar" >
+            </div>
+            <div>
+                <p>Cotisation:</p>
+                <br>
+                <p>
+                    BD empruntéé(s): 
+                </p>
+                <ul>
+                    <li>Toto, et ça vous fait rire...</li>
+                    <p>Empruntée le : 16/07/2021</p>
+                    <p>A rendre le : 20/07/2021</p>
+                </ul>
+            </div>
+            <div>
+                <input type="submit" value="Se déconnecter">
+            </div>
+        </div>    
+        <div id="colonne2"class="border border-3 rounded rounded-3 shadow p-3 mb-5 bg-body rounded overflow-auto col-6 ">
+            <div>
+                <h2>Faire une recherche</h2>
+            </div>
+                <div class="d-flex-wrap text justify-content-center">
+                    <form action="" method="get"></form>
+                    <div>
+                    <p>Référence ISBN:</p>
+                    <input type="text">
+                    <input type="submit" value="Valider">
+                    </div>
+                </div>
+            <div>
+                <h2>Dernières Entrées</h2>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center ">
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-36-Astérix, le papyrus de César.jpg" alt=" " srcset=" ">
+                        <p><a href="../HTML/details.html"><input type="button" value="Détails"></a></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-31-Astérix et Latraviata.jpg " alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Arkezone-01-Le dôme.jpg" alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-03-Astérix et les Goths.jpg " alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-06-Astérix et Cléopatre.jpg" alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-12-Astérix aux jeux olympiques.jpg" alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-15-La zizanie.jpg" alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-21-Le cadeau de César.jpg" alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+                <div class="text-center m-3 border-0 rounded ">
+                    <img src="../albumsMini/Astérix-23-Obélix et compagnie.jpg" alt=" " srcset=" ">
+                    <p><input type="button" value="Détails"></p>
+                </div>
+            </div>
+        </div>
+        <div id="colonne3"class="d-flex flex-column border border-3 rounded rounded-3 shadow p-3 mb-5 bg-body rounded">
+            <div>
+                <p>
+                    <div class="d-grid gap-2 bg-dark"id="blockbtn">
+                    <a class="btn btn-primary bg-dark " data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Séries:
+                    </a>
+                    </div>
+                    
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Arkezone
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>
+                    <div class="d-grid gap-2 bg-dark"id="blockbtn">
+                    <a class="btn btn-primary bg-dark " data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">Auteur :
+                    </a>
+                    </div>
+                    
+                </p>
+                <div class="collapse" id="collapseExample2">
+                    <div class="card card-body">
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Gaudin , Danard
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Arlestin , Hubsh
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>
+                    <div class="d-grid gap-2 bg-dark"id="blockbtn">
+                    <a class="btn btn-primary bg-dark " data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">Auteur :
+                    </a>
+                    </div>
+                    
+                </p>
+                <div class="collapse" id="collapseExample3">
+                    <div class="card card-body">
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Croc Vert
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Marchine qui rêve
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+        
+
+
+            
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+        
+</body>
+</html>
