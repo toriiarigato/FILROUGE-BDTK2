@@ -10,7 +10,7 @@
 #colonne3 {
     width: 25%;
     height: 800px;
-    overflow-y: scroll
+    overflow-y: scroll;
 }
 
 body {
@@ -20,4 +20,25 @@ body {
 #affiche {
     overflow: scroll;
     height: 600px;
+}
+
+@media (max-width: 1200px) {
+    #colonne1 {
+        flex-direction: column !important;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .column {
+        flex: 100%;
+    }
+    #colonne1 {
+        flex-direction: row !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .row {
+        flex-direction: column;
+    }
 }
