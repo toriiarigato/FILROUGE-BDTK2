@@ -1,0 +1,14 @@
+/*Permet d'entourer en vert les input qui sont valide et pas de type submit */
+
+input:valid:not([type=submit]):not([class=invalid]),
+.valid {
+    box-shadow: 0 0 2px 1px green;
+}
+
+
+/* Permet d'entourer en rouge les input qui ne sont pas valide et pas de type submit */
+
+input:invalid:not([type=submit]),
+.invalid {
+    box-shadow: 0 0 2px 1px red;
+}

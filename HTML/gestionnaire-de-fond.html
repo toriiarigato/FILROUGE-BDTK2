@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de fond</title>
+    <link rel="stylesheet" href="../ASSETS/CSS/all.min.css" />
+    <link rel="stylesheet" href="../ASSETS/CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="../ASSETS/CSS/gestionnaire.css" />
+    <script src="../ASSETS/JS/gestionnairesecu.js"></script>
+</head>
+
+<body background="../bg.jpg">
+
+    <!--Grande Div qui englobe tout-->
+    <div class="container-fluid d-flex flex-wrap text justify-content-around h-100 row">
+
+        <!--Div de deconnexion-->
+        <div id="colonne1" class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column">
+            <div>
+                <p id="idConnecté">Connecté en tant que :</p>
+            </div>
+            <div>
+                <form action="../HTML/login.html" method="get">
+                    <input type="submit" value="Se déconnecter" id="deconnexion">
+                </form>
+            </div>
+            </br>
+        </div>
+        <!--Div centrale-->
+        <div id="colonne2" class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column">
+
+            <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+                <label class="btn btn-outline-primary" for="btnradio1">Nouvelle entrée</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2">Ajout exemplaire</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio3">Supprimer exemplaire</label>
+            </div>
+
+            <!--Div de nouvelle entrée-->
+            <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
+                <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
+                    </br>
+                    <fieldset class="d-flex flex-column justify-content-evenly">
+
+                        <p><label for="addTitre" class="d-flex flex-wrap">Titre</label>
+                            <input type="text" id="addTitre" required="required">
+                        </p>
+                        <p><label for="addAuteur" class="d-flex flex-wrap">Auteur</label>
+                            <div class="w-100" id="divAuteur">
+                                <select class="d-flex form-select is-invalid" id="addAuteur" required="required"> 
+                                    </select>
+                                </b>
+                                <input class="d-none" type="text" id="addAuteur2">
+                                <input class="d-flex" type="button" value="Ajouter nouvel auteur" id="newAuteur">
+                                <input class="d-none" type="button" value="Annuler" id="annuleAuteur">
+                            </div>
+                        </p>
+                        <p><label for="addDate" class="d-flex flex-wrap">Date de parution</label>
+                            <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required">
+                        </p>
+                        <p><label for="addEdit" class="d-flex flex-wrap is">Maison d'édition</label>
+                            <input type="text" id="addEdit" required="required">
+                        </p>
+                        <p><label for="addISBN" class="d-flex flex-wrap">Référence ISBN</label>
+                            <input type="text" id="addISBN" placeholder="XXX" required="required">
+                            <p id="noISBN" class="d-none text-danger"></p>
+                        </p>
+                        <p><label for="addSerie" class="d-flex flex-wrap">Serie</label>
+                            <div id="divSerie" class=" w-100">
+                                <select class="d-flex form-select is-invalid" id="addSerie" required="required">
+                                    </select>
+                                </b>
+                                <input class="d-none" type="text" id="addSerie2">
+                                <input class="d-flex" type="button" value="Ajouter nouvelle serie" id="newSerie">
+                                <input class="d-none" type="button" value="Annuler" id="annuleSerie">
+                            </div>
+                        </p>
+                        <p><label for="addPic" class="d-flex flex-wrap">Ajouter une image</label>
+                            <div class="d-flex flex-wrap form-group w-100">
+                                <input class="form-control" type="file" id="addPic" required="required">
+                            </div>
+                        </p>
+                        <p><label for="addRes" class="d-flex flex-wrap">Résumé</label>
+                            <textarea rows="3" cols="33" type="text" id="addRes" required="required"></textarea>
+                        </p>
+                        <div class="d-flex justify-content-evenly">
+                            <input type="button" value="Aperçu" id="apercu">
+
+                            <input type="submit" value="Confirmer nouvelle entrée" id="subEntree">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!--Div d'ajout exemplaire-->
+            <div id="addExDiv" class="d-none justify-content-center flex-wrap">
+                <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                    </br>
+                    <fieldset class="d-flex flex-column justify-content-evenly">
+                        <p><label for="refISBN" class="d-flex flex-wrap">Référence ISBN</label>
+                            <input type="text" id="refISBN" required="required">
+                            <input type="button" id="checkRefISBN" value="Aperçu">
+                            <p id="noISBN2" class="d-none text-danger"></p>
+                        </p>
+                        <p><label for="codeEx" class="d-flex flex-wrap">Code Exemplaire</label>
+                            <input type="text" id="codeEx" required="required" placeholder="00" value="">
+                        </p>
+                        <p><label for="addISBN" class="d-flex flex-wrap">Emplacement</label>
+                            <input type="text" class="" placeholder="Rayon" required="required" id="rayon">
+                            <input type="text" class="" placeholder="Etagère" required="required" id="etagere">
+                        </p>
+                        <div>
+                            <input type="submit" value="Confirmer nouvel exemplaire" id="exSub">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!--Div de suppression d'exemplaire-->
+            <div id="delExDiv" class="d-none justify-content-center flex-wrap">
+                <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                    </br>
+                    <fieldset class="d-flex flex-column justify-content-evenly">
+                        <p><label for="refISBNDel" class="d-flex flex-wrap">Référence ISBN</label>
+                            <input type="text" id="refISBNDel" required="required">
+                            <input type="button" id="checkRefISBNDel" value="Aperçu">
+                            <p id="noISBN3" class="d-none text-danger"></p>
+                        </p>
+                        <p><label for="codeExDel" class="d-flex flex-wrap">Code Exemplaire</label>
+                            <input type="text" id="codeExDel" required="required" placeholder="00" value="">
+                        </p>
+                        <div>
+                            <input type="submit" value="Confirmer suppression exemplaire" id="exSubDel">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+        <!--Div d'aperçu-->
+        <div id="colonne3" class="d-flex flex-column align-items-center justify-content-evenly border border-3 rounded rounded-3 shadow p-3 bg-body rounded m-2 column">
+            <h2>Aperçu</h2>
+            <img src="" id="pPic"></img>
+            <h5>Titre:
+                <h6 class="d-flex justify-content-center" id="pTitre"></h6>
+            </h5>
+            <h5>Auteur:
+                <h6 class="d-flex justify-content-center" id="pAuteur"></h6>
+            </h5>
+            <h5>Date de parution:
+                <h6 class="d-flex justify-content-center" id="pDate"></h6>
+            </h5>
+            <h5>Maison d'édition:
+                <h6 class="d-flex justify-content-center" id="pEdit"></h6>
+            </h5>
+            <h5>ISBN:
+                <h6 class="d-flex justify-content-center" id="pISBN"></h6>
+            </h5>
+            <h5>Série:
+                <h6 class="d-flex justify-content-center" id="pSerie"></h6>
+            </h5>
+            <h5>Résumé:
+                <h6 class="d-flex justify-content-center" id="pResume"></h6>
+            </h5>
+        </div>
+        <div id="colonne4" class="d-none flex-column align-items-center justify-content-evenly border border-3 rounded rounded-3 shadow p-3 bg-body rounded m-2 column"></div>
+        <div id="colonne5" class="d-none flex-column align-items-center justify-content-evenly border border-3 rounded rounded-3 shadow p-3 bg-body rounded m-2 column">
+            </p>
+        </div>
+    </div>
+
+    <script src="../data/albums.js"></script>
+    <script src="../data/series.js"></script>
+    <script src="../data/auteurs.js"></script>
+    <script src="../ASSETS/JS/gestionnaire.js"></script>
+</body>
+
+</html>

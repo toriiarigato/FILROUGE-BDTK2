@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsable</title>
+    <link rel="stylesheet" href="../ASSETS/CSS/all.min.css" />
+    <link rel="stylesheet" href="../ASSETS/CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="../ASSETS/CSS/responsable.css" />
+    <script src="../ASSETS/JS/responsablesecu.js"></script>
+</head>
+
+<body background="../bg.jpg">
+
+    <!--Grande Div qui englobe tout-->
+    <div class="container-fluid d-flex flex-wrap text justify-content-around h-100 row">
+
+        <!--Div de deconnexion-->
+        <div id="colonne1" class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column">
+            <div>
+                <p id="idConnecté">Connecté en tant que :</p>
+            </div>
+            <div>
+                <form action="../HTML/login.html" method="get">
+                    <input type="submit" value="Se déconnecter" id="deconnexion">
+                </form>
+            </div>
+            </br>
+        </div>
+        <!--Div centrale-->
+        <div id="colonne2" class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
+
+
+            <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+                <label class="btn btn-outline-primary" for="btnradio1">BD non rapportées à ce jour</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2">Toutes les BD non rapportées</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio3">Statistiques</label>
+            </div>
+
+            <!--Div de nouvelle entrée-->
+            <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
+                <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
+                    </br>
+                    <fieldset class="d-flex flex-column flex-wrap justify-content-stretch">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ISBN</th>
+                                    <th scope="col">Code Exemplaire</th>
+                                    <th scope="col">Serie</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Emprunté par :</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">22</th>
+                                    <td>74</td>
+                                    <td>Marsupilami</td>
+                                    <td>Le papillon des cimes</td>
+                                    <td>Lebarbare Conan</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">58</th>
+                                    <td>58</td>
+                                    <td>Tintin</td>
+                                    <td>Tintin en amérique</td>
+                                    <td>Lebarbare Conan</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">07</th>
+                                    <td>32</td>
+                                    <td>Les légendaires</td>
+                                    <td>Aube et futur</td>
+                                    <td>Lebarbare Conan</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!--Div d'ajout exemplaire-->
+            <div id="addExDiv" class="d-none justify-content-center flex-wrap">
+                <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                    </br>
+                    <fieldset class="d-flex flex-column justify-content-evenly">
+                        <form method="GET" action="responsable.html">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Jours de retard</th>
+                                        <th scope="col">ISBN</th>
+                                        <th scope="col">Code exemplaire</th>
+                                        <th scope="col">Titre</th>
+                                        <th scope="col">Emprunté par :</th>
+                                        <th scope="col">Envoi lettre de rappel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">15</th>
+                                        <td>21</td>
+                                        <td>12</td>
+                                        <td>Toto Tata Titi Tutu</td>
+                                        <td>Tyty</td>
+                                        <td>
+                                            <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">9</th>
+                                        <td>11</td>
+                                        <td>06</td>
+                                        <td>Star wars : La guerre des clowns</td>
+                                        <td>Anakin Marcheciel</td>
+                                        <td>
+                                            <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">8</th>
+                                        <td>33</td>
+                                        <td>63</td>
+                                        <td>Harry Potter est resté sous l'escalier</td>
+                                        <td>FlyOfDeath</td>
+                                        <td>
+                                            <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>78</td>
+                                        <td>96</td>
+                                        <td>Mimi Mathy : "J'ai grandi"</td>
+                                        <td>Mimy Mathy</td>
+                                        <td>
+                                            <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input type="button" value="Envoyer les lettres de rappel" id="lettreRappel">
+                            <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                        </form>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!--Div de suppression d'exemplaire-->
+            <div id="delExDiv" class="d-none justify-content-center flex-wrap">
+                <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                    </br>
+                    <fieldset class="d-flex flex-column justify-content-evenly">
+                        <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script src="../data/albums.js"></script>
+    <script src="../data/series.js"></script>
+    <script src="../data/auteurs.js"></script>
+    <script src="../ASSETS/JS/responsable.js"></script>
+</body>
+
+</html>

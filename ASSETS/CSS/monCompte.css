@@ -1,0 +1,23 @@
+#colonne1 {
+    width: 25%;
+}
+
+#colonne2 {
+    width: 40%;
+    height: 800px;
+}
+
+#colonne3 {
+    width: 25%;
+    height: 800px;
+    overflow-y: scroll
+}
+
+body {
+    font-family: SKETCHYRegular 400;
+}
+
+#affiche {
+    overflow: scroll;
+    height: 600px;
+}
