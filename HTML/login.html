@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>BEDETHEQUE</title>
     <link rel="stylesheet" href="../ASSETS/CSS/all.min.css" />
     <link rel="stylesheet" href="../ASSETS/CSS/bootstrap.min.css" />
@@ -17,18 +18,17 @@
     <!-- Grande div qui englobe tout-->
     <div class="container align-self-center">
         <div class="
-          border border-3
           rounded rounded-3
           shadow
           p-3
           mb-5
-          bg-body
           rounded
           d-flex
           justify-content-center
           align-items-center
-          flex-column" id="grdDiv">
-
+          flex-column
+          opacity-25
+        " id="grdDiv">
             <!-- La div titre-->
             <header>
                 <div class="
@@ -59,7 +59,10 @@
             d-flex
             justify-content-center
             w-50
-            d-sm w-75">
+            d-sm
+            w-75
+            opacity-25
+          " id="divtitre">
                 <form method="GET" action="" id="form">
                     <fieldset>
                         <h2>Connexion</h2>
@@ -73,7 +76,7 @@
                             <p>Mot de passe :</p>
                             <input type="password" name="mdp" id="mdp" required="required" />
                         </div>
-                        <br/>
+                        <br />
                         <p id="nocompte" class="text-danger"></p>
 
                         <a href="../HTML/oubliMdp.html">Mot de passe oublié ?</a>
