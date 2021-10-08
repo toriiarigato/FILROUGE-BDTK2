@@ -38,19 +38,43 @@
 
     // $a1 = new Album(262,"blabla",14.50,79,53,4,NULL,NULL,"fjdklfjld");
 
-    try {
-        // Récupère la liste de tous les Pilotes
-        var_dump(AlbumMgr::addAlbum($a1));
+    // try {
+    //     // Récupère la liste de tous les Pilotes
+    //     var_dump(AlbumMgr::addAlbum($a1));
 
-    } catch (PDOException $e) {
-        echo $e->getMessage() . RC;
-        echo "ECHEC de CONNEXION à la BDD" . RC;
-    } catch (Exception $e) {
-        echo $e->getMessage() . RC;
-    }
+    // } catch (PDOException $e) {
+    //     echo $e->getMessage() . RC;
+    //     echo "ECHEC de CONNEXION à la BDD" . RC;
+    // } catch (Exception $e) {
+    //     echo $e->getMessage() . RC;
+    // }
 
-    echo RC . "LE PROGRAMME CONTINUE ..." . RC;
+    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
+    // try {
+    //     var_dump(AlbumMgr::delAlbumbyId(262));
+
+    // } catch (PDOException $e) {
+    //     echo $e->getMessage() . RC;
+    //     echo "ECHEC de CONNEXION à la BDD" . RC;
+    // } catch (Exception $e) {
+    //     echo $e->getMessage() . RC;
+    // }
+
+    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
+
+    // try {
+    //     // Récupère la liste de tous les Pilotes
+    //     var_dump(AlbumMgr::updateAlbum(260));
+
+    // } catch (PDOException $e) {
+    //     echo $e->getMessage() . RC;
+    //     echo "ECHEC de CONNEXION à la BDD" . RC;
+    // } catch (Exception $e) {
+    //     echo $e->getMessage() . RC;
+    // }
+
+    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
     
 ?>
