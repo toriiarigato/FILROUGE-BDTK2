@@ -36,7 +36,7 @@
 
 //     echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
-    // $a1 = new Album(262,"blabla",14.50,79,53,4,NULL,NULL,"fjdklfjld");
+    $a1 = new Album(264,"blabla",14.50,79,53,4,NULL,NULL,"fjdklfjld");
 
     // try {
     //     // Récupère la liste de tous les Pilotes
