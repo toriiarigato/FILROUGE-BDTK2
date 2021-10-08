@@ -22,7 +22,7 @@ class AlbumMgr {
             // Définir le FETCH MODE
             // if ($choix === PDO::FETCH_CLASS) {
             //     $resPDOstt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,
-                                        // 'album',array('pil','pilNom','adr'));
+            // 'album',array('pil','pilNom','adr'));
             // } else {
             //     $resPDOstt->setFetchMode($choix);
             // }
@@ -73,7 +73,59 @@ class AlbumMgr {
             {
             return $nombre; 
         }
+    }
+
+        /**
+         * Permet de supprimer l'album passé en paramètre
+         * @param un objet album
+         * @return nombre d'album supprimés
+         */
+        public static function delAlbumbyId($idalbum) {
+            $sql = "DELETE FROM album WHERE NUMERO_ALBUM =?";
+            try {
+                $rs = Bdtk::getConnexion()->prepare($sql);
+
+                // exécution requête
+
+                $rs->execute(array($idalbum));
+                
+                $nombre = $rs->rowCount();
+                echo $nombre;
+                
+                // pour faire propre
+                $rs->closeCursor();
+                Bdtk::disconnect();
+            }
+            catch(PDOException $e)
+            {
+            return $nombre; 
+            }
+        }
+
+                /**
+         * Permet de modifier l'album passé en paramètre
+         * @param un objet album
+         * @return nombre d'album mis à jour
+         */
+        public static function updateAlbum($idalbum) {
+            // Prépare la requête SQL
+            $sql = "UPDATE album SET IDENTIFIANT_UTILISATEUR_MODIFIER=?, IDENTIFIANT_UTILISATEUR_RETIRE=? WHERE NUMERO_ALBUM=?";
+                    
+            $rs = Bdtk::getConnexion()->prepare($sql);
+
+            // exécution requête
+            // $iduserupdate = NULL;
+            // $îduserDelete1 = NULL;
+            $rs->execute(array(NULL,NULL,$idalbum)); // ATTENTION à l'ordre des attributs
+            
+            $nombre = $rs->rowCount();
+            
+            // pour faire propre
+            $rs->closeCursor();
+            Bdtk::disconnect();
+            return $nombre; 
+        }
 
 }
-}
+
 ?>
