@@ -114,8 +114,6 @@ class AlbumMgr {
             $rs = Bdtk::getConnexion()->prepare($sql);
 
             // exécution requête
-            // $iduserupdate = NULL;
-            // $îduserDelete1 = NULL;
             $rs->execute(array(NULL,NULL,$idalbum)); // ATTENTION à l'ordre des attributs
             
             $nombre = $rs->rowCount();
