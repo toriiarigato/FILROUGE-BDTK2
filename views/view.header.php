@@ -9,18 +9,18 @@
     <link rel="stylesheet" href="../ASSETS/CSS/all.min.css" />
     <link rel="stylesheet" href="../ASSETS/CSS/bootstrap.min.css" />
     <link rel="stylesheet" href="../ASSETS/CSS/gestionnaire.css" />
-    <script src="../ASSETS/JS/gestionnairesecu.js"></script>
+    <!-- <script src="../ASSETS/JS/gestionnairesecu.js"></script> -->
 </head>
 
 
 <body background="../SRC/bg.jpg">
 
-<!-- RIEN AU DELA POUR LE LOGIN NI POUR OUBLIMDP NI POUR DETAILS-->
+    <!-- RIEN AU DELA POUR LE LOGIN NI POUR OUBLIMDP NI POUR DETAILS-->
 
 
 
-<!---------- ADHERENT ----------->
-<div class="container d-flex flex-nowrap text justify-content-around h-100 d-inline-block">
+    <!---------- ADHERENT ----------->
+    <div class="container d-flex flex-nowrap text justify-content-around h-100 d-inline-block">
         <div id="colonne1" class="border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-200  ">
             <div name="titre">
                 <h1>Mon Compte</h1>
@@ -44,29 +44,30 @@
                 </ul>
             </div>
             <div>
-                <form action="../HTML/login.html" method="get">
+                <!-- <form action="../HTML/login.html" method="get">
                     <input type="submit" value="Se déconnecter" id="deconnexion">
-                </form>
+                </form> -->
             </div>
         </div>
-<!------------------------------->
+        <!------------------------------->
 
 
 
-<!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
-    <!--Grande Div qui englobe tout-->
-    <div class="container-fluid d-flex flex-wrap text justify-content-around h-100 row">
+        <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
+        <!--Grande Div qui englobe tout-->
+        <div class="container-fluid d-flex flex-wrap text justify-content-around h-100 row">
 
-        <!--Div de deconnexion-->
-        <div id="colonne1" class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column">
-            <div>
-                <p id="idConnecté">Connecté en tant que :</p>
+            <!--Div de deconnexion-->
+            <div id="colonne1"
+                class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column">
+                <div>
+                    <p id="idConnecté">Connecté en tant que :</p>
+                </div>
+                <div>
+                    <!-- <form action="../HTML/login.html" method="get">
+                        <input type="submit" value="Se déconnecter" id="deconnexion">
+                    </form> -->
+                </div>
+                </br>
             </div>
-            <div>
-                <form action="../HTML/login.html" method="get">
-                    <input type="submit" value="Se déconnecter" id="deconnexion">
-                </form>
-            </div>
-            </br>
-        </div>
-<!------------------------------->
+            <!------------------------------->
