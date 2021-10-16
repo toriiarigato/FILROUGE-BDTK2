@@ -11,7 +11,8 @@
     <h1>Connexion</h1>
     <!-- <a href="indextest.php">v1.1 connexion new PDO direct</a><br /> -->
     <a href="indextest.php">v1.2 connexion via Bdtk et fichier de paramètres</a><br />
-    <a href="indexAuteur.php">Test des auteurs</a><br />
+    <a href="indexAuteur.php">Test des auteurs</a><br/>
+    <a href="indexSerie.php">Test des series</a><br/>
 
     <h1>Appel de requêtes SELECT</h1>
     <!-- // <a href='index2.0.php'>v2.0 Liste des adherents en direct</a><br />
