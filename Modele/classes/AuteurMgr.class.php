@@ -1,10 +1,10 @@
 <?php
 class AuteurMgr {
 
-//////////////////////////////////////////////////////////////// Récupère la liste de tous les Pilotes ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////// Récupère la liste de tous les Auteurs ///////////////////////////////////////////////////////////////////
         /**
          * Permet d'obtenir une liste complète des Auteurs
-         * @param le mode de récupération des données (Tableau associatif par défaut)
+         * @param le mode de récupération des données 
          * @return array la liste des auteurs
          */
         public static function getListAuteur() {
@@ -34,7 +34,7 @@ class AuteurMgr {
             
             try {
                 $rs = Bdtk::getConnexion()->prepare($sql);
-                $rs->execute(array(":idAuteur"=>$auteur->idAuteur,":libAuteur"=>$auteur->libAuteur,));
+                $rs->execute(array(":idAuteur"=>$auteur->idAuteur,":libAuteur"=>$auteur->libAuteur));
                 
                 $nombre = $rs->rowCount();
                 
