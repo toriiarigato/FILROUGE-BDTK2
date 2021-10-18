@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+require('../controler/index.test.aure.php');
+?>
 
 <head>
     <meta charset="UTF-8" />

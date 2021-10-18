@@ -21,7 +21,7 @@ class UserMgr {
 
             // Etape 3 - Lit tout le curseur PDOStatement
             $records = $resPDOstt->fetchAll();
-            //var_dump($records);
+            //var_dump($records);-
 
             // Etape 4 - Ferme le curseur et la connexion
             $resPDOstt->closeCursor(); // ferme le curseur
