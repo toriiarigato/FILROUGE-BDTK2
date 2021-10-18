@@ -23,12 +23,12 @@
     // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
     //////////////////////////////////////////////////////////////////////// Ajoute une Serie ///////////////////////////////////////////////////////////////////////////////
-    // Doit utiliser un emplacement existant
-    $ser1 = new Serie(20,"Pokemon", "E2R6");
+        // Doit utiliser un emplacement existant
+    // $ser1 = new Serie(20,"Pokemon", "E2R6");
 
     // try {
 
-    //     var_dump(SerieMgr::addSerie($ser1));
+    //     echo SerieMgr::addSerie($ser1). " ligne(s) mise à jour";
 
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -41,7 +41,7 @@
     ////////////////////////////////////////////////////////////////// Supprime une serie avec son ID ////////////////////////////////////////////////////////////////////////
 
     // try {
-    //     var_dump(SerieMgr::delSerieByID(20));
+    //     echo SerieMgr::delSerieByID(20). " ligne(s) mise à jour";
 
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -55,7 +55,7 @@
     //////////////////////////////////////////////////////////////// Supprime une serie avec son NOM ////////////////////////////////////////////////////////////////////////
 
     // try {
-    //     var_dump(SerieMgr::delSerieByName("Pokemon"));
+    //     echo SerieMgr::delSerieByName("Pokemon"). " ligne(s) mise à jour";
     
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -69,7 +69,7 @@
     ////////////////////////////////////////////////////////////////// Met à jour le nom d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
     // try {
-    //     var_dump(SerieMgr::updateNameSerie("Kaamelot",47));
+    //     echo SerieMgr::updateNameSerie("Kaamelot",47). " ligne(s) mise à jour";
     
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -83,7 +83,7 @@
     ////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
     try {
-        var_dump(SerieMgr::updateEmpSerie("E2R6",47));
+        echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
         
     } catch (PDOException $e) {
         echo $e->getMessage() . RC;
@@ -93,6 +93,4 @@
     }
         
     echo RC . "LE PROGRAMME CONTINUE ..." . RC;
-        
-
     ?>

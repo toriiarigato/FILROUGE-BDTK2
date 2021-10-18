@@ -28,23 +28,23 @@ class SerieMgr {
          * @return nombre de serie ajoutées
          */
         // Doit utiliser un emplacement existant
-        public static function addSerie(Serie $serie) {
+        public static function addSerie(Serie $serie) : array {
             
             $sql = "INSERT INTO serie 
                     VALUES (:idSerie, :libSerie, :codeEmp)";
             
             try {
                 $rs = Bdtk::getConnexion()->prepare($sql);
-                $rs->execute(array(":idSerie"=>$serie->idSerie,":libSerie"=>$serie->libSerie,":codeEmp"=>$serie->codeEmp));
+                $rs->execute(array(":idSerie"=>$serie->getIdSerie(),":libSerie"=>$serie->getLibSerie(),":codeEmp"=>$serie->getCodeEmp()));
                 
                 $nombre = $rs->rowCount();
 
                 $rs->closeCursor();
                 Bdtk::disconnect();
+                return $nombre; 
             }
             catch(PDOException $e)
             {
-            return $nombre; 
             }
         }
 
@@ -68,13 +68,11 @@ class SerieMgr {
                 // pour faire propre
                 $rs->closeCursor();
                 Bdtk::disconnect();
-            
+                return $nombre; 
             }
             catch(PDOException $e)
             {
-            return $nombre; 
             }
-
         }
 
 //////////////////////////////////////////////////////////////// Supprime une serie avec son NOM ////////////////////////////////////////////////////////////////////////
@@ -83,7 +81,7 @@ class SerieMgr {
          * @param un objet serie
          * @return nombre de serie supprimées
          */
-        public static function delSerieByName($libSerie) {
+        public static function delSerieByName($libSerie) : int {
             
             $sql = "DELETE FROM serie
                     WHERE LIBELLE_SERIE = :libSerie";
@@ -97,13 +95,11 @@ class SerieMgr {
                 // pour faire propre
                 $rs->closeCursor();
                 Bdtk::disconnect();
-            
+                return $nombre;
             }
             catch(PDOException $e)
             {
-            return $nombre; 
             }
-
         }
 
 ////////////////////////////////////////////////////////////////// Met à jour le nom d'une serie  //////////////////////////////////////////////////////////////////////////////////
@@ -113,21 +109,25 @@ class SerieMgr {
          * @param un objet serie
          * @return nombre de serie mise à jour
          */
-        public static function updateNameSerie($value1, $idSerie) {
+        public static function updateNameSerie($value1, $idSerie) : int  {
 
             $sql = "UPDATE serie SET LIBELLE_SERIE = :newLibSerie
                     WHERE IDENTIFIANT_SERIE = :idSerie";
+            try {
+                $rs = Bdtk::getConnexion()->prepare($sql);
+                $rs->execute(array(":newLibSerie"=>$value1, ":idSerie"=>$idSerie)); 
 
-            $rs = Bdtk::getConnexion()->prepare($sql);
-            $rs->execute(array(":newLibSerie"=>$value1, ":idSerie"=>$idSerie)); 
+                $nombre = $rs->rowCount();
 
-            $nombre = $rs->rowCount();
-
-            // pour faire propre
-            $rs->closeCursor();
-            Bdtk::disconnect();
-            return $nombre; 
-        }
+                // pour faire propre
+                $rs->closeCursor();
+                Bdtk::disconnect();
+                return $nombre; 
+            }
+            catch(PDOException $e)
+            {    
+            }
+       }  
 
 ////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
@@ -136,11 +136,11 @@ class SerieMgr {
          * @param un objet serie
          * @return nombre de serie mise à jour
          */
-        public static function updateEmpSerie($value1, $idSerie) {
+        public static function updateEmpSerie($value1, $idSerie) : int {
 
                 $sql = "UPDATE serie SET CODE_EMPLACEMENT = :newEmpSerie
                         WHERE IDENTIFIANT_SERIE = :idSerie";
-    
+            try {
                 $rs = Bdtk::getConnexion()->prepare($sql);
                 $rs->execute(array(":newEmpSerie"=>$value1, ":idSerie"=>$idSerie)); 
     
@@ -151,5 +151,9 @@ class SerieMgr {
                 Bdtk::disconnect();
                 return $nombre; 
             }
+            catch(PDOException $e)
+            {
+            }
+        }
 }
 ?>
