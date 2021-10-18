@@ -1,13 +1,13 @@
 <?php
 class AuteurMgr {
 
-//////////////////////////////////////////////////////////////// Récupère la liste de tous les Pilotes ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////// Récupère la liste de tous les Auteurs ///////////////////////////////////////////////////////////////////
         /**
          * Permet d'obtenir une liste complète des Auteurs
-         * @param le mode de récupération des données (Tableau associatif par défaut)
+         * @param le mode de récupération des données 
          * @return array la liste des auteurs
          */
-        public static function getListAuteur() {
+        public static function getListAuteur() : array {
             $sql = 'SELECT * FROM auteur 
                     ORDER BY IDENTIFIANT_AUTEUR ASC';
             
@@ -34,16 +34,16 @@ class AuteurMgr {
             
             try {
                 $rs = Bdtk::getConnexion()->prepare($sql);
-                $rs->execute(array(":idAuteur"=>$auteur->idAuteur,":libAuteur"=>$auteur->libAuteur,));
+                $rs->execute(array(":idAuteur"=>$auteur->getIDAut(),":libAuteur"=>$auteur->getLibAut()));
                 
                 $nombre = $rs->rowCount();
                 
                 $rs->closeCursor();
                 Bdtk::disconnect();  
+                return $nombre;
             }
             catch(PDOException $e)
             {
-            return $nombre; 
             }
         }
 
@@ -53,7 +53,7 @@ class AuteurMgr {
          * @param un objet auteur
          * @return nombre de auteurs supprimés
          */
-        public static function delAuteurByID($idAuteur) {
+        public static function delAuteurByID($idAuteur) : int  {
             
             $sql = "DELETE FROM auteur
                     WHERE IDENTIFIANT_AUTEUR = :idAuteur";
@@ -67,13 +67,11 @@ class AuteurMgr {
                 // pour faire propre
                 $rs->closeCursor();
                 Bdtk::disconnect();
-            
+                return $nombre; 
             }
             catch(PDOException $e)
             {
-            return $nombre; 
             }
-
         }
 
 //////////////////////////////////////////////////////////////// Supprime un auteur avec son NOM ////////////////////////////////////////////////////////////////////////
@@ -82,7 +80,7 @@ class AuteurMgr {
          * @param un objet auteur
          * @return nombre de auteurs supprimés
          */
-        public static function delAuteurByName($libAuteur) {
+        public static function delAuteurByName($libAuteur) : int  {
             
             $sql = "DELETE FROM auteur
                     WHERE LIBELLE_AUTEUR = :libAuteur";
@@ -96,13 +94,11 @@ class AuteurMgr {
                 // pour faire propre
                 $rs->closeCursor();
                 Bdtk::disconnect();
-            
+                return $nombre;
             }
             catch(PDOException $e)
             {
-            return $nombre; 
             }
-
         }
 
 ////////////////////////////////////////////////////////////////// Met à jour un auteur  //////////////////////////////////////////////////////////////////////////////////
@@ -112,20 +108,24 @@ class AuteurMgr {
          * @param un objet auteur
          * @return nombre d'auteur mis à jour
          */
-        public static function updateAuteur($value1, $idAuteur) {
+        public static function updateAuteur($value1, $idAuteur) : int  {
 
             $sql = "UPDATE auteur SET  LIBELLE_AUTEUR = :newLibAuteur
                     WHERE IDENTIFIANT_AUTEUR = :idAuteur";
+            try {
+                $rs = Bdtk::getConnexion()->prepare($sql);
+                $rs->execute(array(":newLibAuteur"=>$value1,":idAuteur"=>$idAuteur)); 
 
-            $rs = Bdtk::getConnexion()->prepare($sql);
-            $rs->execute(array(":newLibAuteur"=>$value1,":idAuteur"=>$idAuteur)); 
+                $nombre = $rs->rowCount();
 
-            $nombre = $rs->rowCount();
-
-            // pour faire propre
-            $rs->closeCursor();
-            Bdtk::disconnect();
-            return $nombre; 
+                // pour faire propre
+                $rs->closeCursor();
+                Bdtk::disconnect();
+                return $nombre; 
+            }
+            catch(PDOException $e)
+            {
+            }
         }
 }
 ?>

@@ -7,20 +7,20 @@
 
     //////////////////////////////////////////////////////////////// Récupère la liste de tous les Pilotes ///////////////////////////////////////////////////////////////////
 
-    // try {
+    try {
     
-    // $tAuteur = AuteurMgr::getListAuteur();
+    $tAuteur = AuteurMgr::getListAuteur();
         
-    // var_dump($tAuteur);
+    var_dump($tAuteur);
 
-    // } catch (PDOException $e) {
-    //     echo $e->getMessage() . RC;
-    //     echo "ECHEC de CONNEXION à la BDD" . RC;
-    // } catch (Exception $e) {
-    //     echo $e->getMessage() . RC;
-    // }
+    } catch (PDOException $e) {
+        echo $e->getMessage() . RC;
+        echo "ECHEC de CONNEXION à la BDD" . RC;
+    } catch (Exception $e) {
+        echo $e->getMessage() . RC;
+    }
 
-    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
+    echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
     //////////////////////////////////////////////////////////////////////// Ajoute un Auteur ///////////////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@
 
     // try {
 
-    //     var_dump(AuteurMgr::addAuteur($aut1));
+    //     echo AuteurMgr::addAuteur($aut1). " ligne(s) mise à jour";
 
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -41,7 +41,7 @@
     ////////////////////////////////////////////////////////////////// Supprime un auteur avec son ID ////////////////////////////////////////////////////////////////////////
 
     // try {
-    //     var_dump(AuteurMgr::delAuteurByID(51));
+    //     echo AuteurMgr::delAuteurByID(51). " ligne(s) mise à jour";
 
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -55,7 +55,7 @@
     //////////////////////////////////////////////////////////////// Supprime un auteur avec son NOM ////////////////////////////////////////////////////////////////////////
 
     // try {
-    //     var_dump(AuteurMgr::delAuteurByName("Thierry"));
+    //     echo AuteurMgr::delAuteurByName("Conan"). " ligne(s) mise à jour";
     
     // } catch (PDOException $e) {
     //     echo $e->getMessage() . RC;
@@ -69,7 +69,7 @@
     ////////////////////////////////////////////////////////////////// Met à jour un auteur  //////////////////////////////////////////////////////////////////////////////////
 
     try {
-        var_dump(AuteurMgr::updateAuteur("Enculé",52));
+        echo AuteurMgr::updateAuteur("Enculé",56). " ligne(s) mise à jour";
     
     } catch (PDOException $e) {
         echo $e->getMessage() . RC;
