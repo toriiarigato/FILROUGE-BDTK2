@@ -1,5 +1,5 @@
 <?php
-$action = 'gestionnaire';
+$action = '';
 // $role = '';
 print_r($_GET);
 
