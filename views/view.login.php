@@ -77,6 +77,8 @@ if ($action == 'accueil'){?>
                     <input type="submit" value="Se Connecter" id="btnconnect" />
                     <input type="hidden" name="action" value="connexion">
 
+                    <h5><?php echo $msgErreur; ?></h5>
+
                 </fieldset>
             </form>
             <form action="" method="get"id="form">
