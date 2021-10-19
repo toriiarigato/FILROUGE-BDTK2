@@ -3,6 +3,8 @@ session_start();
 $action = '';
 $id = $mdp = $role = '';
 
+
+
 print_r($_GET);
 if (isset($_SESSION['user'])){
     print_r($_SESSION['user']);
@@ -24,9 +26,11 @@ switch ($action){
         require('../views/view.header.php');
             require('../views/view.login.php');
             require('../views/view.footer.php');
+
     break;
 
     case 'connexion':
+        $msgErreur = '';
         require('../Modele/classes/Bdtk.class.php');
         require('../Modele/classes/UserMgr.class.php');
         $flag = UserMgr::connect($id,$mdp);
@@ -58,18 +62,18 @@ switch ($action){
             var_dump($_SESSION["user"]);
             
             break;
-        } else 
+        } else{
+            $msgErreur = 'E-mail ou Mot de Passe erroné ou inconnu'; 
             $action = 'accueil';
-            $msgErreur = 'E-mail ou Mot de Passe erroné ou inconnu';
             header('location:../controler/index.test.aure.php');
-            unset($_SESSION['user']);
-    break;
+        }
+        break;
 
     case 'oubliMdp':
         require('../views/view.header.php');
         require('../views/view.login.php');
         require('../views/view.footer.php');
-    break;
+        break;
 
     case 'bibli';
         if ($_SESSION['user']['ID_ROLE']=='2'){
@@ -81,8 +85,55 @@ switch ($action){
             header('location:../controler/index.test.aure.php');
             unset($_SESSION['user']);
         }
+        break;
 
-    break;
+    case 'emprunt';
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case 'retour';
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case 'nouvelAd';
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case 'gestionAd';
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
 
     case 'gestionnaire';
         require('../views/view.header.php');
