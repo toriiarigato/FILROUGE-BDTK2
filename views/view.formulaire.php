@@ -16,6 +16,7 @@
             <label class="btn btn-outline-primary" for="btnradio3">Supprimer exemplaire</label>
         </div>
 
+<?php  if ($action2 == 'ajout'){ ?>
         <!--Div de nouvelle entrée-->
         <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
             <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
@@ -71,7 +72,9 @@
                 </fieldset>
             </form>
         </div>
+<?php } ?>
 
+<?php  if ($action2 == 'newEx'){ ?>
         <!--Div d'ajout exemplaire-->
         <div id="addExDiv" class="d-none justify-content-center flex-wrap">
             <form method="GET" action="../HTML/gestionnaire-de-fond.html">
@@ -95,7 +98,10 @@
                 </fieldset>
             </form>
         </div>
+<?php } ?>
 
+
+<?php  if ($action2 == 'delEx'){ ?>
         <!--Div de suppression d'exemplaire-->
         <div id="delExDiv" class="d-none justify-content-center flex-wrap">
             <form method="GET" action="../HTML/gestionnaire-de-fond.html">
@@ -115,8 +121,8 @@
                 </fieldset>
             </form>
         </div>
-
-</div>
+<?php } ?>
+    </div>
 <?php } ?>
 <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
 <?php 

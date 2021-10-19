@@ -2,6 +2,7 @@
 session_start();
 $action = 'accueil';
 $id = $mdp = $role = '';
+
 print_r($_GET);
 print_r($_SESSION['user']);
 

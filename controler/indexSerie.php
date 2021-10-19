@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test serie</title>
+</head>
+<body>
+    
+</body>
+</html>
+
 <?php
     spl_autoload_register(function($classe){
         include "../Modele/classes/" . $classe . ".class.php";
@@ -7,36 +20,47 @@
 
     //////////////////////////////////////////////////////////////// Récupère la liste de toutes les Series ///////////////////////////////////////////////////////////////////
 
-    // try {
+    try {
     
-    // $tSerie = SerieMgr::getListSerie();
-        
-    // var_dump($tSerie);
+    $tSerie = SerieMgr::getListSerie();
+?>
+    <form method="get" action="indexFormulaire.php">
+<?php 
+    echo "LISTE DES SERIES</br></br><button name=\"addSerie\">Ajouter une serie</button></br>"
+?>
+    </form>
+<?php
+    foreach($tSerie as $ligne) {
+?>        
+        <form method="get" action=>
+<?php        echo  "<hr><li>" . strToUpper($ligne) . "</li>\n" . "<button>Details</button>" . "<button>Modifier</button>" . "<button>Supprimer</button></br></br>"; 
+?>
+        </form>
+<?php        
+    }
 
-    // } catch (PDOException $e) {
-    //     echo $e->getMessage() . RC;
-    //     echo "ECHEC de CONNEXION à la BDD" . RC;
-    // } catch (Exception $e) {
-    //     echo $e->getMessage() . RC;
-    // }
-
-    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
-
+    } catch (PDOException $e) {
+        echo $e->getMessage() . RC;
+        echo "ECHEC de CONNEXION à la BDD" . RC;
+    } catch (Exception $e) {
+        echo $e->getMessage() . RC;
+    }
+?>
+<?php
     //////////////////////////////////////////////////////////////////////// Ajoute une Serie ///////////////////////////////////////////////////////////////////////////////
         // Doit utiliser un emplacement existant
-    // $ser1 = new Serie(20,"Pokemon", "E2R6");
+    // if(isset($_GET["addSerie"])){   
+    //     $ser1 = new Serie(26,"Gégé", "E1R1");
 
-    // try {
-
-    //     echo SerieMgr::addSerie($ser1). " ligne(s) mise à jour";
-
-    // } catch (PDOException $e) {
-    //     echo $e->getMessage() . RC;
-    //     echo "ECHEC de CONNEXION à la BDD" . RC;
-    // } catch (Exception $e) {
-    //     echo $e->getMessage() . RC;
+    //     try {
+    //         echo SerieMgr::addSerie($ser1). " ligne(s) mise à jour";
+    //     } catch (PDOException $e) {
+    //         echo $e->getMessage() . RC;
+    //         echo "ECHEC de CONNEXION à la BDD" . RC;
+    //     } catch (Exception $e) {
+    //         echo $e->getMessage() . RC;
+    //     }
     // }
-    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
     ////////////////////////////////////////////////////////////////// Supprime une serie avec son ID ////////////////////////////////////////////////////////////////////////
 
@@ -82,15 +106,15 @@
     
     ////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
-    try {
-        echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
+    // try {
+    //     echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
         
-    } catch (PDOException $e) {
-        echo $e->getMessage() . RC;
-        echo "ECHEC de CONNEXION à la BDD" . RC;
-    } catch (Exception $e) {
-         echo $e->getMessage() . RC;
-    }
+    // } catch (PDOException $e) {
+    //     echo $e->getMessage() . RC;
+    //     echo "ECHEC de CONNEXION à la BDD" . RC;
+    // } catch (Exception $e) {
+    //      echo $e->getMessage() . RC;
+    // }
         
-    echo RC . "LE PROGRAMME CONTINUE ..." . RC;
+    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
     ?>
