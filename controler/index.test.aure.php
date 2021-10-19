@@ -1,11 +1,10 @@
 <?php
 session_start();
-$action = 'accueil';
+$action = '';
 $id = $mdp = $role = '';
 
 print_r($_GET);
 print_r($_SESSION['user']);
-
 
 
 if (isset($_GET['action'])){

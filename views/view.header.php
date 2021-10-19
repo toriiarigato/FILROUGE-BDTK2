@@ -12,9 +12,6 @@
     <!-- <script src="../ASSETS/JS/gestionnairesecu.js"></script> -->
 </head>
 
-<body>
-
-
 
     <body background="../SRC/bg.jpg">
 
@@ -59,7 +56,7 @@
 
             <?php } ?>
             <?php 
-    if ($action == 'bibli' or $action == 'getionnaire' or $action == 'responsable'){?>
+    if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'responsable'){?>
             <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
             <!--Grande Div qui englobe tout-->
             <div class="container-fluid d-flex flex-wrap text justify-content-around h-100 row">

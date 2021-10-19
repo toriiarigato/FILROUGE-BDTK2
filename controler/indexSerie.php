@@ -18,10 +18,16 @@
 
     const RC = "<br />\n";
 
+    $idSerie = -1; 
+    $libSerie = $codeEmp = "";
     //////////////////////////////////////////////////////////////// Récupère la liste de toutes les Series ///////////////////////////////////////////////////////////////////
+	if (isset($_GET['idSerie'],$_GET['libSerie'],$_GET['codeEmp'])) {
+        $idSerie = $_GET['idSerie'];
+        $libSerie = $_GET['libSerie'];
+        $codeEmp = $_GET['codeEmp'];
+    }    
 
     try {
-    
     $tSerie = SerieMgr::getListSerie();
 ?>
     <form method="get" action="indexFormulaire.php">
@@ -36,7 +42,8 @@
 <?php        echo  "<hr><li>" . strToUpper($ligne) . "</li>\n" . "<button>Details</button>" . "<button>Modifier</button>" . "<button>Supprimer</button></br></br>"; 
 ?>
         </form>
-<?php        
+<?php  
+      
     }
 
     } catch (PDOException $e) {
@@ -49,18 +56,17 @@
 <?php
     //////////////////////////////////////////////////////////////////////// Ajoute une Serie ///////////////////////////////////////////////////////////////////////////////
         // Doit utiliser un emplacement existant
-    // if(isset($_GET["addSerie"])){   
-    //     $ser1 = new Serie(26,"Gégé", "E1R1");
+  
+        $ser1 = new Serie($idSerie, $libSerie, $codeEmp);
 
-    //     try {
-    //         echo SerieMgr::addSerie($ser1). " ligne(s) mise à jour";
-    //     } catch (PDOException $e) {
-    //         echo $e->getMessage() . RC;
-    //         echo "ECHEC de CONNEXION à la BDD" . RC;
-    //     } catch (Exception $e) {
-    //         echo $e->getMessage() . RC;
-    //     }
-    // }
+        try {
+            echo SerieMgr::addSerie($ser1) . " ligne(s) mise à jour";
+        } catch (PDOException $e) {
+            echo $e->getMessage() . RC;
+            echo "ECHEC de CONNEXION à la BDD" . RC;
+        } catch (Exception $e) {
+            echo $e->getMessage() . RC;
+        }
 
     ////////////////////////////////////////////////////////////////// Supprime une serie avec son ID ////////////////////////////////////////////////////////////////////////
 
@@ -92,29 +98,29 @@
 
     ////////////////////////////////////////////////////////////////// Met à jour le nom d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
-    // try {
-    //     echo SerieMgr::updateNameSerie("Kaamelot",47). " ligne(s) mise à jour";
+    try {
+        echo SerieMgr::updateNameSerie("Kaamelot",47). " ligne(s) mise à jour";
     
-    // } catch (PDOException $e) {
-    //     echo $e->getMessage() . RC;
-    //     echo "ECHEC de CONNEXION à la BDD" . RC;
-    // } catch (Exception $e) {
-    //     echo $e->getMessage() . RC;
-    // }
+    } catch (PDOException $e) {
+        echo $e->getMessage() . RC;
+        echo "ECHEC de CONNEXION à la BDD" . RC;
+    } catch (Exception $e) {
+        echo $e->getMessage() . RC;
+    }
     
-    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
+
     
     ////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
-    // try {
-    //     echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
+    try {
+        echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
         
-    // } catch (PDOException $e) {
-    //     echo $e->getMessage() . RC;
-    //     echo "ECHEC de CONNEXION à la BDD" . RC;
-    // } catch (Exception $e) {
-    //      echo $e->getMessage() . RC;
-    // }
+    } catch (PDOException $e) {
+        echo $e->getMessage() . RC;
+        echo "ECHEC de CONNEXION à la BDD" . RC;
+    } catch (Exception $e) {
+         echo $e->getMessage() . RC;
+    }
         
-    // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
+
     ?>
