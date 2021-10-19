@@ -1,6 +1,7 @@
 <?php
 session_start();
 $action = 'gestionnaire';
+$action2 = "ajout";
 $id = $mdp = $role = '';
 
 
@@ -135,7 +136,7 @@ switch ($action){
         }
         break;
 
-    case 'gestionnaire';
+    case 'gestionnaire':
         require('../views/view.header.php');
         require('../views/view.formulaire.php');
         require('../views/view.footer.php');

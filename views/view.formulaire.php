@@ -100,6 +100,7 @@
     </div>
     <?php } ?>
 
+
     <?php  if ($action2 == 'delEx'){ ?>
     <!--Div de suppression d'exemplaire-->
     <div id="delExDiv" class="d-none justify-content-center flex-wrap">
