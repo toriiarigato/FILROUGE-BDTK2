@@ -127,6 +127,17 @@ class UserMgr {
         }
         }
 
+        // public static function connect($id,$mdp){
+        //     // Prépare la requête SQL
+        //     $sql = "SELECT EMAIL_USE FROM UTILISATEUR WHERE EMAIL_USE = ?";
+        //     try {        
+        //         $resultats = Bdtk::getConnexion()->prepare($sql);
+        //         // exécution requête
+        //     $resultats->execute(array($id)); 
+
+
+        // }
+
 }
 
 ?>
