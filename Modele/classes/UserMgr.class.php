@@ -32,22 +32,19 @@ class UserMgr {
         }
 
         public static function getUserById($id){
+            echo $id;
             $connexion = Bdtk::getConnexion();
-            $sql = 'SELECT * FROM utilisateur WHERE ID_USE = ?';
-
+            $sql = 'SELECT * FROM utilisateur WHERE EMAIL_USE = ?';
             $resultats = $connexion->prepare($sql);
             $resultats->execute(array($id));
-            $records = $resultats->fetchAll();
+            $resultats->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,"User",array('nomUser','prenomUser','mdpUser','emailUser','idRole','libAvatar','dateNaisseUser','adrUser','cpUser','villeUser','idUserCreate','iduserUpdate','dateValCot','idUserdel'));
+            $records = $resultats->fetch();
+            var_dump($records);
+            var_dump($records[5]);
             Bdtk ::disconnect();
-            $count = $resultats->rowCount();
-            if ($count ==0){
-                return "Parametres erronnés ou inconnus";
-    
-            }else{
-                return $records;
-            }
 
-            
+            return $records[5];
+
         }
 
 
