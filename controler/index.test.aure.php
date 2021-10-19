@@ -4,8 +4,9 @@ $action = '';
 $id = $mdp = $role = '';
 
 print_r($_GET);
-print_r($_SESSION['user']);
-
+if (isset($_SESSION['user'])){
+    print_r($_SESSION['user']);
+}
 
 if (isset($_GET['action'])){
     $action=$_GET['action'];
@@ -19,6 +20,7 @@ if (isset($_GET['id'],$_GET['motdepass'])){
 
 switch ($action){
     case 'accueil':
+        unset($_SESSION['user']);
         require('../views/view.header.php');
             require('../views/view.login.php');
             require('../views/view.footer.php');
@@ -28,7 +30,6 @@ switch ($action){
         require('../Modele/classes/Bdtk.class.php');
         require('../Modele/classes/UserMgr.class.php');
         $flag = UserMgr::connect($id,$mdp);
-        // var_dump($flag);
         if($flag == 1){
 
             echo 'SESSION:';print_r($_SESSION);
@@ -59,9 +60,9 @@ switch ($action){
             break;
         } else 
             $action = 'accueil';
+            $msgErreur = 'E-mail ou Mot de Passe erroné ou inconnu';
             header('location:../controler/index.test.aure.php');
             unset($_SESSION['user']);
-            echo "Erreur";
     break;
 
     case 'oubliMdp':
@@ -71,12 +72,16 @@ switch ($action){
     break;
 
     case 'bibli';
-        // require('../Modele/classes/UserMgr.class.php');
-        // require('../Modele/classes/Bdtk.class.php');
-        // require('../Modele/classes/AlbumMgr.class.php');
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+
     break;
 
     case 'gestionnaire';

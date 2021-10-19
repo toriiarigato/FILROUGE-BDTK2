@@ -155,6 +155,13 @@ if ($action == 'bibli'){?>
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <!-- <script src="../ASSETS/JS/monCompte.js"></script> -->
+<?php 
+if ($action != 'accueil'){?>
+    <form action="" method="get"id="form">
+                    <input type="submit"name ="deco" value="Déconnexion" id="deco" />
+                    <input type="hidden" name="action" value="accueil">
+    </form>
+<?php } ?>
 
     </body>
 
