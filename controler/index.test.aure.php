@@ -1,7 +1,10 @@
 <?php
+
 session_start();
-$action = '';
+$action = 'accueil';
+print_r($action);
 $id = $mdp = $role = '';
+$msgErreur = '';
 
 
 
@@ -24,8 +27,8 @@ switch ($action){
     case 'accueil':
         unset($_SESSION['user']);
         require('../views/view.header.php');
-            require('../views/view.login.php');
-            require('../views/view.footer.php');
+        require('../views/view.login.php');
+        require('../views/view.footer.php');
 
     break;
 
@@ -63,11 +66,22 @@ switch ($action){
             
             break;
         } else{
-            $msgErreur = 'E-mail ou Mot de Passe erroné ou inconnu'; 
-            $action = 'accueil';
-            header('location:../controler/index.test.aure.php');
+            
+            $action = 'erreur';
+            $_SESSION["action"] = $action;
+            header('location:../controler/index.test.aure.php?action='.$_SESSION["action"]);
         }
+    break;
+
+    case 'erreur':
+        echo 'prout';
+        echo $msgErreur = 'E-mail ou Mot de Passe erroné ou inconnu'; 
+        require('../views/view.header.php');
+        require('../views/view.login.php');
+        require('../views/view.footer.php');
+    
         break;
+
 
     case 'oubliMdp':
         require('../views/view.header.php');

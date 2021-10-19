@@ -2,7 +2,7 @@
 
 <?php
 
-if ($action == 'accueil'){?>
+if ($action == 'accueil' or $action == 'erreur'){?>
 
 
 <br /><br /><br /><br /><br /><br />
