@@ -7,18 +7,20 @@ class SerieMgr {
          * @param le mode de récupération des données 
          * @return array la liste des series
          */
-        public static function getListSerie() {
-            $sql = 'SELECT * FROM serie 
-                    ORDER BY IDENTIFIANT_SERIE ASC';
+        public static function getListSerie() : array {
+            $sql = 'SELECT LIBELLE_SERIE FROM serie 
+                    ORDER BY LIBELLE_SERIE ASC';
             
             $connexionPDO = Bdtk::getConnexion();
             $resPDOstt = $connexionPDO->query($sql);
-            $records = $resPDOstt->fetchAll();
+            $records = $resPDOstt->fetchAll(PDO::FETCH_COLUMN);
 
+                        
             $resPDOstt->closeCursor(); // ferme le curseur
             Bdtk::disconnect();     // ferme la connexion
 
             return $records;
+            
         }
 
 //////////////////////////////////////////////////////////////////////// Ajoute une Serie ///////////////////////////////////////////////////////////////////////////////
@@ -28,7 +30,7 @@ class SerieMgr {
          * @return nombre de serie ajoutées
          */
         // Doit utiliser un emplacement existant
-        public static function addSerie(Serie $serie) : array {
+        public static function addSerie(Serie $serie)   {
             
             $sql = "INSERT INTO serie 
                     VALUES (:idSerie, :libSerie, :codeEmp)";
@@ -54,7 +56,7 @@ class SerieMgr {
          * @param un objet serie
          * @return nombre de series supprimées
          */
-        public static function delSerieByID($idSerie) {
+        public static function delSerieByID($idSerie) : int {
             
             $sql = "DELETE FROM serie
                     WHERE IDENTIFIANT_SERIE = :idSerie";

@@ -1,5 +1,5 @@
 <?php
-$action = 'accueil';
+$action = '';
 // $role = '';
 print_r($_GET);
 
