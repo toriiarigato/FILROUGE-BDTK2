@@ -1,8 +1,11 @@
 <?php
+session_start();
 $action = 'accueil';
 $id = $mdp = $role = '';
-// $role = '';
 print_r($_GET);
+print_r($_SESSION['user']);
+
+
 
 if (isset($_GET['action'])){
     $action=$_GET['action'];
@@ -25,9 +28,14 @@ switch ($action){
         require('../Modele/classes/Bdtk.class.php');
         require('../Modele/classes/UserMgr.class.php');
         $flag = UserMgr::connect($id,$mdp);
-        var_dump($flag);
+        // var_dump($flag);
         if($flag == 1){
-            $role = UserMgr::getUserById($id);
+
+            echo 'SESSION:';print_r($_SESSION);
+            $user = UserMgr::getUserById($id);
+            $_SESSION["user"] = $user;
+            $role = $user['ID_ROLE'];
+            $_SESSION["role"]= $role;
             var_dump($role);
             switch ($role){
                 case "1":
@@ -43,10 +51,16 @@ switch ($action){
                     $action = 'responsable';
                     break;
             }
+            $_SESSION["action"] = $action;
             var_dump($action);
+            header('location:../controler/index.test.aure.php?action='.$_SESSION["action"]);
+            var_dump($_SESSION["user"]);
+            
             break;
         } else 
             $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
             echo "Erreur";
     break;
 
@@ -73,7 +87,7 @@ switch ($action){
 
     case 'adherent';
         require('../views/view.header.php');
-        require('../views/view.formulaire.php');
+        require('../views/view.search.php');
         require('../views/view.footer.php');
     break;
 

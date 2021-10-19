@@ -59,13 +59,13 @@ if ($action == 'accueil'){?>
                     <br /><br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Identifiant :</p>
-                        <input type="text" name="id" id="identifiant" required="required" />
+                        <input type="text" name="id" id="identifiant" required="required" value="hermione.granger@mail.fr"/>
                         <!-- <input type="hidden" name="identifiant" value="<?php echo $id; ?>" /> -->
                     </div>
                     <br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Mot de passe :</p>
-                        <input type="password" name="motdepass" id="mdp" required="required" />
+                        <input type="password" name="motdepass" id="mdp" required="required" value="Leviosaaa100@" />
                         <!-- <input type="hidden" name="mdp" value="<?php echo $mdp; ?>" /> -->
                     </div>
                     <br />

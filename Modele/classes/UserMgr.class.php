@@ -31,19 +31,18 @@ class UserMgr {
             return $records;
         }
 
-        public static function getUserById($id){
+        public static function getUserById($id): array{ 
             echo $id;
             $connexion = Bdtk::getConnexion();
             $sql = 'SELECT * FROM utilisateur WHERE EMAIL_USE = ?';
             $resultats = $connexion->prepare($sql);
             $resultats->execute(array($id));
-            $resultats->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,"User",array('nomUser','prenomUser','mdpUser','emailUser','idRole','libAvatar','dateNaisseUser','adrUser','cpUser','villeUser','idUserCreate','iduserUpdate','dateValCot','idUserdel'));
-            $records = $resultats->fetch();
+            // $resultats->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,"User",array('nomUser','prenomUser','mdpUser','emailUser','idRole','libAvatar','dateNaisseUser','adrUser','cpUser','villeUser','idUserCreate','iduserUpdate','dateValCot','idUserdel'));
+            $records = $resultats->fetch(pdo::FETCH_ASSOC);
             var_dump($records);
-            var_dump($records[5]);
             Bdtk ::disconnect();
 
-            return $records[5];
+            return $records;
 
         }
 
