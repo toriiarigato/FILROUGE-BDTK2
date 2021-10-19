@@ -284,17 +284,17 @@
             <input type="hidden" name="action" value="emprunt">
         </form>
         <form action="" method="get">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
             <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
             <input type="hidden" name="action" value="retour">
         </form>
         <form action="" method="get">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
             <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
             <input type="hidden" name="action" value="nouvelAd">
         </form>
         <form action="" method="get">
-            <input type="radio" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
             <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
             <input type="hidden" name="action" value="gestionAd">
         </form>
