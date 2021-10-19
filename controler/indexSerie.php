@@ -20,12 +20,14 @@
 
     $idSerie = -1; 
     $libSerie = $codeEmp = "";
-    //////////////////////////////////////////////////////////////// Récupère la liste de toutes les Series ///////////////////////////////////////////////////////////////////
-	if (isset($_GET['idSerie'],$_GET['libSerie'],$_GET['codeEmp'])) {
+
+    if (isset($_GET['idSerie'],$_GET['libSerie'],$_GET['codeEmp'])) {
         $idSerie = $_GET['idSerie'];
         $libSerie = $_GET['libSerie'];
         $codeEmp = $_GET['codeEmp'];
-    }    
+    }   
+     
+    //////////////////////////////////////////////////////////////// Récupère la liste de toutes les Series ///////////////////////////////////////////////////////////////////
 
     try {
     $tSerie = SerieMgr::getListSerie();
@@ -99,7 +101,7 @@
     ////////////////////////////////////////////////////////////////// Met à jour le nom d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
     try {
-        echo SerieMgr::updateNameSerie("Kaamelot",47). " ligne(s) mise à jour";
+        echo SerieMgr::updateNameSerie("Kaamelot",47);
     
     } catch (PDOException $e) {
         echo $e->getMessage() . RC;
@@ -113,7 +115,7 @@
     ////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
 
     try {
-        echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
+        echo SerieMgr::updateEmpSerie("E3R5",47);
         
     } catch (PDOException $e) {
         echo $e->getMessage() . RC;

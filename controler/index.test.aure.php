@@ -1,6 +1,6 @@
 <?php
 session_start();
-$action = '';
+$action = 'gestionnaire';
 $id = $mdp = $role = '';
 
 print_r($_GET);
