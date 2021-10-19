@@ -1,6 +1,6 @@
 <?php
 session_start();
-$action = 'accueil';
+$action = '';
 $id = $mdp = $role = '';
 
 
@@ -9,7 +9,6 @@ print_r($_GET);
 if (isset($_SESSION['user'])){
     print_r($_SESSION['user']);
 }
-
 
 if (isset($_GET['action'])){
     $action=$_GET['action'];
