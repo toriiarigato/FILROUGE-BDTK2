@@ -59,26 +59,29 @@ if ($action == 'accueil'){?>
                     <br /><br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Identifiant :</p>
-                        <input type="text" name="identifiant" id="identifiant" required="required" />
-                        <input type="hidden" name="email" value="<?php echo $id; ?>" />
+                        <input type="text" name="id" id="identifiant" required="required" />
+                        <!-- <input type="hidden" name="identifiant" value="<?php echo $id; ?>" /> -->
                     </div>
                     <br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Mot de passe :</p>
-                        <input type="password" name="mdp" id="mdp" required="required" />
-                        <input type="hidden" name="email" value="<?php echo $mdp; ?>" />
+                        <input type="password" name="motdepass" id="mdp" required="required" />
+                        <!-- <input type="hidden" name="mdp" value="<?php echo $mdp; ?>" /> -->
                     </div>
                     <br />
                     <p id="nocompte" class="text-danger"></p>
 
-                    <input type="submit" value="Mot de passe oublié" id="btnconnect" />
-                    <input type="hidden" name="action" value="oubliMdp">
+                    
 
                     <br /><br />
                     <input type="submit" value="Se Connecter" id="btnconnect" />
-                    <input type="hidden" name="action" value="bibli">
+                    <input type="hidden" name="action" value="connexion">
 
                 </fieldset>
+            </form>
+            <form action="" method="get"id="form">
+                    <input type="submit"name ="oubliMdp" value="Mot de passe oublié" id="oubliMdp" />
+                    <input type="hidden" name="action" value="oubliMdp">
             </form>
         </div>
     </div>
@@ -140,7 +143,7 @@ if ($action == 'oubliMdp' ){?>
                     <br /><br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Veuillez renseigner votre adresse e-mail :</p>
-                        <input type="text" name="identifiant" id="identifiant" required="required" />
+                        <input type="text" name="email" id="email" required="required" />
                     </div>
                     <br />
                     <div>

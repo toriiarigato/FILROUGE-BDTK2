@@ -31,6 +31,25 @@ class UserMgr {
             return $records;
         }
 
+        public static function getUserById($id){
+            $connexion = Bdtk::getConnexion();
+            $sql = 'SELECT * FROM utilisateur WHERE ID_USE = ?';
+
+            $resultats = $connexion->prepare($sql);
+            $resultats->execute(array($id));
+            $records = $resultats->fetchAll();
+            Bdtk ::disconnect();
+            $count = $resultats->rowCount();
+            if ($count ==0){
+                return "Parametres erronnés ou inconnus";
+    
+            }else{
+                return $records;
+            }
+
+            
+        }
+
 
         /**
      * Fonction Add 
@@ -108,8 +127,6 @@ class UserMgr {
             // exécution requête
             $resultats->execute(array("Michel","Michel",$user)); // ATTENTION à l'ordre des attributs
             
-            $nombre = $resultats->rowCount();
-            
             // pour faire propre
             $resultats->closeCursor();
             Bdtk::disconnect();
@@ -127,16 +144,34 @@ class UserMgr {
         }
         }
 
-        // public static function connect($id,$mdp){
-        //     // Prépare la requête SQL
-        //     $sql = "SELECT EMAIL_USE FROM UTILISATEUR WHERE EMAIL_USE = ?";
-        //     try {        
-        //         $resultats = Bdtk::getConnexion()->prepare($sql);
-        //         // exécution requête
-        //     $resultats->execute(array($id)); 
+        public static function connect($id,$mdp){
+            // Prépare la requête SQL
+            $sql = "SELECT * FROM utilisateur WHERE EMAIL_USE = ? AND MDP_USE = ?";
+            try {        
+                $resultats = Bdtk::getConnexion()->prepare($sql);
+                // exécution requête
+            
+                $resultats->execute(array($id,$mdp)); 
+                
+                // pour faire propre
+                $resultats->closeCursor();
+                Bdtk::disconnect();
+                $count = $resultats->rowCount();
+                if ($count == 0){
+                    return "Parametres erronnés ou inconnus";
+
+                }else{
+                    
+                    return $count;
+                }
+        }
+            catch(PDOException $e)
+        {
+        
+        }
 
 
-        // }
+        }
 
 }
 
