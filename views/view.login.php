@@ -60,11 +60,13 @@ if ($action == 'accueil'){?>
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Identifiant :</p>
                         <input type="text" name="identifiant" id="identifiant" required="required" />
+                        <input type="hidden" name="email" value="<?php echo $id; ?>" />
                     </div>
                     <br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Mot de passe :</p>
                         <input type="password" name="mdp" id="mdp" required="required" />
+                        <input type="hidden" name="email" value="<?php echo $mdp; ?>" />
                     </div>
                     <br />
                     <p id="nocompte" class="text-danger"></p>
@@ -82,7 +84,7 @@ if ($action == 'accueil'){?>
     </div>
 </div>
 
-<?php}?>
+<?php } ?>
 <!-------------------------------------------------------------------------------- OUBLI MDP --------------------------------------------------------------------------------->
 <?php 
 
@@ -154,4 +156,4 @@ if ($action == 'oubliMdp' ){?>
         </div>
     </div>
 </div>
-<?php}?>
+<?php } ?>
