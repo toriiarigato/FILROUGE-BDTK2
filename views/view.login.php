@@ -59,7 +59,8 @@ if ($action == 'accueil'){?>
                     <br /><br />
                     <div class="d-flex justify-content-evenly d-sm-flex flex-wrap">
                         <p>Identifiant :</p>
-                        <input type="text" name="id" id="identifiant" required="required" value="hermione.granger@mail.fr"/>
+                        <input type="text" name="id" id="identifiant" required="required"
+                            value="hermione.granger@mail.fr" />
                         <!-- <input type="hidden" name="identifiant" value="<?php echo $id; ?>" /> -->
                     </div>
                     <br />
@@ -71,19 +72,19 @@ if ($action == 'accueil'){?>
                     <br />
                     <p id="nocompte" class="text-danger"></p>
 
-                    
+
 
                     <br /><br />
                     <input type="submit" value="Se Connecter" id="btnconnect" />
                     <input type="hidden" name="action" value="connexion">
 
-                    <h5><?php echo $msgErreur; ?></h5>
+                    <p><?php echo $msgErreur; ?></p>
 
                 </fieldset>
             </form>
-            <form action="" method="get"id="form">
-                    <input type="submit"name ="oubliMdp" value="Mot de passe oublié" id="oubliMdp" />
-                    <input type="hidden" name="action" value="oubliMdp">
+            <form action="" method="get" id="form">
+                <input type="submit" name="oubliMdp" value="Mot de passe oublié" id="oubliMdp" />
+                <input type="hidden" name="action" value="oubliMdp">
             </form>
         </div>
     </div>
