@@ -1,12 +1,16 @@
 <?php
+spl_autoload_register(function($classe){
+    include "../Modele/classes/" . $classe . ".class.php";
+});
 
 session_start();
 $action = 'accueil';
 print_r($action);
 $id = $mdp = $role = '';
 $msgErreur = '';
-
-
+$idSerie = "";
+$libSerie = "";
+$codeEmp = "";
 
 print_r($_GET);
 if (isset($_SESSION['user'])){
@@ -22,6 +26,12 @@ if (isset($_GET['id'],$_GET['motdepass'])){
     $id = $_GET['id'];
     $mdp = $_GET['motdepass'];
 }
+
+if (isset($_GET['idSerie'],$_GET['libSerie'],$_GET['codeEmp'])) {
+    $idSerie = $_GET['idSerie'];
+    $libSerie = $_GET['libSerie'];
+    $codeEmp = $_GET['codeEmp'];
+}   
 
 switch ($action){
     case 'accueil':
@@ -81,7 +91,6 @@ switch ($action){
         require('../views/view.footer.php');
     
         break;
-
 
     case 'oubliMdp':
         require('../views/view.header.php');
@@ -149,11 +158,72 @@ switch ($action){
         }
         break;
 
-    case 'gestionnaire';
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
-    break;
+    case 'gestionnaire':
+        if ($_SESSION['user']['ID_ROLE']=='3'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case "serie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+            $tSerie = SerieMgr::getListSerie();
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+    case "addSerie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){	
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;    
+
+    case "addSerieMaj" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $newSerie = new Serie($idSerie, $libSerie, $codeEmp);
+            SerieMgr::addSerie($newSerie);	
+            $tSerie[] = $libSerie;
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php'); 
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break; 
+
+    case "Supprimer Serie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $clearedLibSerie = explode("<%3Fphp+echo+",$libSerie);
+            var_dump($clearedLibSerie);
+            SerieMgr::delSerieByName($libSerie);
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;     
+
 
     case 'adherent';
         require('../views/view.header.php');

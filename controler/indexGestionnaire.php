@@ -6,9 +6,6 @@ spl_autoload_register(function($classe){
 $action2 = "ajout";
 print_r($_GET);
 
-if (isset($_GET['action2'])){
-    $action=$_GET['action2'];
-}
 
 switch ($action2){
     case 'ajout':
@@ -29,5 +26,4 @@ switch ($action2){
     require('../views/view.footer');
     break;
 }
-
 ?>
