@@ -35,6 +35,7 @@ if ($action == 'accueil' or $action == 'erreur'){?>
                 d-inline-block
             ">
                 <h1>Bienvenue au centre Culturel des Marmusots</h1>
+                
             </div>
         </header>
 
