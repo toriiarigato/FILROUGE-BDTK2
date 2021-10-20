@@ -11,6 +11,9 @@ $msgErreur = '';
 $idSerie = "";
 $libSerie = "";
 $codeEmp = "";
+$nomUse = "";
+$prenomUse = "";
+$adresseUse = "";
 
 $libSerieDel = "";
 $codeEmpDel = "";
@@ -27,6 +30,12 @@ if (isset($_GET['recherche'])){
 if (isset($_GET['idUse'])){
     $idUse = $_GET['idUse'];
     print_r($_GET['idUse']);
+}
+
+if (isset($_GET['nom']) || isset($_GET['prenom'])){
+    $nomUse = $_GET['nom'];
+    $prenomUse = $_GET['prenom'];
+    $adresseUse = $_GET['adresse'];
 }
 
 
