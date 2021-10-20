@@ -69,10 +69,10 @@ class UserMgr {
 
         $connexion=Bdtk::getConnexion();
 
-        $sql = 'INSERT INTO utilisateur ( NOM_USE, PRENOM_USE,MDP_USE ,EMAIL_USE,ID_ROLE,LIB_AVATAR,DATENAISS_USE ,ADR_USE, CP_USE,VILLE_USE,ID_USE_CREATE,ID_USE_UPD,DATE_VAL_COTIS,ID_USE_DEL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO utilisateur ( NOM_USE, PRENOM_USE,MDP_USE ,EMAIL_USE,ID_ROLE,LIB_AVATAR,DATENAISS_USE ,ADR_USE, CP_USE,VILLE_USE,ID_USE_CREATE,ID_USE_UPD,DATE_VAL_COTIS,ID_USE_DEL) VALUES (?,?,?,?,5,NULL,?,?,?,?,'3',?,?,?)';
 
         $resultats = $connexion->prepare($sql);
-        $resultats->execute(array($user->nomUser,$user->prenomUser,$user->mdpUser,$user->emailUser,$user->idRole,$user->libAvatar,$user->dateNaisseUser,$user->adrUser,$user->cpUser,$user->villeUser,$user->idUserCreate,$user->iduserUpdate,$user->dateValCot,$user->idUserdel));
+        $resultats->execute(array($user->nomUser,$user->prenomUser,$user->mdpUser,$user->emailUser,$user->dateNaisseUser,$user->adrUser,$user->cpUser,$user->villeUser,$user->iduserUpdate,$user->dateValCot,$user->idUserdel));
         Bdtk ::disconnect();
         $count = $resultats->rowCount();
         if ($count ==0){
