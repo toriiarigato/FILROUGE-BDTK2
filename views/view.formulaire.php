@@ -288,13 +288,10 @@ spl_autoload_register(function($classe){
     if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == "afficheListUser" or $action == 'resRechercheAd' or $action == 'deleteAd'){?>
 <!-- ////////////////////////////////////////////////////////////////////////BIBLIOTHECAIRE /////////////////////////////////////////////////////////////////////////////// -->
 
-
 <!--Div centrale-->
 <div id="colonne2"
     class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto">
 
-    <?php 
-        if ($action == 'bibli'){ ?>
     <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
         aria-label="Basic radio toggle button group">
         <form action="" method="get">
@@ -382,7 +379,7 @@ spl_autoload_register(function($classe){
             </fieldset>
         </form>
     </div>
-
+    <?php } ?>
     <!-- ////////////////////////////////////////////////////////////////////////RETOURS /////////////////////////////////////////////////////////////////////////////// -->
     <?php 
     if ($action == 'retour'){ ?>
@@ -431,7 +428,7 @@ spl_autoload_register(function($classe){
             </fieldset>
         </form>
     </div>
-
+    <?php } ?>
     <!-- ////////////////////////////////////////////////////////////////////////NOUVEL ADHERENT /////////////////////////////////////////////////////////////////////////////// -->
     <?php 
     if ($action == 'nouvelAd'){ ?>
