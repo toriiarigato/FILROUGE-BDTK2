@@ -29,8 +29,6 @@ if (isset($_GET['idUse'])){
     print_r($_GET['idUse']);
 }
 
-
-
 print_r($_GET);
 if (isset($_SESSION['user'])){
     print_r($_SESSION['user']);
@@ -38,14 +36,12 @@ if (isset($_SESSION['user'])){
 
 if (isset($_GET['action'])){
     $action=$_GET['action'];
-
 }
 
 if (isset($_GET['id'],$_GET['motdepass'])){
     $id = $_GET['id'];
     $mdp = $_GET['motdepass'];
 }
-
 
 if (isset($_GET['recherche'])){
     $recherche = $_GET['recherche'];
@@ -62,10 +58,12 @@ if (isset($_GET['libSerieDel'])) {
     $libSerieDel = $_GET['libSerieDel'];
     $codeEmpDel = $_GET['codeEmpDel'];
     $idSerieDel = $_GET['idSerieDel'];
-
 }   
 
-
+if (isset($_GET['searchOneSerie'])){
+    $searchOneSerie = $_GET['searchOneSerie'];
+    $resultat = SerieMgr::searchSerie($searchOneSerie);
+}
 
 
 switch ($action){
@@ -231,9 +229,6 @@ switch ($action){
             require('../Modele/classes//User.class.php');
             require('../Modele/classes/Bdtk.class.php');
             $tResultats = (UserMgr::getListUser());
-
-        }
-
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             // require('../views/view.footer.php');
@@ -260,9 +255,6 @@ switch ($action){
         }
         break;
 
-
-
-
     case 'gestionnaire':
         if ($_SESSION['user']['ID_ROLE']=='3'){
             require('../views/view.header.php');
@@ -277,6 +269,18 @@ switch ($action){
 
     case "serie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case "listSerie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
             $tSerie = SerieMgr::getListSerie();
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -287,6 +291,20 @@ switch ($action){
             unset($_SESSION['user']);
         }
         break;
+
+    case "searchSerie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $tResultat = SerieMgr::getListSerie();
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
     case "addSerie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){	
             require('../views/view.header.php');
@@ -316,8 +334,10 @@ switch ($action){
 
     case "Supprimer Serie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-            $clearedLibSerie = explode(" ",$libSerieDel);
-            SerieMgr::delSerieByName($clearedLibSerie[2]);
+            $clearedLibSerie = explode("echo",$libSerieDel);
+            $trimmedDel = trim($clearedLibSerie[1]," ?>");
+            SerieMgr::delSerieByName($trimmedDel);
+            var_dump($trimmedDel);
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             require('../views/view.footer.php');
@@ -332,7 +352,7 @@ switch ($action){
         if ($_SESSION['user']['ID_ROLE'] =='3'){
             $oldLibSerie = explode("echo",$libSerieDel);
             $ancienLibSerie = $oldLibSerie[1];
-            $trimmed = trim($ancienLibSerie, "?>");
+            $trimmed = trim($ancienLibSerie, " ?>");
             $oldCodeEmp = explode(" ",$codeEmpDel);
             $ancientCodeEmp = $oldCodeEmp[2];
             $idSerieFollow = explode(" ",$idSerieDel);
@@ -340,41 +360,42 @@ switch ($action){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             require('../views/view.footer.php');
-        }else{
+            }else{
             $action = 'accueil';
             header('location:../controler/index.test.aure.php');
             unset($_SESSION['user']);
         }
-        break;   
-        
-        case "modifMaj" :
-            if ($_SESSION['user']['ID_ROLE'] =='3'){
-                $idSerieFollow = $_GET["idSerieFollow"];
-                $modifCodeEmp = $_GET['modifCodeEmp'];
-                $modifLibSerie = $_GET['modifLibSerie'];
-                SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
-                require('../views/view.header.php');
-                require('../views/view.formulaire.php'); 
-                require('../views/view.footer.php');
+        break;
+
+    case "modifMaj" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $idSerieFollow = $_GET["idSerieFollow"];
+            $modifCodeEmp = $_GET['modifCodeEmp'];
+            $modifLibSerie = $_GET['modifLibSerie'];
+            SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
             }else{
-                $action = 'accueil';
-                header('location:../controler/index.test.aure.php');
-                unset($_SESSION['user']);
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
             }
-            break; 
+            break;
 
-    case 'adherent';
-        require('../views/view.header.php');
-        require('../views/view.search.php');
-        require('../views/view.footer.php');
-    break;
+case 'adherent';
+require('../views/view.header.php');
+require('../views/view.search.php');
+require('../views/view.footer.php');
+break;
 
-////////////////////////////////////////////////////////////////////////RESPONSABLE ///////////////////////////////////////////////////////////////////////////////
-    case 'responsable';
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
-    break;
+////////////////////////////////////////////////////////////////////////RESPONSABLE
+///////////////////////////////////////////////////////////////////////////////
+case 'responsable';
+require('../views/view.header.php');
+require('../views/view.formulaire.php');
+require('../views/view.footer.php');
+break;
 
 
 }
