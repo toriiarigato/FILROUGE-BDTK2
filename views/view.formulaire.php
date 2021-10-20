@@ -1,129 +1,126 @@
 <!---------------------------------------------------------------------- GESTIONNAIRE DE FOND ----------------------------------------------------------------------------->
 <?php 
-    if ($action == 'gestionnaire'){ ?>
 
+spl_autoload_register(function($classe){
+    include "../Modele/classes/" . $classe . ".class.php";
+});
+
+    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie'){ ?>
 
 <!--Div centrale-->
 <div id="colonne2"
-    class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column">
+    class="d-flex flex-column column align-items-center  overflow-auto border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 ">
 
-    <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
-        <label class="btn btn-outline-primary" for="btnradio1">Nouvelle entrée</label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">Ajout exemplaire</label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio3">Supprimer exemplaire</label>
-    </div>
-
-    <?php  if ($action2 == 'ajout'){ ?>
-    <!--Div de nouvelle entrée-->
-    <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
-        <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
-            </br>
-            <fieldset class="d-flex flex-column justify-content-evenly">
-
-                <p><label for="addTitre" class="d-flex flex-wrap">Titre</label>
-                    <input type="text" id="addTitre" required="required">
-                </p>
-                <p><label for="addAuteur" class="d-flex flex-wrap">Auteur</label>
-                <div class="w-100" id="divAuteur">
-                    <select class="d-flex form-select is-invalid" id="addAuteur" required="required">
-                    </select>
-                    </b>
-                    <input class="d-none" type="text" id="addAuteur2">
-                    <input class="d-flex" type="button" value="Ajouter nouvel auteur" id="newAuteur">
-                    <input class="d-none" type="button" value="Annuler" id="annuleAuteur">
-                </div>
-                </p>
-                <p><label for="addDate" class="d-flex flex-wrap">Date de parution</label>
-                    <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required">
-                </p>
-                <p><label for="addEdit" class="d-flex flex-wrap is">Maison d'édition</label>
-                    <input type="text" id="addEdit" required="required">
-                </p>
-                <p><label for="addISBN" class="d-flex flex-wrap">Référence ISBN</label>
-                    <input type="text" id="addISBN" placeholder="XXX" required="required">
-                <p id="noISBN" class="d-none text-danger"></p>
-                </p>
-                <p><label for="addSerie" class="d-flex flex-wrap">Serie</label>
-                <div id="divSerie" class=" w-100">
-                    <select class="d-flex form-select is-invalid" id="addSerie" required="required">
-                    </select>
-                    </b>
-                    <input class="d-none" type="text" id="addSerie2">
-                    <input class="d-flex" type="button" value="Ajouter nouvelle serie" id="newSerie">
-                    <input class="d-none" type="button" value="Annuler" id="annuleSerie">
-                </div>
-                </p>
-                <p><label for="addPic" class="d-flex flex-wrap">Ajouter une image</label>
-                <div class="d-flex flex-wrap form-group w-100">
-                    <input class="form-control" type="file" id="addPic" required="required">
-                </div>
-                </p>
-                <p><label for="addRes" class="d-flex flex-wrap">Résumé</label>
-                    <textarea rows="3" cols="33" type="text" id="addRes" required="required"></textarea>
-                </p>
-                <div class="d-flex justify-content-evenly">
-                    <input type="button" value="Aperçu" id="apercu">
-
-                    <input type="submit" value="Confirmer nouvelle entrée" id="subEntree">
-                </div>
-            </fieldset>
+    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+        aria-label="Basic radio toggle button group">
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1">Serie</label>
+            <input type="hidden" name="action" value="serie">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2">Exemplaire</label>
+            <input type="hidden" name="action" value="exemplaire">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Album</label>
+            <input type="hidden" name="action" value="album">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio4">Auteur</label>
+            <input type="hidden" name="action" value="auteur">
         </form>
     </div>
-    <?php } ?>
 
-    <?php  if ($action2 == 'newEx'){ ?>
-    <!--Div d'ajout exemplaire-->
-    <div id="addExDiv" class="d-none justify-content-center flex-wrap">
-        <form method="GET" action="../HTML/gestionnaire-de-fond.html">
-            </br>
-            <fieldset class="d-flex flex-column justify-content-evenly">
-                <p><label for="refISBN" class="d-flex flex-wrap">Référence ISBN</label>
-                    <input type="text" id="refISBN" required="required">
-                    <input type="button" id="checkRefISBN" value="Aperçu">
-                <p id="noISBN2" class="d-none text-danger"></p>
-                </p>
-                <p><label for="codeEx" class="d-flex flex-wrap">Code Exemplaire</label>
-                    <input type="text" id="codeEx" required="required" placeholder="00" value="">
-                </p>
-                <p><label for="addISBN" class="d-flex flex-wrap">Emplacement</label>
-                    <input type="text" class="" placeholder="Rayon" required="required" id="rayon">
-                    <input type="text" class="" placeholder="Etagère" required="required" id="etagere">
-                </p>
-                <div>
-                    <input type="submit" value="Confirmer nouvel exemplaire" id="exSub">
-                </div>
-            </fieldset>
+    <?php  
+    if ($action == 'serie'){ ?>  
+    <hr>
+
+    <form method="get" action="">
+    <input type="submit" value="Ajouter une serie">
+    <input type="hidden" name="action" value="addSerie">
+    </form>
+    <input type="text" placeholder="Rechercher une serie">
+
+    <!-- Div de serie-->
+    <div class="d-flex flex-wrap justify-content-center" >
+            </br> 
+<?php            
+            try {
+    $tSerie = SerieMgr::getListSerie();
+?>
+            </br> 
+<?php
+    foreach($tSerie as $ligne) {
+?>        
+        <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
+<?php       echo  strToUpper($ligne) . 
+            "<input type=\"hidden\" name=\"libSerie\" value=\"<?php echo $ligne ?>\">
+             <br><input type=\"submit\" name=\"action\" value=\"Modifier Serie\">
+                <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">"; 
+                
+?>
         </form>
+<?php  
+      
+    }
+
+    } catch (PDOException $e) {
+        echo $e->getMessage() . RC;
+        echo "ECHEC de CONNEXION à la BDD" . RC;
+    } catch (Exception $e) {
+        echo $e->getMessage() . RC;
+    }
+?>
+        
     </div>
-    <?php } ?>
+<?php } ?> 
 
 
-    <?php  if ($action2 == 'delEx'){ ?>
-    <!--Div de suppression d'exemplaire-->
-    <div id="delExDiv" class="d-none justify-content-center flex-wrap">
-        <form method="GET" action="../HTML/gestionnaire-de-fond.html">
-            </br>
-            <fieldset class="d-flex flex-column justify-content-evenly">
-                <p><label for="refISBNDel" class="d-flex flex-wrap">Référence ISBN</label>
-                    <input type="text" id="refISBNDel" required="required">
-                    <input type="button" id="checkRefISBNDel" value="Aperçu">
-                <p id="noISBN3" class="d-none text-danger"></p>
-                </p>
-                <p><label for="codeExDel" class="d-flex flex-wrap">Code Exemplaire</label>
-                    <input type="text" id="codeExDel" required="required" placeholder="00" value="">
-                </p>
-                <div>
-                    <input type="submit" value="Confirmer suppression exemplaire" id="exSubDel">
-                </div>
-            </fieldset>
-        </form>
-    </div>
+<?php  
+        if ($action == 'addSerie'){ ?> 
+
+    <form method="get" action="">
+    <fieldset class="">
+    <label for="idNom"> Identifiant serie</label>
+    <input type="text" name="idSerie" />
+    <br />
+    <label for="idPrenom">Libellé serie</label>
+    <input type="text" name="libSerie" />
+    <br />
+    <label for="idTel">Code Emplacement </label>
+    <input type="text" name="codeEmp" />
+    <br />
+        
+
+    <input type="submit" value="Ajouter nouvelle serie" />
+    <input type="hidden" name="action" value="addSerieMaj">
+    </fieldset>
+    </form>
+
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="serie">
+    </form>
+    
+
     <?php } ?>
-</div>
+    
+<?php  
+    if ($action == 'addSerieMaj' or $action == 'Supprimer Serie'){ ?> 
+    <?php echo "OK"; ?>
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="serie">
+    </form>
+    <?php } ?>
+    
 <?php } ?>
+
+
 <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
 <?php 
     if ($action == 'responsable'){ ?>

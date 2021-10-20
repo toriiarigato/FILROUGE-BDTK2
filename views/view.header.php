@@ -75,7 +75,9 @@
             <?php } ?>
             <?php 
 
+
     if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'responsable'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == 'afficheListUser'){ ?>
+
 
             <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
             <!--Grande Div qui englobe tout-->
