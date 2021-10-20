@@ -76,7 +76,9 @@
             <?php 
 
 
+
     if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == 'responsable'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == 'afficheListUser'){ ?>
+
 
 
             <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
@@ -115,4 +117,50 @@
 
                 </div>
                 <!------------------------------->
-                <?php } ?>
+<?php } ?>
+
+
+<?php 
+
+
+    if ($action == 'afficheListUser' or $action == 'resRechercheAd' or $action == 'deleteAd'){ ?>
+
+
+            <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
+            <!--Grande Div qui englobe tout-->
+            <div class="container-fluid  text justify-content-around h-100 row sm-d-flex flex-nowrap">
+
+                <!--Div de deconnexion-->
+                <div id="colonne1"
+                    class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column w-25 p-3">
+                    <div>
+                        <p id="idConnecté">Connecté en tant que :</p>
+                        <p> <?php echo $_SESSION['user']['PRENOM_USE'].", ". $_SESSION['user']['NOM_USE']; ?> </p>
+                        <?php switch ($_SESSION['user']['ID_ROLE']){
+                            case '1':
+                                $roles = 'Adhérent';
+                                break;
+                            case '2':
+                                $roles = 'Bibliothécaire';
+                                break;
+                            case '3':
+                                $roles = 'Gestionnaire de fond';
+                                break;
+                            case '4':
+                                $roles = 'Responsable';
+                                break;
+                        } ?>
+                        <p> <?php echo $roles; ?> </p>
+                    </div>
+                    <div>
+                        <form action="" method="get" id="form">
+                            <input type="submit" name="deco" value="Déconnexion" id="deco" />
+                            <input type="hidden" name="action" value="accueil">
+                        </form>
+                    </div>
+                    </br>
+
+                </div>
+                <!------------------------------->
+<?php } ?>
+                

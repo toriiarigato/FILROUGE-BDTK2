@@ -11,9 +11,24 @@ $msgErreur = '';
 $idSerie = "";
 $libSerie = "";
 $codeEmp = "";
+
 $libSerieDel = "";
 $codeEmpDel = "";
 $idSerieDel = "";
+
+$resultat = [];
+
+if (isset($_GET['recherche'])){
+    $recherche = $_GET['recherche'];
+    $resultat = UserMgr::searchUser($recherche);
+    // var_dump($resultat);
+}
+
+if (isset($_GET['idUse'])){
+    $idUse = $_GET['idUse'];
+    print_r($_GET['idUse']);
+}
+
 
 
 print_r($_GET);
@@ -71,7 +86,7 @@ switch ($action){
         $flag = UserMgr::connect($id,$mdp);
         if($flag == 1){
 
-            echo 'SESSION:';print_r($_SESSION);
+            // echo 'SESSION:';print_r($_SESSION);
             $user = UserMgr::getUserById($id);
             $_SESSION["user"] = $user;
             $role = $user['ID_ROLE'];
@@ -185,13 +200,7 @@ switch ($action){
         //---------------------------------------------------------------- RECHERCHE ADHERENTS -------------------------------------------------------------------------
     case 'rechercheAd':
         if ($_SESSION['user']['ID_ROLE']=='2'){
-            $recherche = $_SESSION['recherche'];
-            echo $recherche;
-            require('../Modele/classes/UserMgr.class.php');
-            require('../Modele/classes//User.class.php');
-            require('../Modele/classes/Bdtk.class.php');
-            $resultat = UserMgr::searchUser($recherche);
-            var_dump($resultat);
+
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             require('../views/view.footer.php');
@@ -201,15 +210,58 @@ switch ($action){
             unset($_SESSION['user']);
         }
         break;
+        //----------------------------------------------------------------Affiche RECHERCHE ADHERENTS -------------------------------------------------------------------------
+    case 'resRechercheAd':
+        if ($_SESSION['user']['ID_ROLE']=='2'){
 
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
 
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+        //---------------------------------------------------------------- affiche liste ADHERENTS -------------------------------------------------------------------------
     case 'afficheListUser':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             require('../Modele/classes/UserMgr.class.php');
             require('../Modele/classes//User.class.php');
             require('../Modele/classes/Bdtk.class.php');
             $tResultats = (UserMgr::getListUser());
+
         }
+
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            // require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+    case 'deleteAd':
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../Modele/classes/UserMgr.class.php');
+            require('../Modele/classes//User.class.php');
+            require('../Modele/classes/Bdtk.class.php');
+            echo $_GET['idUse'];
+            UserMgr::delUseryId($idUse);
+            echo "sup ok";
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+
+
 
     case 'gestionnaire':
         if ($_SESSION['user']['ID_ROLE']=='3'){
