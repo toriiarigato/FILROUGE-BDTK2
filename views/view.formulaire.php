@@ -5,7 +5,7 @@ spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
 });
 
-    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj"){ ?>
+    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action = "listSerie"){ ?>
 
 <!--Div centrale-->
 <div id="colonne2"
@@ -20,7 +20,7 @@ spl_autoload_register(function($classe){
         </form>
         <form action="" method="get">
             <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">Exemplaire</label>
+            <label class="btn btn-outline-primary" for="btnradio2">Exemplaire</label>
             <input type="hidden" name="action" value="exemplaire">
         </form>
         <form action="" method="get">
@@ -36,88 +36,127 @@ spl_autoload_register(function($classe){
     </div>
 
     <?php  
-    if ($action == 'serie'){ ?>  
+    if ($action == 'serie'){ ?>
     <hr>
 
     <form method="get" action="">
-    <input type="submit" value="Ajouter une serie">
-    <input type="hidden" name="action" value="addSerie">
+        <input type="submit" value="Ajouter une serie">
+        <input type="hidden" name="action" value="addSerie">
     </form>
-    <input type="text" placeholder="Rechercher une serie">
+    <form method="get" action="">
+        <input type="submit" value="Afficher la liste des series">
+        <input type="hidden" name="action" value="listSerie">
+    </form>
+    <form method="get" action=""> 
+        <input type="text" placeholder="Rechercher une serie" name="searchOneSerie">
+        <input type="submit" value="Rechercher">
+        <input type="hidden" name="action" value="searchSerie">
+    </form>
+   
+    <?php } ?>
 
+    <?php  
+    if ($action == 'listSerie'){ ?>
     <!-- Div de serie-->
-    <div class="d-flex flex-wrap justify-content-center" >
-            </br> 
-<?php            
-            try {
-?>
-            </br> 
+    <hr>
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="serie">
+    </form>
+
+    <div class="d-flex flex-wrap justify-content-center">
+        </br>
 <?php
     foreach($tSerie as $ligne) {
-?> 
+?>
         <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
-<?php       echo  $ligne[0] . 
+            <?php       echo  $ligne[0] . 
             "<input type=\"hidden\" name=\"libSerieDel\" value=\"<?php echo $ligne[0] ?>\">
             <input type=\"hidden\" name=\"codeEmpDel\" value=\"<?php echo $ligne[1] ?>\">
             <input type=\"hidden\" name=\"idSerieDel\" value=\"<?php echo $ligne[2] ?>\">
             <br><input type=\"submit\" name=\"action\" value=\"Modifier Serie\">
-            <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">"; 
-?>
+            <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">";
+            ?>
         </form>
-<?php  
-      
-    }
-
-    } catch (PDOException $e) {
-        echo $e->getMessage() . RC;
-        echo "ECHEC de CONNEXION à la BDD" . RC;
-    } catch (Exception $e) {
-        echo $e->getMessage() . RC;
+        <?php    
     }
 ?>
-        
+
     </div>
-<?php } ?> 
+    <hr>
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="serie">
+    </form>
+    <?php } ?>
+
+<?php
+    if ($action == 'searchSerie') {
+?>
+<?php
+var_dump($tResultat);
+    foreach($tResultat as $ligne) {
+?>
+    <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
+<?php       echo  $ligne[0] . 
+            "<input type=\"hidden\" name=\"libSerieSearch\" value=\"<?php echo $ligne[0] ?>\">
+            <input type=\"hidden\" name=\"codeEmpSearch\" value=\"<?php echo $ligne[1] ?>\">
+            <input type=\"hidden\" name=\"idSerieSearch\" value=\"<?php echo $ligne[2] ?>\">
+            <br><input type=\"submit\" name=\"action\" value=\"Modifier Serie\">
+            <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">";
+            ?>
+        </form>
+<?php    
+    }
+?>
+        <form action="index.php" method="get">
+            <input type="hidden" name="nom" value="<?php echo $tContact[0] ?>">
+            <input type="hidden" name="prenom" value="<?php echo $tContact[1] ?>">
+            <input type="hidden" name="tel" value="<?php echo $tContact[2] ?>">
+            <input type="submit" name="action" value="updContact">
+            <input type="submit" name="action" value="delContact">
+        </form>
+<?php } ?>
 
 
-<?php  if ($action == 'addSerie' or $action == "Modifier Serie"){ ?> 
+    <?php  if ($action == 'addSerie' or $action == "Modifier Serie"){ ?>
 
     <form method="get" action="">
-    <fieldset class="">
-<?php  if ($action != "Modifier Serie"){ ?> 
-    <label for="idSerie"> Identifiant serie</label>
-    <input type="text" name="idSerie" id="idSerie" required="required" />
-    <br />
-    <label for="libSerie">Libellé serie</label>
-    <input type="text" name="libSerie" id="libSerie" required="required"/>
-    <br />
+        <fieldset class="">
+            <?php  if ($action != "Modifier Serie"){ ?>
+            <label for="idSerie"> Identifiant serie</label>
+            <input type="text" name="idSerie" id="idSerie" required="required" />
+            <br />
+            <label for="libSerie">Libellé serie</label>
+            <input type="text" name="libSerie" id="libSerie" required="required" />
+            <br />
 
-    <label for="codeEmp">Code Emplacement </label>
-    <input type="text" name="codeEmp" id="codeEmp" required="required"/>
-    <br />
-    
-    <input type="submit" value="Ajouter nouvelle serie" />
-    <input type="hidden" name="action" value="addSerieMaj">
-<?php } ?>  
+            <label for="codeEmp">Code Emplacement </label>
+            <input type="text" name="codeEmp" id="codeEmp" required="required" />
+            <br />
+
+            <input type="submit" value="Ajouter nouvelle serie" />
+            <input type="hidden" name="action" value="addSerieMaj">
+            <?php } ?>
 
 
-<?php  if($action == "Modifier Serie"){ ?>
+            <?php  if($action == "Modifier Serie"){ ?>
 
-    <label for="libSerie">Libellé serie</label>
-    <input type="text" name="modifLibSerie" id="libSerie"value="<?php echo $trimmed; ?>"/>
-    <br />
+            <label for="libSerie">Libellé serie</label>
+            <input type="text" name="modifLibSerie" id="libSerie" value="<?php echo $trimmed; ?>" />
+            <br />
 
-    <label for="codeEmp">Code Emplacement </label>
-    <input type="text" name="modifCodeEmp" id="codeEmp"value="<?php echo $ancientCodeEmp; ?>"/>
-    <br />
-        <input type="submit" value="Confirmer modifications" />
-        <input type="hidden" name="action" value="modifMaj">
-        <input type="hidden" name="idSerieFollow" value="<?php echo $nextIdSerie; ?>" />
-    	<input type="hidden" name="ancienLibSerie" value="<?php echo $trimmed; ?>" />
-        <input type="hidden" name="ancienCodeEmp" value="<?php echo $ancientCodeEmp; ?>" />
-<?php } ?>    
+            <label for="codeEmp">Code Emplacement </label>
+            <input type="text" name="modifCodeEmp" id="codeEmp" value="<?php echo $ancientCodeEmp; ?>" />
+            <br />
+            <input type="submit" value="Confirmer modifications" />
+            <input type="hidden" name="action" value="modifMaj">
+            <input type="hidden" name="idSerieFollow" value="<?php echo $nextIdSerie; ?>" />
+            <input type="hidden" name="ancienLibSerie" value="<?php echo $trimmed; ?>" />
+            <input type="hidden" name="ancienCodeEmp" value="<?php echo $ancientCodeEmp; ?>" />
+            <?php } ?>
 
-    </fieldset>
+        </fieldset>
     </form>
 
     <form action="">
@@ -126,161 +165,159 @@ spl_autoload_register(function($classe){
     </form>
 
 
-<?php } ?>
-    
-<?php  
-    if ($action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "modifMaj"){ ?> 
+    <?php } ?>
+
+    <?php  
+    if ($action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "modifMaj"){ ?>
     <?php echo "OK"; ?>
     <form action="">
         <input type="submit" value="Retour">
         <input type="hidden" name="action" value="serie">
     </form>
     <?php } ?>
-    
-<?php } ?>
+
+    <?php } ?>
 
 
-<!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
-<?php 
-    if ($action == 'responsable'){ ?>
+    <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
+<?php if ($action == 'responsable'){ ?>
+
+    <!--Div centrale-->
+    <div id="colonne2"
+        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
 
 
-<!--Div centrale-->
-<div id="colonne2"
-    class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
+        <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+            <label class="btn btn-outline-primary" for="btnradio1">BD non rapportées à ce jour</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Toutes les BD non rapportées</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Statistiques</label>
+        </div>
 
-
-    <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
-        <label class="btn btn-outline-primary" for="btnradio1">BD non rapportées à ce jour</label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">Toutes les BD non rapportées</label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio3">Statistiques</label>
-    </div>
-
-    <!--Div de nouvelle entrée-->
-    <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
-        <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
-            </br>
-            <fieldset class="d-flex flex-column flex-wrap justify-content-stretch">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ISBN</th>
-                            <th scope="col">Code Exemplaire</th>
-                            <th scope="col">Serie</th>
-                            <th scope="col">Titre</th>
-                            <th scope="col">Emprunté par :</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">22</th>
-                            <td>74</td>
-                            <td>Marsupilami</td>
-                            <td>Le papillon des cimes</td>
-                            <td>Lebarbare Conan</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">58</th>
-                            <td>58</td>
-                            <td>Tintin</td>
-                            <td>Tintin en amérique</td>
-                            <td>Lebarbare Conan</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">07</th>
-                            <td>32</td>
-                            <td>Les légendaires</td>
-                            <td>Aube et futur</td>
-                            <td>Lebarbare Conan</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
-            </fieldset>
-        </form>
-    </div>
-
-    <!--Div d'ajout exemplaire-->
-    <div id="addExDiv" class="d-none justify-content-center flex-wrap">
-        <form method="GET" action="../HTML/gestionnaire-de-fond.html">
-            </br>
-            <fieldset class="d-flex flex-column justify-content-evenly">
-                <form method="GET" action="responsable.html">
+        <!--Div de nouvelle entrée-->
+        <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
+            <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
+                </br>
+                <fieldset class="d-flex flex-column flex-wrap justify-content-stretch">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Jours de retard</th>
                                 <th scope="col">ISBN</th>
-                                <th scope="col">Code exemplaire</th>
+                                <th scope="col">Code Exemplaire</th>
+                                <th scope="col">Serie</th>
                                 <th scope="col">Titre</th>
                                 <th scope="col">Emprunté par :</th>
-                                <th scope="col">Envoi lettre de rappel</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">15</th>
-                                <td>21</td>
-                                <td>12</td>
-                                <td>Toto Tata Titi Tutu</td>
-                                <td>Tyty</td>
-                                <td>
-                                    <p class="d-flex justify-content-center"><input type="checkbox"></p>
-                                </td>
+                                <th scope="row">22</th>
+                                <td>74</td>
+                                <td>Marsupilami</td>
+                                <td>Le papillon des cimes</td>
+                                <td>Lebarbare Conan</td>
                             </tr>
                             <tr>
-                                <th scope="row">9</th>
-                                <td>11</td>
-                                <td>06</td>
-                                <td>Star wars : La guerre des clowns</td>
-                                <td>Anakin Marcheciel</td>
-                                <td>
-                                    <p class="d-flex justify-content-center"><input type="checkbox"></p>
-                                </td>
+                                <th scope="row">58</th>
+                                <td>58</td>
+                                <td>Tintin</td>
+                                <td>Tintin en amérique</td>
+                                <td>Lebarbare Conan</td>
                             </tr>
                             <tr>
-                                <th scope="row">8</th>
-                                <td>33</td>
-                                <td>63</td>
-                                <td>Harry Potter est resté sous l'escalier</td>
-                                <td>FlyOfDeath</td>
-                                <td>
-                                    <p class="d-flex justify-content-center"><input type="checkbox"></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>78</td>
-                                <td>96</td>
-                                <td>Mimi Mathy : "J'ai grandi"</td>
-                                <td>Mimy Mathy</td>
-                                <td>
-                                    <p class="d-flex justify-content-center"><input type="checkbox"></p>
-                                </td>
+                                <th scope="row">07</th>
+                                <td>32</td>
+                                <td>Les légendaires</td>
+                                <td>Aube et futur</td>
+                                <td>Lebarbare Conan</td>
                             </tr>
                         </tbody>
                     </table>
-                    <input type="button" value="Envoyer les lettres de rappel" id="lettreRappel">
                     <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
-                </form>
-            </fieldset>
-        </form>
-    </div>
+                </fieldset>
+            </form>
+        </div>
 
-    <!--Div de suppression d'exemplaire-->
-    <div id="delExDiv" class="d-none justify-content-center flex-wrap">
-        <form method="GET" action="../HTML/gestionnaire-de-fond.html">
-            </br>
-            <fieldset class="d-flex flex-column justify-content-evenly">
-                <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
-            </fieldset>
-        </form>
-    </div>
+        <!--Div d'ajout exemplaire-->
+        <div id="addExDiv" class="d-none justify-content-center flex-wrap">
+            <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                </br>
+                <fieldset class="d-flex flex-column justify-content-evenly">
+                    <form method="GET" action="responsable.html">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Jours de retard</th>
+                                    <th scope="col">ISBN</th>
+                                    <th scope="col">Code exemplaire</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Emprunté par :</th>
+                                    <th scope="col">Envoi lettre de rappel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">15</th>
+                                    <td>21</td>
+                                    <td>12</td>
+                                    <td>Toto Tata Titi Tutu</td>
+                                    <td>Tyty</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">9</th>
+                                    <td>11</td>
+                                    <td>06</td>
+                                    <td>Star wars : La guerre des clowns</td>
+                                    <td>Anakin Marcheciel</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">8</th>
+                                    <td>33</td>
+                                    <td>63</td>
+                                    <td>Harry Potter est resté sous l'escalier</td>
+                                    <td>FlyOfDeath</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>78</td>
+                                    <td>96</td>
+                                    <td>Mimi Mathy : "J'ai grandi"</td>
+                                    <td>Mimy Mathy</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="button" value="Envoyer les lettres de rappel" id="lettreRappel">
+                        <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                    </form>
+                </fieldset>
+            </form>
+        </div>
 
-</div>
+        <!--Div de suppression d'exemplaire-->
+        <div id="delExDiv" class="d-none justify-content-center flex-wrap">
+            <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                </br>
+                <fieldset class="d-flex flex-column justify-content-evenly">
+                    <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
 </div>
 <?php } ?>
 <?php
@@ -288,11 +325,9 @@ spl_autoload_register(function($classe){
     if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == "afficheListUser" or $action == 'resRechercheAd' or $action == 'deleteAd'){?>
 <!-- ////////////////////////////////////////////////////////////////////////BIBLIOTHECAIRE /////////////////////////////////////////////////////////////////////////////// -->
 
-
 <!--Div centrale-->
 <div id="colonne2"
     class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto">
-
 
     <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
         aria-label="Basic radio toggle button group">
@@ -318,7 +353,32 @@ spl_autoload_register(function($classe){
         </form>
     </div>
 
-    <!--Div emprunt-->
+    <!-- ////////////////////////////////////////////////////////////////////////EMPRUNTS /////////////////////////////////////////////////////////////////////////////// -->
+    <?php 
+    if ($action == 'emprunt'){ ?>
+    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+        aria-label="Basic radio toggle button group">
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+            <input type="hidden" name="action" value="emprunt">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+            <input type="hidden" name="action" value="retour">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+            <input type="hidden" name="action" value="nouvelAd">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+            <input type="hidden" name="action" value="gestionAd">
+        </form>
+    </div>
     <div class="d-flex flex-wrap justify-content-center" id="empruntDiv">
         <form>
             </br>
@@ -356,8 +416,33 @@ spl_autoload_register(function($classe){
             </fieldset>
         </form>
     </div>
-
-    <!--Div retour-->
+    <?php } ?>
+    <!-- ////////////////////////////////////////////////////////////////////////RETOURS /////////////////////////////////////////////////////////////////////////////// -->
+    <?php 
+    if ($action == 'retour'){ ?>
+    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+        aria-label="Basic radio toggle button group">
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+            <input type="hidden" name="action" value="emprunt">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+            <input type="hidden" name="action" value="retour">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+            <input type="hidden" name="action" value="nouvelAd">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+            <input type="hidden" name="action" value="gestionAd">
+        </form>
+    </div>
     <div id="retourDiv" class="d-none justify-content-center flex-wrap">
 
         <form>
@@ -380,173 +465,275 @@ spl_autoload_register(function($classe){
             </fieldset>
         </form>
     </div>
+    <?php } ?>
+    <!-- ////////////////////////////////////////////////////////////////////////NOUVEL ADHERENT /////////////////////////////////////////////////////////////////////////////// -->
+    <?php 
+    if ($action == 'nouvelAd'){ ?>
 
-    <!--Div nouvel adhérent-->
-    <div id="newadDiv" class="d-none justify-content-center flex-wrap">
-        <form>
+    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+        aria-label="Basic radio toggle button group">
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+            <input type="hidden" name="action" value="emprunt">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+            <input type="hidden" name="action" value="retour">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+            <input type="hidden" name="action" value="nouvelAd">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+            <input type="hidden" name="action" value="gestionAd">
+        </form>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
+        <form method="GET" action="../controler/index.test.aure.php" id="form">
             </br>
             <fieldset class="d-flex flex-column justify-content-evenly">
-                <p><label for="addDate" class="d-flex flex-wrap">Référence ISBN</label>
-                    <input type="text" id="addDate">
-                </p>
-                <p><label for="addEdit" class="d-flex flex-wrap">Code Exemplaire</label>
-                    <input type="text" id="addEdit">
-                </p>
-                <div>
 
-                    <input type="submit" value="Confirmer nouvel exemplaire">
-                    <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                <p><label for="addTitre" class="d-flex flex-wrap">Titre</label>
+                    <input type="text" id="addTitre" required="required">
+                </p>
+                <p><label for="addAuteur" class="d-flex flex-wrap">Auteur</label>
+                <div class="w-100" id="divAuteur">
+                    <select class="d-flex form-select is-invalid" id="addAuteur" required="required">
+                    </select>
+                    </b>
+                    <input class="d-none" type="text" id="addAuteur2">
+                    <input class="d-flex" type="button" value="Ajouter nouvel auteur" id="newAuteur">
+                    <input class="d-none" type="button" value="Annuler" id="annuleAuteur">
+                </div>
+                </p>
+                <p><label for="addDate" class="d-flex flex-wrap">Date de parution</label>
+                    <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required">
+                </p>
+                <p><label for="addEdit" class="d-flex flex-wrap is">Maison d'édition</label>
+                    <input type="text" id="addEdit" required="required">
+                </p>
+                <p><label for="addISBN" class="d-flex flex-wrap">Référence ISBN</label>
+                    <input type="text" id="addISBN" placeholder="XXX" required="required">
+                <p id="noISBN" class="d-none text-danger"></p>
+                </p>
+                <p><label for="addSerie" class="d-flex flex-wrap">Serie</label>
+                <div id="divSerie" class=" w-100">
+                    <select class="d-flex form-select is-invalid" id="addSerie" required="required">
+                    </select>
+                    </b>
+                    <input class="d-none" type="text" id="addSerie2">
+                    <input class="d-flex" type="button" value="Ajouter nouvelle serie" id="newSerie">
+                    <input class="d-none" type="button" value="Annuler" id="annuleSerie">
+                </div>
+                </p>
+                <p><label for="addPic" class="d-flex flex-wrap">Ajouter une image</label>
+                <div class="d-flex flex-wrap form-group w-100">
+                    <input class="form-control" type="file" id="addPic" required="required">
+                </div>
+                </p>
+                <p><label for="addRes" class="d-flex flex-wrap">Résumé</label>
+                    <textarea rows="3" cols="33" type="text" id="addRes" required="required"></textarea>
+                </p>
+                <div class="d-flex justify-content-evenly">
+                    <input type="button" value="Aperçu" id="apercu">
+
+                    <input type="submit" value="Confirmer nouvelle entrée" id="subEntree">
                 </div>
             </fieldset>
         </form>
     </div>
+    <?php } ?>
+    <!-- ////////////////////////////////////////////////////////////////////////GESTION ADHERENTS /////////////////////////////////////////////////////////////////////////////// -->
+    <?php 
+    if ($action == 'gestionAd'){ ?>
 
+    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+        aria-label="Basic radio toggle button group">
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+            <input type="hidden" name="action" value="emprunt">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+            <input type="hidden" name="action" value="retour">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+            <input type="hidden" name="action" value="nouvelAd">
+        </form>
+        <form action="" method="get">
+            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+            <input type="hidden" name="action" value="gestionAd">
+        </form>
+    </div>
+
+    <div>
+        <h2>Faire une recherche</h2>
+    </div>
+    <div class="d-flex-wrap text justify-content-center">
+        <form action="" method="get"></form>
+        <div>
+            <form class="d-flex">
+                <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                    name="recherche" required="required">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
+                <input type="hidden" name="action" value="resRechercheAd">
+            </form>
+        </div>
+    </div>
+    <div class="d-flex-wrap text justify-content-center">
+        <form action="" method="get"></form>
+        <div>
+            <form class="d-flex">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des utilisateurs</button>
+                <input type="hidden" name="action" value="afficheListUser">
+            </form>
+        </div>
+    </div>
+    <div>
+        <div>
+
+            <?php } ?>
+            <!-- ////////////////////////////////////////////////////////////////////////SEARCH ADHERENTS /////////////////////////////////////////////////////////////////////////////// -->
+            <?php 
+        if ($action == 'rechercheAd'){ ?>
+            <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+                aria-label="Basic radio toggle button group">
+                <form action="" method="get">
+                    <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+                    <input type="hidden" name="action" value="emprunt">
+                </form>
+                <form action="" method="get">
+                    <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+                    <input type="hidden" name="action" value="retour">
+                </form>
+                <form action="" method="get">
+                    <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+                    <input type="hidden" name="action" value="nouvelAd">
+                </form>
+                <form action="" method="get">
+                    <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+                    <input type="hidden" name="action" value="gestionAd">
+                </form>
+            </div>
+
+            <div>
+                <h2>Faire une recherche</h2>
+            </div>
+            <div class="d-flex-wrap text justify-content-center">
+                <form action="" method="get"></form>
+                <div>
                     <form class="d-flex">
-                        <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici" name="recherche" required="required">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
+                        <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                            name="recherche" required="required">
                         <input type="hidden" name="action" value="resRechercheAd">
+
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
+
                     </form>
                 </div>
             </div>
             <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" >Afficher la liste des utilisateurs</button>
-                            <input type="hidden" name="action" value="afficheListUser">
-                        </form>
-                    </div>
+                <form action="" method="get"></form>
+                <div>
+                    <form class="d-flex">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                            utilisateurs</button>
+                        <input type="hidden" name="action" value="afficheListUser">
+                    </form>
                 </div>
-            <div>
-            <div>
-
-    <?php } ?>
-<!-- ////////////////////////////////////////////////////////////////////////SEARCH ADHERENTS /////////////////////////////////////////////////////////////////////////////// -->
-    <?php 
-        if ($action == 'rechercheAd'){ ?>
-                <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
-                aria-label="Basic radio toggle button group">
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
-                    <input type="hidden" name="action" value="emprunt">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
-                    <input type="hidden" name="action" value="retour">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
-                    <input type="hidden" name="action" value="nouvelAd">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
-                    <input type="hidden" name="action" value="gestionAd">
-                </form>
             </div>
-        
-            <div>
-                    <h2>Faire une recherche</h2>
-                </div>
-                <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici" name="recherche" required="required">
-                            <input type="hidden" name="action" value="resRechercheAd">
-
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
-
-                        </form>
-                    </div>
-                </div>
-                <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" >Afficher la liste des utilisateurs</button>
-                            <input type="hidden" name="action" value="afficheListUser">
-                        </form>
-                    </div>
-                </div>
             <div>
 
-    <?php } ?>
-    <!-- ///////////////////////////////////////////////////////////////AFFICHE LISTE COMPLETE ADHERENTS ///////////////////////////////////////////////////////////////////// -->
-    <?php 
+                <?php } ?>
+                <!-- ///////////////////////////////////////////////////////////////AFFICHE LISTE COMPLETE ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+                <?php 
         if ($action == 'afficheListUser'){ ?>
-        <div id="colonne2"
-        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
-        
-                <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
-                aria-label="Basic radio toggle button group">
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
-                    <input type="hidden" name="action" value="emprunt">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
-                    <input type="hidden" name="action" value="retour">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
-                    <input type="hidden" name="action" value="nouvelAd">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
-                    <input type="hidden" name="action" value="gestionAd">
-                </form>
-            </div>
-        
-            <div>
-                    <h2>Faire une recherche</h2>
-                </div>
-                <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici" name="recherche" required="required">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
-                            <input type="hidden" name="action" value="resRechercheAd">
-                        </form>
-                    </div>
-                </div>
-                <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" >Afficher la liste des utilisateurs</button>
-                            <input type="hidden" name="action" value="afficheListUser">
-                        </form>
-                    </div>
-                </div>
-            <div>
-            <h2>Résultats</h2>
-        </div>
-            <div class="d-flex flex-wrap justify-content-center overflow-auto table-responsive " id="affiche">
-                <table class="table table-hover table align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col">N° Adhérent :</th>
-                            <th scope="col">Nom :</th>
-                            <th scope="col">Prénom :</th>
-                            <th scop="col">Email :</th>
-                            <th scope="col">Date de naissance :</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                <div id="colonne2"
+                    class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
 
-                            
-                        </tr>
-                    </thead>
-                    <tbody id="album">
-                    <?php 
+                    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+                        aria-label="Basic radio toggle button group">
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+                            <input type="hidden" name="action" value="emprunt">
+                        </form>
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+                            <input type="hidden" name="action" value="retour">
+                        </form>
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+                            <input type="hidden" name="action" value="nouvelAd">
+                        </form>
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+                            <input type="hidden" name="action" value="gestionAd">
+                        </form>
+                    </div>
+
+                    <div>
+                        <h2>Faire une recherche</h2>
+                    </div>
+                    <div class="d-flex-wrap text justify-content-center">
+                        <form action="" method="get"></form>
+                        <div>
+                            <form class="d-flex">
+                                <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                                    name="recherche" required="required">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit"
+                                    id="rechercher">Rechercher</button>
+                                <input type="hidden" name="action" value="resRechercheAd">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="d-flex-wrap text justify-content-center">
+                        <form action="" method="get"></form>
+                        <div>
+                            <form class="d-flex">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                                    utilisateurs</button>
+                                <input type="hidden" name="action" value="afficheListUser">
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Résultats</h2>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center overflow-auto table-responsive " id="affiche">
+                        <table class="table table-hover table align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">N° Adhérent :</th>
+                                    <th scope="col">Nom :</th>
+                                    <th scope="col">Prénom :</th>
+                                    <th scop="col">Email :</th>
+                                    <th scope="col">Date de naissance :</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="album">
+                                <?php 
 
                         if (count($tResultats)>0){
                             foreach($tResultats as $lignes){
@@ -562,93 +749,96 @@ spl_autoload_register(function($classe){
                                 <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Supprimer</button>
                                 <input type="hidden" name="action" value="deleteAd">
                                 <input type="hidden" name="idUse" value="<?php echo $lignes[\'ID_USE\'];?>">
-                                
+
                                 </td>
                                 </form>
                                 </tr>';
-                            }
-                            }
-                        }else echo'<p> Aucun résultat </p>';
-                    ?>
+                                }
+                                }
+                                }else echo'<p> Aucun résultat </p>';
+                                ?>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php } ?>
 
-        <!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
-        <?php 
+                <!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+                <?php 
         if ($action == 'resRechercheAd'){ ?>
-        <div id="colonne2"
-        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
-        
-                <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
-                aria-label="Basic radio toggle button group">
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
-                    <input type="hidden" name="action" value="emprunt">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
-                    <input type="hidden" name="action" value="retour">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
-                    <input type="hidden" name="action" value="nouvelAd">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
-                    <input type="hidden" name="action" value="gestionAd">
-                </form>
-            </div>
-        
-            <div>
-                    <h2>Faire une recherche</h2>
-                </div>
-                <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici" name="recherche" required="required">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
-                            <input type="hidden" name="action" value="resRechercheAd">
-                        </form>
-                    </div>
-                </div>
-                <div class="d-flex-wrap text justify-content-center">
-                    <form action="" method="get"></form>
-                    <div>
-                        <form class="d-flex">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" >Afficher la liste des utilisateurs</button>
-                            <input type="hidden" name="action" value="afficheListUser">
-                        </form>
-                    </div>
-                </div>
-            <div>
-            <h2>Résultats</h2>
-        </div>
-            <div class="d-flex flex-wrap justify-content-center overflow-auto table-responsive " id="affiche">
-                <table class="table table-hover table align-middle">
-                    <thead>
-                        <tr>
-                        <th scope="col">N° Adhérent :</th>
-                            <th scope="col">Nom :</th>
-                            <th scope="col">Prénom :</th>
-                            <th scop="col">Email :</th>
-                            <th scope="col">Date de naissance :</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                <div id="colonne2"
+                    class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
 
-                            
-                        </tr>
-                    </thead>
-                    <tbody id="album">
-                            <?php 
+                    <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
+                        aria-label="Basic radio toggle button group">
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+                            <input type="hidden" name="action" value="emprunt">
+                        </form>
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+                            <input type="hidden" name="action" value="retour">
+                        </form>
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+                            <input type="hidden" name="action" value="nouvelAd">
+                        </form>
+                        <form action="" method="get">
+                            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+                            <input type="hidden" name="action" value="gestionAd">
+                        </form>
+                    </div>
+
+                    <div>
+                        <h2>Faire une recherche</h2>
+                    </div>
+                    <div class="d-flex-wrap text justify-content-center">
+                        <form action="" method="get"></form>
+                        <div>
+                            <form class="d-flex">
+                                <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                                    name="recherche" required="required">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit"
+                                    id="rechercher">Rechercher</button>
+                                <input type="hidden" name="action" value="resRechercheAd">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="d-flex-wrap text justify-content-center">
+                        <form action="" method="get"></form>
+                        <div>
+                            <form class="d-flex">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                                    utilisateurs</button>
+                                <input type="hidden" name="action" value="afficheListUser">
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Résultats</h2>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center overflow-auto table-responsive " id="affiche">
+                        <table class="table table-hover table align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">N° Adhérent :</th>
+                                    <th scope="col">Nom :</th>
+                                    <th scope="col">Prénom :</th>
+                                    <th scop="col">Email :</th>
+                                    <th scope="col">Date de naissance :</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="album">
+                                <?php 
 
                             if (count($resultat)>0){
                                 foreach($resultat as $lignes){
@@ -664,59 +854,61 @@ spl_autoload_register(function($classe){
                                     <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Supprimer</button>
                                     <input type="hidden" name="action" value="deleteAd">
                                     <input type="hidden" name="idUse" value="<?php echo $lignes[\'ID_USE\'];?>">
-                                    
 
-                                    </td>
-                                    </form>
-                                    </tr>';
+
+                                </td>
+                                </form>
+                                </tr>';
                                 }
                                 }
-                            }else echo'<p> Aucun résultat </p>';
-                            ?>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    <?php } ?>
+                                }else echo'<p> Aucun résultat </p>';
+                                ?>
 
-    <?php 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php } ?>
+                <!-- ///////////////////////////////////////////////////////////////vue delete ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+                <?php 
         if ($action == 'deleteAd'){ ?>
                 <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
-                aria-label="Basic radio toggle button group">
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
-                    <input type="hidden" name="action" value="emprunt">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
-                    <input type="hidden" name="action" value="retour">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
-                    <input type="hidden" name="action" value="nouvelAd">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
-                    <input type="hidden" name="action" value="gestionAd">
-                </form>
-            </div>
-        
-            <div>
+                    aria-label="Basic radio toggle button group">
+                    <form action="" method="get">
+                        <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
+                        <input type="hidden" name="action" value="emprunt">
+                    </form>
+                    <form action="" method="get">
+                        <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
+                        <input type="hidden" name="action" value="retour">
+                    </form>
+                    <form action="" method="get">
+                        <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
+                        <input type="hidden" name="action" value="nouvelAd">
+                    </form>
+                    <form action="" method="get">
+                        <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
+                        <input type="hidden" name="action" value="gestionAd">
+                    </form>
+                </div>
+
+                <div>
                     <h2>Faire une recherche</h2>
                 </div>
                 <div class="d-flex-wrap text justify-content-center">
                     <form action="" method="get"></form>
                     <div>
                         <form class="d-flex">
-                            <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici" name="recherche" required="required">
+                            <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                                name="recherche" required="required">
                             <input type="hidden" name="action" value="resRechercheAd">
 
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="rechercher">Rechercher</button>
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit"
+                                id="rechercher">Rechercher</button>
 
                         </form>
                     </div>
@@ -725,15 +917,16 @@ spl_autoload_register(function($classe){
                     <form action="" method="get"></form>
                     <div>
                         <form class="d-flex">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit" >Afficher la liste des utilisateurs</button>
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                                utilisateurs</button>
                             <input type="hidden" name="action" value="afficheListUser">
                         </form>
                     </div>
                 </div>
-            <div>
+                <div>
 
-            <?php } ?>
+                    <?php } ?>
 
 
-</div>
-<?php } ?>
+                </div>
+                <?php } ?>

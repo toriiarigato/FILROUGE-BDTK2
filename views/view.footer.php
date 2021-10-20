@@ -1,5 +1,5 @@
 <?php 
-    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie'  or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj"){?>
+    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie'  or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action = "listSerie"){?>
 
 
 <!--------------------------------------------------------------------- GESTIONNAIRE --------------------------------------------------------------------------------->
