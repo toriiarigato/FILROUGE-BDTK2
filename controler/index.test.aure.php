@@ -231,9 +231,6 @@ switch ($action){
             require('../Modele/classes//User.class.php');
             require('../Modele/classes/Bdtk.class.php');
             $tResultats = (UserMgr::getListUser());
-
-        }
-
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             // require('../views/view.footer.php');
@@ -333,48 +330,49 @@ switch ($action){
             $oldLibSerie = explode("echo",$libSerieDel);
             $ancienLibSerie = $oldLibSerie[1];
             $trimmed = trim($ancienLibSerie, "?>");
-            $oldCodeEmp = explode(" ",$codeEmpDel);
-            $ancientCodeEmp = $oldCodeEmp[2];
-            $idSerieFollow = explode(" ",$idSerieDel);
-            $nextIdSerie = $idSerieFollow[2];
-            require('../views/view.header.php');
-            require('../views/view.formulaire.php');
-            require('../views/view.footer.php');
-        }else{
-            $action = 'accueil';
-            header('location:../controler/index.test.aure.php');
-            unset($_SESSION['user']);
-        }
-        break;   
-        
-        case "modifMaj" :
-            if ($_SESSION['user']['ID_ROLE'] =='3'){
-                $idSerieFollow = $_GET["idSerieFollow"];
-                $modifCodeEmp = $_GET['modifCodeEmp'];
-                $modifLibSerie = $_GET['modifLibSerie'];
-                SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
-                require('../views/view.header.php');
-                require('../views/view.formulaire.php'); 
-                require('../views/view.footer.php');
-            }else{
-                $action = 'accueil';
-                header('location:../controler/index.test.aure.php');
-                unset($_SESSION['user']);
-            }
-            break; 
+$oldCodeEmp = explode(" ",$codeEmpDel);
+$ancientCodeEmp = $oldCodeEmp[2];
+$idSerieFollow = explode(" ",$idSerieDel);
+$nextIdSerie = $idSerieFollow[2];
+require('../views/view.header.php');
+require('../views/view.formulaire.php');
+require('../views/view.footer.php');
+}else{
+$action = 'accueil';
+header('location:../controler/index.test.aure.php');
+unset($_SESSION['user']);
+}
+break;
 
-    case 'adherent';
-        require('../views/view.header.php');
-        require('../views/view.search.php');
-        require('../views/view.footer.php');
-    break;
+case "modifMaj" :
+if ($_SESSION['user']['ID_ROLE'] =='3'){
+$idSerieFollow = $_GET["idSerieFollow"];
+$modifCodeEmp = $_GET['modifCodeEmp'];
+$modifLibSerie = $_GET['modifLibSerie'];
+SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
+require('../views/view.header.php');
+require('../views/view.formulaire.php');
+require('../views/view.footer.php');
+}else{
+$action = 'accueil';
+header('location:../controler/index.test.aure.php');
+unset($_SESSION['user']);
+}
+break;
 
-////////////////////////////////////////////////////////////////////////RESPONSABLE ///////////////////////////////////////////////////////////////////////////////
-    case 'responsable';
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
-    break;
+case 'adherent';
+require('../views/view.header.php');
+require('../views/view.search.php');
+require('../views/view.footer.php');
+break;
+
+////////////////////////////////////////////////////////////////////////RESPONSABLE
+///////////////////////////////////////////////////////////////////////////////
+case 'responsable';
+require('../views/view.header.php');
+require('../views/view.formulaire.php');
+require('../views/view.footer.php');
+break;
 
 
 }
