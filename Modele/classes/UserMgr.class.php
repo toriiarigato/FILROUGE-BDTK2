@@ -20,7 +20,7 @@ class UserMgr {
             //var_dump($resPDOstt);
 
             // Etape 3 - Lit tout le curseur PDOStatement
-            $records = $resPDOstt->fetchAll();
+            $records = $resPDOstt->fetchAll(pdo::FETCH_ASSOC);
             //var_dump($records);-
 
             // Etape 4 - Ferme le curseur et la connexion
@@ -28,6 +28,17 @@ class UserMgr {
             Bdtk::disconnect();     // ferme la connexion
 
             // Etape 5 - Retourne le tableau
+            return $records;
+        }
+
+        public static function searchUser($search){
+            $sql = "SELECT * FROM `utilisateur` WHERE (ID_USE LIKE ? or NOM_USE LIKE ? or PRENOM_USE LIKE ?) AND ID_ROLE = '1' ";
+            $connexion = Bdtk::getConnexion();
+            $resultats = $connexion->prepare($sql);
+            $resultats->execute(array('%'.$search.'%','%'.$search.'%','%'.$search.'%'));
+            $records = $resultats->fetchall(pdo::FETCH_ASSOC);
+            Bdtk ::disconnect();
+            
             return $records;
         }
 
