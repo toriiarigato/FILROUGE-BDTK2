@@ -46,7 +46,7 @@
 <?php } ?>
 
 <?php 
-    if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouveAd'or $action == 'gestionAd'){?>
+    if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd' or $action == 'rechercheAd'or $action =='afficheListUser'){?>
 
 
 <!--------------------------------------------------------------------- BIBLIOTHECAIRE --------------------------------------------------------------------------------->
