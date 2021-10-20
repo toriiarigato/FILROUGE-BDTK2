@@ -13,7 +13,7 @@
 </head>
 
 
-    <!-- <body background="../SRC/bg.jpg"> -->
+    <body background="../SRC/bg.jpg">
 
 
 
@@ -76,7 +76,9 @@
             <?php 
 
 
-    if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'responsable'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd'){ ?>
+
+    if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == 'responsable'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == 'afficheListUser'){ ?>
+
 
 
             <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->

@@ -8,12 +8,12 @@ class SerieMgr {
          * @return array la liste des series
          */
         public static function getListSerie() : array {
-            $sql = 'SELECT LIBELLE_SERIE FROM serie 
+            $sql = 'SELECT LIBELLE_SERIE, CODE_EMPLACEMENT, IDENTIFIANT_SERIE  FROM serie 
                     ORDER BY LIBELLE_SERIE ASC';
             
             $connexionPDO = Bdtk::getConnexion();
             $resPDOstt = $connexionPDO->query($sql);
-            $records = $resPDOstt->fetchAll(PDO::FETCH_COLUMN);
+            $records = $resPDOstt->fetchAll();
 
                         
             $resPDOstt->closeCursor(); // ferme le curseur
@@ -47,6 +47,7 @@ class SerieMgr {
             }
             catch(PDOException $e)
             {
+                echo $e->getMessage();
             }
         }
 
@@ -74,6 +75,7 @@ class SerieMgr {
             }
             catch(PDOException $e)
             {
+                echo $e->getMessage();
             }
         }
 
@@ -101,24 +103,25 @@ class SerieMgr {
             }
             catch(PDOException $e)
             {
+                echo $e->getMessage();
             }
         }
 
-////////////////////////////////////////////////////////////////// Met à jour le nom d'une serie  //////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////// Met à jour une serie  //////////////////////////////////////////////////////////////////////////////////
 
         /**
          * Permet de modifier le nom de la serie en paramètre
          * @param un objet serie
          * @return nombre de serie mise à jour
          */
-        public static function updateNameSerie($value1, $idSerie) : int  {
+        public static function updateSerie($value1, $value2, $idSerie) : int  {
 
-            $sql = "UPDATE serie SET LIBELLE_SERIE = :newLibSerie
+            $sql = "UPDATE serie SET LIBELLE_SERIE = :newLibSerie , CODE_EMPLACEMENT = :newCodeEmp
                     WHERE IDENTIFIANT_SERIE = :idSerie";
             try {
                 $rs = Bdtk::getConnexion()->prepare($sql);
-                $rs->execute(array(":newLibSerie"=>$value1, ":idSerie"=>$idSerie)); 
-
+                $rs->execute(array(":newLibSerie"=>$value1,":newCodeEmp"=>$value2,":idSerie"=>$idSerie)); 
+                echo $value1,$value2, $idSerie;
                 $nombre = $rs->rowCount();
 
                 // pour faire propre
@@ -126,36 +129,10 @@ class SerieMgr {
                 Bdtk::disconnect();
                 return $nombre; 
             }
-            catch(PDOException $e)
-            {    
+            catch(PDOException $e){    
+                echo $e->getMessage();
             }
        }  
 
-////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
-
-        /**
-         * Permet de modifier l'emplacement de la serie en paramètre
-         * @param un objet serie
-         * @return nombre de serie mise à jour
-         */
-        public static function updateEmpSerie($value1, $idSerie) : int {
-
-                $sql = "UPDATE serie SET CODE_EMPLACEMENT = :newEmpSerie
-                        WHERE IDENTIFIANT_SERIE = :idSerie";
-            try {
-                $rs = Bdtk::getConnexion()->prepare($sql);
-                $rs->execute(array(":newEmpSerie"=>$value1, ":idSerie"=>$idSerie)); 
-    
-                $nombre = $rs->rowCount();
-    
-                // pour faire propre
-                $rs->closeCursor();
-                Bdtk::disconnect();
-                return $nombre; 
-            }
-            catch(PDOException $e)
-            {
-            }
-        }
 }
 ?>
