@@ -96,10 +96,10 @@
     
     // echo RC . "LE PROGRAMME CONTINUE ..." . RC;
 
-    ////////////////////////////////////////////////////////////////// Met à jour le nom d'une serie  //////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////// Met à jour une serie  //////////////////////////////////////////////////////////////////////////////////
 
     try {
-        echo SerieMgr::updateNameSerie("Kaamelot",47). " ligne(s) mise à jour";
+        echo SerieMgr::updateSerie("Kaamelot", "E352",47). " ligne(s) mise à jour";
     
     } catch (PDOException $e) {
         echo $e->getMessage() . RC;
@@ -110,17 +110,3 @@
     
 
     
-    ////////////////////////////////////////////////////////////////// Met à jour l'emplacement d'une serie  //////////////////////////////////////////////////////////////////////////////////
-
-    try {
-        echo SerieMgr::updateEmpSerie("E3R5",47). " ligne(s) mise à jour";
-        
-    } catch (PDOException $e) {
-        echo $e->getMessage() . RC;
-        echo "ECHEC de CONNEXION à la BDD" . RC;
-    } catch (Exception $e) {
-         echo $e->getMessage() . RC;
-    }
-        
-
-    ?>
