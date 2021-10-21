@@ -5,8 +5,10 @@ spl_autoload_register(function($classe){
 });
 
 session_start();
+
 $action = 'accueil';
 print_r($action);
+
 $id = $mdp = $role = '';
 $msgErreur = '';
 $idSerie = "";
@@ -14,7 +16,23 @@ $libSerie = "";
 $codeEmp = "";
 $nomUse = "";
 $prenomUse = "";
+$mdpUse = "";
+$emailUse = "";
+$dateNaissance = "";
 $adresseUse = "";
+$codePostal = "";
+$villeUse = "";
+$erreur = "";
+$message = "";
+$idRole = 1;
+$libAvatar = "";
+$today = new DateTime();
+$dateValCot = date_format($today,"Y-m-d");
+$idUserCreate = 3;
+$idUserUpdate = NULL;
+$idUserdel = NULL;
+$messageCreate = "";
+
 
 $libSerieDel = "";
 $codeEmpDel = "";
@@ -42,7 +60,13 @@ if (isset($_GET['idUse'])){
 if (isset($_GET['nom']) || isset($_GET['prenom'])){
     $nomUse = $_GET['nom'];
     $prenomUse = $_GET['prenom'];
+    $mdpUse = $_GET['mdp'];
+    $emailUse = $_GET['email'];
+    $dateNaissance = $_GET['dateNaissance'];
     $adresseUse = $_GET['adresse'];
+    $codePostal = $_GET['codePostal'];
+    $villeUse = $_GET['villeUse'];
+    
 }
 
 print_r($_GET);
@@ -154,9 +178,7 @@ switch ($action){
     
         break;
 
-
 ////////////////////////////////////////////////////////////////////////OUBLI MDP ///////////////////////////////////////////////////////////////////////////////
-
 
     case 'oubliMdp':
         require('../views/view.header.php');
@@ -164,7 +186,7 @@ switch ($action){
         require('../views/view.footer.php');
         break;
 ////////////////////////////////////////////////////////////////////////BIBLIOTHECAIRE ///////////////////////////////////////////////////////////////////////////////
-    case 'bibli';
+    case 'bibli':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -176,7 +198,7 @@ switch ($action){
         }
         break;
         //---------------------------------------------------------------- EMPRUNTS -------------------------------------------------------------------------
-    case 'emprunt';
+    case 'emprunt':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -188,7 +210,7 @@ switch ($action){
         }
         break;
         //---------------------------------------------------------------- RETOURS -------------------------------------------------------------------------
-    case 'retour';
+    case 'retour':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -200,42 +222,102 @@ switch ($action){
         }
         break;
         //---------------------------------------------------------------- NOUVEL ADHERENT -------------------------------------------------------------------------
-    case 'nouvelAd';
+    case 'nouvelAd':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
-            require('../views/view.footer.php');
         }else{
             $action = 'accueil';
             header('location:../controler/index.test.aure.php');
             unset($_SESSION['user']);
         }
         break;
-        //---------------------------------------------------------------- GESTION ADHERENTS -------------------------------------------------------------------------
-    case 'gestionAd';
-        if ($_SESSION['user']['ID_ROLE']=='2'){
-            require('../views/view.header.php');
-            require('../views/view.formulaire.php');
-            require('../views/view.footer.php');
-        }else{
-            $action = 'accueil';
-            header('location:../controler/index.test.aure.php');
-            unset($_SESSION['user']);
-        }
-        break;
-        //---------------------------------------------------------------- RECHERCHE ADHERENTS -------------------------------------------------------------------------
-    // case 'rechercheAd':
-    //     if ($_SESSION['user']['ID_ROLE']=='2'){
 
-    //         require('../views/view.header.php');
-    //         require('../views/view.formulaire.php');
-    //         require('../views/view.footer.php');
-    //     }else{
-    //         $action = 'accueil';
-    //         header('location:../controler/index.test.aure.php');
-    //         unset($_SESSION['user']);
-    //     }
-    //     break;
+        case 'createUse':
+            require('../Modele/classes/UserMgr.class.php');
+            require('../Modele/classes//User.class.php');
+            require('../Modele/classes/Bdtk.class.php');
+            $resultEmail = UserMgr::checkDoublonEmail($emailUse);
+            if (is_numeric($nomUse)){
+                $messageCreate = "Le nom ne doit comporter que des lettres";
+            }elseif(is_numeric($prenomUse)){
+                $messageCreate = "Le prenom ne doit comporter que des lettres";
+
+            }elseif(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $mdpUse)){
+                $messageCreate = "Mot de passe au format invalide";
+
+            }elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/",$emailUse)){
+                $messageCreate = "Email au format invalide";
+
+            }elseif(!is_numeric($codePostal)){
+                $messageCreate = "Le code postal doit comporter des chiffres";
+            
+            }elseif($resultEmail>0){
+                $messageCreate = "L'email existe déjà dans la base de données";
+            }else{
+            $newUser = new User($nomUse,$prenomUse,$mdpUse,$emailUse,$idRole,$libAvatar,$dateNaissance,$adresseUse,$codePostal,$villeUse,$idUserCreate,$idUserUpdate,$dateValCot,$idUserdel);
+            var_dump($newUser);
+            try{
+                UserMgr ::addUser($newUser);
+            $messageCreate = "l'adhérent ". $newUser->getNomUser().",".$newUser->getPrenomUser(). " a bien été créé";
+            }catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+            if ($_SESSION['user']['ID_ROLE']=='2'){
+                $tResultats = (UserMgr::getListUser());
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+            }else{
+                $action = 'accueil';
+                header('location:../controler/index.test.aure.php');
+                unset($_SESSION['user']);
+            }
+            break;
+
+    case'updateAd':
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            echo $idUse;
+            $oldUser = UserMgr::getUserById($idUse);
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            echo $nomUse;
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case'updateUse':
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            UserMgr::updateUser($_GET['nom'],$_GET['prenom'],$_GET['mdp'],$_GET['email'],$_GET['dateNaissance'],$_GET['adresse'],$_GET['codePostal'],$_GET['villeUse'],$_GET['datevalcot'],$_GET['oldemail']);
+            UserMgr::searchUser($_GET['nom']);
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            echo "update ok";
+            
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+
+
+        //---------------------------------------------------------------- GESTION ADHERENTS -------------------------------------------------------------------------
+    case 'gestionAd':
+        if ($_SESSION['user']['ID_ROLE']=='2'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
         //----------------------------------------------------------------Affiche RECHERCHE ADHERENTS -------------------------------------------------------------------------
     case 'resRechercheAd':
         if ($_SESSION['user']['ID_ROLE']=='2'){
@@ -270,10 +352,20 @@ switch ($action){
             require('../Modele/classes//User.class.php');
             require('../Modele/classes/Bdtk.class.php');
             echo $_GET['idUse'];
-            UserMgr::delUseryId($idUse);
-            echo "sup ok";
-            require('../views/view.header.php');
-            require('../views/view.formulaire.php');
+            $emprunt = UserMgr::checkEmprunt($idUse);
+            echo $emprunt;
+            if ($emprunt >0){
+                $message = "l'adhérent à encore des emprunts en cours et ne peux pas être supprimé";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+
+            }else{
+                UserMgr::delUseryId($idUse);
+                $message = "l'Adhérent N° ". $idUse. " a bien été supprimé";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+
+            }
         }else{
             $action = 'accueil';
             header('location:../controler/index.test.aure.php');
@@ -281,9 +373,12 @@ switch ($action){
         }
         break;
 
+        case 'createUse': 
+
 
 
 //////////////////////////////////////////////////////////////////////// GESTIONNAIRE : CRUD SERIE /////////////////////////////////////////////////////////////////////////  
+
 
     case "serie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){

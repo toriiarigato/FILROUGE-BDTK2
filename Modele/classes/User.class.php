@@ -2,11 +2,11 @@
 
 class User {
 
-    public $idUser;
-    public $nomUser;
-    public $prenomUser;
-    public $mdpUser;
-    public $emailUser;
+    // public $idUser;
+    private $nomUser;
+    private $prenomUser;
+    private $mdpUser;
+    private $emailUser;
     public $idRole;
     public $libAvatar;
     public $dateNaisseUser;
@@ -17,6 +17,7 @@ class User {
     public $iduserUpdate;
     public $dateValCot;
     public $idUserdel;
+    
 
     /**
 	 * 
@@ -38,13 +39,13 @@ class User {
      * 
      * 
 	 */
-	public function __construct(string $nomUser, string $prenomUser, string $mdpUser, string $emailUser, int $idRole, string $libAvatar, $dateNaisseUser, string $adrUser, int $cpUser, string $villeUser , int $idUserCreate, $iduserUpdate, $dateValCot, $idUserdel) {
+	public function __construct(string $nomUser, string $prenomUser, string $mdpUser, string $emailUser, int $idRole = 1, string $libAvatar = "", $dateNaisseUser, string $adrUser, int $cpUser, string $villeUser , int $idUserCreate = 3, $iduserUpdate = NULL, $dateValCot, $idUserdel = NULL) {
         
 		
-		$this->nomUser = $nomUser;
-		$this->prenomUser = $prenomUser;
-        $this->mdpUser = $mdpUser;
-		$this->emailUser = $emailUser;
+		$this->setNomUser($nomUser);
+		$this->setPrenomUser($prenomUser);
+        $this->setPassword($mdpUser);
+		$this->setEmail($emailUser);
         $this->idRole = $idRole;
 		$this->libAvatar = $libAvatar;
 		$this->dateNaisseUser = $dateNaisseUser;
@@ -54,10 +55,66 @@ class User {
         $this->idUserCreate = $idUserCreate;
         $this->idUserUpdate = $iduserUpdate;
         $this->dateValCot = $dateValCot;
-        $this->idUserDel = $idUserdel;
+        $this->idUserdel = $idUserdel;
 
 
 	}
+
+    public function setEmail($emailUser){
+        if (filter_var($emailUser, FILTER_VALIDATE_EMAIL)) {
+            $this->emailUser = $emailUser;
+        } else {
+            throw new Exception('Format email invalide');
+        }
+
+    }
+
+    public function getEmail(){
+        return $this->emailUser;
+
+    }
+
+    public function setPassword($mdpUser){
+        if(preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $mdpUser)){
+
+            $this->mdpUser = $mdpUser;
+            
+        }else{
+            throw new Exception('Format mot de passe invalide');
+        }
+            
+    }
+
+    public function getPassword(){
+        return $this->mdpUser;
+        
+    }
+
+    public function setNomUser($nomUser){
+        if (preg_match("/^[a-zA-Z-' ]*$/",$nomUser)) {
+            $this->nomUser = $nomUser;
+        }else {
+            throw new Exception('Format du nom invalide');
+        }
+    }
+
+    public function getNomUser(){
+        return $this->nomUser;
+
+    }
+
+    public function setPrenomUser($prenomUser){
+        if (preg_match("/^[a-zA-Z-' ]*$/",$prenomUser)) {
+            $this->prenomUser = $prenomUser;
+        }else {
+            throw new Exception('Format du prénom invalide');
+        }
+    }
+
+    public function getPrenomUser(){
+        return $this->prenomUser;
+
+    }
 }
 
 ?>

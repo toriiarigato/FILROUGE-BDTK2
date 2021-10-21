@@ -36,8 +36,6 @@ spl_autoload_register(function($classe){
         </form>
     </div>
 
-    <?php } ?>
-
     <?php  
     if ($action == 'serie'){ ?>
     <hr>
@@ -378,7 +376,7 @@ spl_autoload_register(function($classe){
 <?php } ?>
 <?php
 
-    if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == "afficheListUser" or $action == 'resRechercheAd' or $action == 'deleteAd'){?>
+    if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == "afficheListUser" or $action == 'resRechercheAd' or $action == 'deleteAd'or $action == 'createUse'or $action == 'updateAd'or $action == 'updateUse'){?>
 <!-- ////////////////////////////////////////////////////////////////////////BIBLIOTHECAIRE /////////////////////////////////////////////////////////////////////////////// -->
 <!--Div centrale-->
 <div id="colonne2"
@@ -486,57 +484,59 @@ spl_autoload_register(function($classe){
         <?php } ?>
         <!-- ////////////////////////////////////////////////////////////////////////NOUVEL ADHERENT /////////////////////////////////////////////////////////////////////////////// -->
         <?php 
-    if ($action == 'nouvelAd'){ ?>
+    if ($action == 'nouvelAd' or $action == 'createUse'){ ?>
 
         <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
             <form method="GET" action="../controler/index.test.aure.php" id="form">
                 </br>
                 <fieldset class="d-flex flex-column justify-content-evenly">
+                <p><?php echo $messageCreate;?></p>
 
                     <p><label for="nom" class="d-flex flex-wrap">Nom : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="nom" value="<?php $nomUse;?>">
+                        <input type="text" required="required" name="nom" value="<?php echo $nomUse;?>">
+                        <!-- <input type="hidden" name="nom" value="<?php $nomUse;?>"> -->
                     </p>
 
                     <p><label for="prenom" class="d-flex flex-wrap">Prénom : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="prenom" value="<?php $prenomUse;?>">
+                        <input type="text" required="required" name="prenom"value="<?php  echo $prenomUse;?>">
+                        <!-- <input type="hidden" name="prenom" value="<?php $prenomUse;?>"> -->
                     </p>
 
                     <p><label for="mdp" class="d-flex flex-wrap">Mot de passe (provisoire) : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="mdp" value="<?php $mdpUse;?>">
+                        <input type="text" required="required" name="mdp"value="<?php  echo $mdpUse;?>">
+                        <!-- <input type="hidden" name="mdp" value="<?php $mdpUse;?>"> -->
                     </p>
 
                     <p><label for="email" class="d-flex flex-wrap">Email : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="email" value="<?php $emailUse;?>">
+                        <input type="text" required="required" name="email"value="<?php  echo $emailUse;?>">
+                        <!-- <input type="hidden" name="email" value="<?php $emailUse;?>"> -->
                     </p>
 
                     <p><label for="addDate" class="d-flex flex-wrap">Date de naissance</label>
-                        <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required">
-                        <input type="hidden" name="dateNaissance" value="<?php $dateNaissance;?>">
+                        <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required"name="dateNaissance"value="<?php  echo $dateNaissance;?>">
+                        <!-- <input type="hidden" name="dateNaissance" value="<?php $dateNaissance;?>"> -->
                     </p>
 
                     <p><label for="adresse" class="d-flex flex-wrap">Adresse : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="adresse" value="<?php $adresseUse;?>">
+                        <input type="text" required="required"name="adresse"value="<?php  echo $adresseUse;?>">
+                        <!-- <input type="hidden" name="adresse" value="<?php $adresseUse;?>"> -->
                     </p>
 
                     <p><label for="codepostal" class="d-flex flex-wrap">Code postal : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="codePostal" value="<?php $acodePostal;?>">
+                        <input type="text" required="required"name="codePostal"value="<?php  echo $codePostal;?>">
+                        <!-- <input type="hidden" name="codePostal" value="<?php $codePostal;?>"> -->
                     </p>
 
                     <p><label for="ville" class="d-flex flex-wrap">Ville : </label>
-                        <input type="text" required="required">
-                        <input type="hidden" name="villeUse" value="<?php $villeUse;?>">
+                        <input type="text" required="required"name="villeUse"value="<?php  echo $villeUse;?>">
+                        <!-- <input type="hidden" name="villeUse" value="<?php $villeUse;?>"> -->
                     </p>
 
                     <div class="d-flex justify-content-evenly">
                         <input type="button" value="Aperçu" id="apercu">
 
                         <input type="submit" value="Confirmer nouvelle entrée" id="subEntree">
+                        <input type="hidden" name="action" value="createUse">
                     </div>
                 </fieldset>
             </form>
@@ -669,11 +669,10 @@ if ($action == 'afficheListUser'){ ?>
                                 <td>'.$lignes['PRENOM_USE'].'</td>
                                 <td>'.$lignes['EMAIL_USE'].'</td>
                                 <td>'.$lignes['DATENAISS_USE'].'</td>
-                                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Modifier</button>
-                                <input type="hidden" name="action" value="updateAd">
+                                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" name="action" value="updateAd">Modifier</button>
+                                <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
                                 </td>
-                                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Supprimer</button>
-                                <input type="hidden" name="action" value="deleteAd">
+                                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" value="deleteAd">Supprimer</button>
                                 <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
 
                                     </td>
@@ -690,11 +689,13 @@ if ($action == 'afficheListUser'){ ?>
                     </div>
                     <?php } ?>
 
-                    <!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
-                    <?php 
-if ($action == 'resRechercheAd'){ ?>
-                    <div id="colonne2"
-                        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
+
+<!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+<?php 
+    if ($action == 'resRechercheAd' or $action == 'updateUse'){ ?>
+    <div id="colonne2"
+        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
+
 
                         <!-- <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
                         aria-label="Basic radio toggle button group">
@@ -777,19 +778,146 @@ if ($action == 'resRechercheAd'){ ?>
             <td>'.$lignes['DATENAISS_USE'].'</td>
             <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Modifier</button>
             <input type="hidden" name="action" value="updateAd">
+            <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
             </td>
             <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Supprimer</button>
             <input type="hidden" name="action" value="deleteAd">
-            <input type="hidden" name="idUse" value="<?php echo $lignes[\'ID_USE\'];?>">
+            <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
 
 
-                                    </td>
-                                    </form>
-                                    </tr>';
-                                    }
-                                    }
-                                    }else echo'<p> Aucun résultat </p>';
-                                    ?>
+            </td>
+            </form>
+            </tr>';
+            }
+            }
+            }else echo'<p> Aucun résultat </p>';
+
+            ?>
+            <p><?php echo $erreur;?></p>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php } ?>
+<!-- ///////////////////////////////////////////////////////////////vue delete ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+<?php 
+    if ($action == 'deleteAd'){ ?>
+
+        <div>
+            <h2>Faire une recherche</h2>
+        </div>
+        <div class="d-flex-wrap text justify-content-center">
+            <form action="" method="get"></form>
+            <div>
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                        name="recherche" required="required">
+                    <input type="hidden" name="action" value="resRechercheAd">
+
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit"
+                        id="rechercher">Rechercher</button>
+                </form>
+            </div>
+        </div>
+        <div class="d-flex-wrap text justify-content-center">
+            <form action="" method="get"></form>
+            <div>
+                <form class="d-flex">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                        utilisateurs</button>
+                    <input type="hidden" name="action" value="afficheListUser">
+                </form>
+            </div>
+        </div>
+
+        <p><?php echo $message ;?></p>
+<!-- ///////////////////////////////////////////////////////////////vue update ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+<?php } ?>
+<?php
+if ($action == 'updateAd'){ ?>
+
+<div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
+    <form method="GET" action="../controler/index.test.aure.php" id="form">
+        </br>
+        <fieldset class="d-flex flex-column justify-content-evenly">
+        <p><?php echo $messageCreate;?></p>
+
+            <p><label for="nom" class="d-flex flex-wrap">Nom : </label>
+                <input type="text" required="required" name="nom" value="<?php echo $oldUser['NOM_USE'];?>">
+                <input type="hidden" name="oldNom"value="<?php echo $oldUser['NOM_USE'];?>">
+            </p>
+
+            <p><label for="prenom" class="d-flex flex-wrap">Prénom : </label>
+                <input type="text" required="required" name="prenom"value="<?php  echo $oldUser['PRENOM_USE'];?>">
+                <input type="hidden" name="oldPrenom"value="<?php echo $oldUser['PRENOM_USE'];?>">
+            </p>
+
+            <p><label for="mdp" class="d-flex flex-wrap">Mot de passe (provisoire) : </label>
+                <input type="text" required="required" name="mdp"value="<?php echo $oldUser['MDP_USE'];?>">
+                <input type="hidden" name="oldmdp"value="<?php echo $oldUser['MDP_USE'];?>">
+            </p>
+
+            <p><label for="email" class="d-flex flex-wrap">Email : </label>
+                <input type="text" required="required" name="email"value="<?php echo $oldUser['EMAIL_USE'];?>">
+                <input type="hidden" name="oldemail"value="<?php echo $oldUser['EMAIL_USE'];?>">
+            </p>
+
+            <p><label for="addDate" class="d-flex flex-wrap">Date de naissance</label>
+                <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required"name="dateNaissance"value="<?php echo  $oldUser['DATENAISS_USE'];?>">
+                <input type="hidden" name="olddatenaissance"value="<?php echo $oldUser['DATENAISS_USE'];?>">
+            </p>
+
+            <p><label for="adresse" class="d-flex flex-wrap">Adresse : </label>
+                <input type="text" required="required"name="adresse"value="<?php echo $oldUser['ADR_USE'];?>">
+                <input type="hidden" name="oldadresse"value="<?php echo $oldUser['ADR_USE'];?>">
+            </p>
+
+            <p><label for="codepostal" class="d-flex flex-wrap">Code postal : </label>
+                <input type="text" required="required"name="codePostal"value="<?php echo $oldUser['CP_USE'];?>">
+                <input type="hidden" name="oldcodePostal"value="<?php echo $oldUser['CP_USE'];?>">
+            </p>
+
+            <p><label for="ville" class="d-flex flex-wrap">Ville : </label>
+                <input type="text" required="required"name="villeUse"value="<?php echo $oldUser['VILLE_USE'];?>">
+                <input type="hidden" name="oldvilleUse"value="<?php echo $oldUser['VILLE_USE'];?>">
+            </p>
+
+            <p><label for="addDate" class="d-flex flex-wrap">Date de validité de cotisation :</label>
+                <input type="date" id="addDate" placeholder="jj/mm/aaaa" required="required"name="datevalcot"value="<?php echo  $oldUser['DATE_VAL_COTIS'];?>">
+                <input type="hidden" name="olddatevalcot"value="<?php echo $oldUser['DATE_VAL_COTIS'];?>">
+            </p>
+
+
+                <input type="submit" value="Confirmer modification adhérent" id="subEntree">
+                <input type="hidden" name="action" value="updateUse">
+            </div>
+        </fieldset>
+    </form>
+</div>
+<?php } ?>
+
+
+    <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
+    <?php 
+    if ($action == 'responsable'){ ?>
+
+
+    <!--Div centrale-->
+    <div id="colonne2"
+        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
+
+
+
+        <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+            <label class="btn btn-outline-primary" for="btnradio1">BD non rapportées à ce jour</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Toutes les BD non rapportées</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Statistiques</label>
+        </div>
+
 
                                 </tbody>
                             </table>
