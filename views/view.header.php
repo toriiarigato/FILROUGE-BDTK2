@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -77,7 +79,7 @@
 
 
 
-    if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == 'responsable'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' ){ ?>
+    if ($action == 'bibli' or $action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == 'responsable'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd'or $action = "listSerie" ){ ?>
 
     <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
     <!--Grande Div qui englobe tout-->
@@ -161,3 +163,4 @@
             </div>
             <!------------------------------->
             <?php } ?>
+

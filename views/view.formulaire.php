@@ -1,3 +1,4 @@
+
 <!---------------------------------------------------------------------- GESTIONNAIRE DE FOND ----------------------------------------------------------------------------->
 <?php 
 
@@ -5,7 +6,7 @@ spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
 });
 
-    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj"){ ?>
+    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action = "listSerie"){ ?>
 
 <!--Div centrale-->
 <div id="colonne2"
@@ -43,16 +44,30 @@ spl_autoload_register(function($classe){
         <input type="submit" value="Ajouter une serie">
         <input type="hidden" name="action" value="addSerie">
     </form>
-    <input type="text" placeholder="Rechercher une serie">
+    <form method="get" action="">
+        <input type="submit" value="Afficher la liste des series">
+        <input type="hidden" name="action" value="listSerie">
+    </form>
+    <form method="get" action=""> 
+        <input type="text" placeholder="Rechercher une serie" name="searchOneSerie">
+        <input type="submit" value="Rechercher">
+        <input type="hidden" name="action" value="searchSerie">
+    </form>
+   
+    <?php } ?>
 
+    <?php  
+    if ($action == 'listSerie'){ ?>
     <!-- Div de serie-->
+    <hr>
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="serie">
+    </form>
+
     <div class="d-flex flex-wrap justify-content-center">
         </br>
-        <?php            
-            try {
-?>
-        </br>
-        <?php
+<?php
     foreach($tSerie as $ligne) {
 ?>
         <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
@@ -64,20 +79,45 @@ spl_autoload_register(function($classe){
             <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">";
             ?>
         </form>
-        <?php  
-      
-    }
-
-    } catch (PDOException $e) {
-        echo $e->getMessage() . RC;
-        echo "ECHEC de CONNEXION à la BDD" . RC;
-    } catch (Exception $e) {
-        echo $e->getMessage() . RC;
+        <?php    
     }
 ?>
 
     </div>
+    <hr>
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="serie">
+    </form>
     <?php } ?>
+
+<?php
+    if ($action == 'searchSerie') {
+?>
+<?php
+var_dump($tResultat);
+    foreach($tResultat as $ligne) {
+?>
+    <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
+<?php       echo  $ligne[0] . 
+            "<input type=\"hidden\" name=\"libSerieSearch\" value=\"<?php echo $ligne[0] ?>\">
+            <input type=\"hidden\" name=\"codeEmpSearch\" value=\"<?php echo $ligne[1] ?>\">
+            <input type=\"hidden\" name=\"idSerieSearch\" value=\"<?php echo $ligne[2] ?>\">
+            <br><input type=\"submit\" name=\"action\" value=\"Modifier Serie\">
+            <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">";
+            ?>
+        </form>
+<?php    
+    }
+?>
+        <form action="index.php" method="get">
+            <input type="hidden" name="nom" value="<?php echo $tContact[0] ?>">
+            <input type="hidden" name="prenom" value="<?php echo $tContact[1] ?>">
+            <input type="hidden" name="tel" value="<?php echo $tContact[2] ?>">
+            <input type="submit" name="action" value="updContact">
+            <input type="submit" name="action" value="delContact">
+        </form>
+<?php } ?>
 
 
     <?php  if ($action == 'addSerie' or $action == "Modifier Serie"){ ?>
@@ -762,3 +802,4 @@ if ($action == 'deleteAd'){ ?>
 
                     </div>
                     <?php } ?>
+

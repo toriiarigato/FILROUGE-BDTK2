@@ -23,6 +23,30 @@ class SerieMgr {
             
         }
 
+//////////////////////////////////////////////////////////////// Cherche une serie dans la liste ///////////////////////////////////////////////////////////////////
+        /**
+         * Permet de chercher des series
+         * @param le mot clé de la recherche
+         * @return array les series proche de la recherche
+         */
+        public static function searchSerie($search) : array {
+
+            $sql = "SELECT * FROM `serie` 
+                    WHERE (LIBELLE_SERIE LIKE ?)";
+            try {        
+                $connexion = Bdtk::getConnexion();
+                $resultats = $connexion->prepare($sql);
+                $resultats->execute(array('%'.$search.'%'));
+                $records = $resultats->fetchall(pdo::FETCH_ASSOC);
+                Bdtk ::disconnect();
+                return $records;
+            }    
+            catch(PDOException $e)
+            {
+            echo $e->getMessage();
+            }
+        }
+
 //////////////////////////////////////////////////////////////////////// Ajoute une Serie ///////////////////////////////////////////////////////////////////////////////
         /**
          * Permet d'ajouter la serie passée en paramètre

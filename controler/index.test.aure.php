@@ -1,3 +1,4 @@
+
 <?php
 spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
@@ -73,7 +74,10 @@ if (isset($_GET['libSerieDel'])) {
     $idSerieDel = $_GET['idSerieDel'];
 
 }   
-
+if (isset($_GET['searchOneSerie'])){
+    $searchOneSerie = $_GET['searchOneSerie'];
+    $resultat = SerieMgr::searchSerie($searchOneSerie);
+}
 
 
 
@@ -269,7 +273,7 @@ switch ($action){
 
 
 
-    case 'gestionnaire':
+       case 'gestionnaire':
         if ($_SESSION['user']['ID_ROLE']=='3'){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -283,6 +287,18 @@ switch ($action){
 
     case "serie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
+    case "listSerie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
             $tSerie = SerieMgr::getListSerie();
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -293,6 +309,20 @@ switch ($action){
             unset($_SESSION['user']);
         }
         break;
+
+    case "searchSerie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $tResultat = SerieMgr::getListSerie();
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
+
     case "addSerie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){	
             require('../views/view.header.php');
@@ -322,8 +352,10 @@ switch ($action){
 
     case "Supprimer Serie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-            $clearedLibSerie = explode(" ",$libSerieDel);
-            SerieMgr::delSerieByName($clearedLibSerie[2]);
+            $clearedLibSerie = explode("echo",$libSerieDel);
+            $trimmedDel = trim($clearedLibSerie[1]," ?>");
+            SerieMgr::delSerieByName($trimmedDel);
+            var_dump($trimmedDel);
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             require('../views/view.footer.php');
@@ -338,37 +370,36 @@ switch ($action){
         if ($_SESSION['user']['ID_ROLE'] =='3'){
             $oldLibSerie = explode("echo",$libSerieDel);
             $ancienLibSerie = $oldLibSerie[1];
-            $trimmed = trim($ancienLibSerie, "?>");
-$oldCodeEmp = explode(" ",$codeEmpDel);
-$ancientCodeEmp = $oldCodeEmp[2];
-$idSerieFollow = explode(" ",$idSerieDel);
-$nextIdSerie = $idSerieFollow[2];
-require('../views/view.header.php');
-require('../views/view.formulaire.php');
-require('../views/view.footer.php');
-}else{
-$action = 'accueil';
-header('location:../controler/index.test.aure.php');
-unset($_SESSION['user']);
-}
-break;
+            $trimmed = trim($ancienLibSerie, " ?>");
+            $oldCodeEmp = explode(" ",$codeEmpDel);
+            $ancientCodeEmp = $oldCodeEmp[2];
+            $idSerieFollow = explode(" ",$idSerieDel);
+            $nextIdSerie = $idSerieFollow[2];
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+            }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
 
-case "modifMaj" :
-if ($_SESSION['user']['ID_ROLE'] =='3'){
-$idSerieFollow = $_GET["idSerieFollow"];
-$modifCodeEmp = $_GET['modifCodeEmp'];
-$modifLibSerie = $_GET['modifLibSerie'];
-SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
-require('../views/view.header.php');
-require('../views/view.formulaire.php');
-require('../views/view.footer.php');
-}else{
-$action = 'accueil';
-header('location:../controler/index.test.aure.php');
-unset($_SESSION['user']);
-}
-break;
-
+    case "modifMaj" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $idSerieFollow = $_GET["idSerieFollow"];
+            $modifCodeEmp = $_GET['modifCodeEmp'];
+            $modifLibSerie = $_GET['modifLibSerie'];
+            SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
+            }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+            }
+            break;
 case 'adherent';
 require('../views/view.header.php');
 require('../views/view.search.php');
