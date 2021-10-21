@@ -20,12 +20,12 @@ $libSerieDel = "";
 $codeEmpDel = "";
 $idSerieDel = "";
 
+$tSerie = [];
 $resultat = [];
 
 if (isset($_GET['recherche'])){
     $recherche = $_GET['recherche'];
     $resultat = UserMgr::searchUser($recherche);
-    // var_dump($resultat);
 }
 
 if (isset($_GET['idUse'])){
@@ -38,8 +38,6 @@ if (isset($_GET['nom']) || isset($_GET['prenom'])){
     $prenomUse = $_GET['prenom'];
     $adresseUse = $_GET['adresse'];
 }
-
-
 
 print_r($_GET);
 if (isset($_SESSION['user'])){
@@ -76,7 +74,7 @@ if (isset($_GET['libSerieDel'])) {
 }   
 if (isset($_GET['searchOneSerie'])){
     $searchOneSerie = $_GET['searchOneSerie'];
-    $resultat = SerieMgr::searchSerie($searchOneSerie);
+    $tResultat = SerieMgr::searchSerie($searchOneSerie);
 }
 
 
@@ -312,7 +310,7 @@ switch ($action){
 
     case "searchSerie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-            $tResultat = SerieMgr::getListSerie();
+            $tSerie = SerieMgr::getListSerie();
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             require('../views/view.footer.php');
