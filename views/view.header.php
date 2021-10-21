@@ -15,7 +15,7 @@
 </head>
 
 
-<body background="../SRC/bg.jpg">
+<!-- <body background="../SRC/bg.jpg"> -->
 
 
 

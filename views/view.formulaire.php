@@ -39,8 +39,6 @@ spl_autoload_register(function($classe){
     </div>
     <?php } ?>
 
-    <?php } ?>
-
     <?php  
     if ($action == 'serie'){ ?>
     <hr>
@@ -534,7 +532,7 @@ if ($action == 'afficheListUser'){ ?>
             </td>
             <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Supprimer</button>
             <input type="hidden" name="action" value="deleteAd">
-            <input type="hidden" name="idUse" value="<?php echo $lignes[\'ID_USE\'];?>">
+            <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
 
 
             </td>
