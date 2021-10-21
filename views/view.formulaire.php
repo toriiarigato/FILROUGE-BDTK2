@@ -5,7 +5,7 @@ spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
 });
 
-    if ($action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == "listSerie"  or $action == "searchSerie" or $action == "album" or $action == "listAlbum"){ ?>
+    if ($action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == "listSerie"  or $action == "searchSerie" or $action == "album" or $action == "listAlbum" or $action == "searchAlbum" or $action == "addAlbum"){ ?>
 
 <!--Div centrale-->
 <div id="colonne2"
@@ -184,7 +184,7 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="addAlbum">
     </form>
     <form method="get" action="">
-        <input type="submit" value="Afficher la liste des albums">
+        <input type="submit" name ="demarrageListe" value="Afficher la liste des albums">
         <input type="hidden" name="action" value="listAlbum">
     </form>
     <form method="get" action="">
@@ -192,7 +192,6 @@ spl_autoload_register(function($classe){
         <input type="submit" value="Rechercher">
         <input type="hidden" name="action" value="searchAlbum">
     </form>
-
     <?php } ?>
 
     <?php  
@@ -204,18 +203,19 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="album">
     </form>
 
-    <div class="d-flex flex-wrap justify-content-center ">
+    <div class="d-flex flex-wrap justify-content-center overflow-auto ">
         </br>
-        <?php
-    foreach($tAlbum as $ligne) {
+<?php
+    foreach($tAlbum as $ligne)  {   
 ?>
-        <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2 overflow-auto">
-            <?php       echo  $ligne[1] . 
-            "<input type=\"hidden\" name=\"numAlb\" value=\"<?php echo $ligne[0] ?>\">
-            <input type=\"hidden\" name=\"titreAlb\" value=\"<?php echo $ligne[1] ?>\">
-            <input type=\"hidden\" name=\"numSaga\" value=\"<?php echo $ligne[2] ?>\">
-            <input type=\"hidden\" name=\"idSerieAlb\" value=\"<?php echo $ligne[5] ?>\">
-            <img src=\"../SRC/\" <br><input type=\"submit\" name=\"action\" value=\"Détails\">
+ <?php      echo "<form method=\"get\" action=\"\" class=\"d-flex flex-column column align-items-center\">".
+                     $ligne["TITRE_ALBUM"]  .
+            "<img src=\"../SRC/albumsMini/" .$ligne["LIB_POCH_ALB"] ."\">\n".
+            "<input type=\"hidden\" name=\"numAlb\" value=".$ligne['NUMERO_ALBUM'] . ">
+            <input type=\"hidden\" name=\"titreAlb\" value=" . $ligne["TITRE_ALBUM"] . ">
+            <input type=\"hidden\" name=\"numSaga\" value=". $ligne["NUMERO_SAGA"] . ">
+            <input type=\"hidden\" name=\"idSerieAlb\" value=" . $ligne["IDENTIFIANT_SERIE"] .">
+            <br><input type=\"submit\" name=\"action\" value=\"Détails\">
             <input type=\"submit\" name=\"action\" value=\"Modifier Album\">
             <input type=\"submit\" name=\"action\" value=\"Supprimer Album\">";
             ?>
@@ -230,6 +230,103 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="album">
     </form>
     <?php } ?>
+
+<?php if ($action == 'searchAlbum') { ?>
+    <?php if (count($tResultat)>0){
+    foreach($tResultat as $ligne) {
+?>
+    <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2 overflow-auto">
+        <?php       echo  $ligne[1] . 
+        "<input type=\"hidden\" name=\"numAlb\" value=\"<?php echo $ligne[0] ?>\">
+        <input type=\"hidden\" name=\"titreAlb\" value=\"<?php echo $ligne[1] ?>\">
+        <input type=\"hidden\" name=\"numSaga\" value=\"<?php echo $ligne[2] ?>\">
+        <br><input type=\"submit\" name=\"action\" value=\"Modifier Album\">
+        <input type=\"submit\" name=\"action\" value=\"Supprimer Album\">";
+        ?>
+    </form>
+    <?php    
+    }
+}else echo'<p> Aucun résultat </p>';
+?>
+
+    <form action="">
+        <input type="submit" value="Retour">
+        <input type="hidden" name="action" value="album">
+    </form>
+
+    <?php } ?>
+
+    
+<?php  if ($action == 'addAlbum' or $action == "Modifier Album"){ ?>
+
+<form method="get" action="">
+    <fieldset class="">
+        <?php  if ($action != "Modifier Album"){ ?>
+        <label for="numAlb"> Numéro Album</label>
+        <input type="text" name="numAlb" id="numAlb" required="required" />
+        <br />
+
+        <label for="titreAlb">Titre de l'album</label>
+        <input type="text" name="titreAlb" id="titreAlb" required="required" />
+        <br />
+
+        <label for="numSaga"> Numéro dans la saga </label>
+        <input type="text" name="numSaga" id="numSaga" required="required" />
+        <br />
+
+        <label for="prixAlb"> Prix de l'album </label>
+        <input type="text" name="prixAlb" id="prixAlb" required="required" />
+        <br />
+
+        <label for="idAuteur">Identifiant de l'auteur</label>
+        <input type="text" name="idAuteur" id="idAuteur" required="required" />
+        <br />
+
+        <label for="idSerie"> Identifiant de la serie </label>
+        <input type="text" name="idSerie" id="idSerie" required="required" />
+        <br />
+
+        <label for="idUser"> Votre identifiant </label>
+        <input type="text" name="idSerie" id="idSerie" value="<?php echo $_SESSION['user']['ID_USE']; ?>" required="required" />
+        <br />
+
+        <label for="idLibAlb"> Libellé de la pochette </label>
+        <input type="text" name="idLibAlb" id="idLibAlb" required="required" />
+        <br />
+
+
+        <input type="submit" value="Ajouter nouvelle serie" />
+        <input type="hidden" name="action" value="addSerieMaj">
+        <?php } ?>
+
+
+        <?php  if($action == "Modifier Serie"){ ?>
+
+        <label for="libSerie">Libellé serie</label>
+        <input type="text" name="modifLibSerie" id="libSerie" required="required" value="<?php echo $trimmed; ?>" />
+        <br />
+
+        <label for="codeEmp">Code Emplacement </label>
+        <input type="text" name="modifCodeEmp" id="codeEmp" required="required"
+            value="<?php echo $ancientCodeEmp; ?>" />
+        <br />
+        <input type="submit" value="Confirmer modifications" />
+        <input type="hidden" name="action" value="modifMaj">
+        <input type="hidden" name="idSerieFollow" value="<?php echo $nextIdSerie; ?>" />
+        <input type="hidden" name="ancienLibSerie" value="<?php echo $trimmed; ?>" />
+        <input type="hidden" name="ancienCodeEmp" value="<?php echo $ancientCodeEmp; ?>" />
+        <?php } ?>
+
+    </fieldset>
+</form>
+
+<form action="">
+    <input type="submit" value="Retour">
+    <input type="hidden" name="action" value="album">
+</form>
+
+
+<?php } ?>
 
 
     <?php
