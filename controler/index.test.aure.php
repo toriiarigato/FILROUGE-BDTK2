@@ -1,3 +1,4 @@
+
 <?php
 spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
@@ -11,6 +12,9 @@ $msgErreur = '';
 $idSerie = "";
 $libSerie = "";
 $codeEmp = "";
+$nomUse = "";
+$prenomUse = "";
+$adresseUse = "";
 
 $libSerieDel = "";
 $codeEmpDel = "";
@@ -29,6 +33,14 @@ if (isset($_GET['idUse'])){
     print_r($_GET['idUse']);
 }
 
+if (isset($_GET['nom']) || isset($_GET['prenom'])){
+    $nomUse = $_GET['nom'];
+    $prenomUse = $_GET['prenom'];
+    $adresseUse = $_GET['adresse'];
+}
+
+
+
 print_r($_GET);
 if (isset($_SESSION['user'])){
     print_r($_SESSION['user']);
@@ -36,12 +48,14 @@ if (isset($_SESSION['user'])){
 
 if (isset($_GET['action'])){
     $action=$_GET['action'];
+
 }
 
 if (isset($_GET['id'],$_GET['motdepass'])){
     $id = $_GET['id'];
     $mdp = $_GET['motdepass'];
 }
+
 
 if (isset($_GET['recherche'])){
     $recherche = $_GET['recherche'];
@@ -58,12 +72,13 @@ if (isset($_GET['libSerieDel'])) {
     $libSerieDel = $_GET['libSerieDel'];
     $codeEmpDel = $_GET['codeEmpDel'];
     $idSerieDel = $_GET['idSerieDel'];
-}   
 
+}   
 if (isset($_GET['searchOneSerie'])){
     $searchOneSerie = $_GET['searchOneSerie'];
     $resultat = SerieMgr::searchSerie($searchOneSerie);
 }
+
 
 
 switch ($action){
@@ -255,7 +270,10 @@ switch ($action){
         }
         break;
 
-    case 'gestionnaire':
+
+
+
+       case 'gestionnaire':
         if ($_SESSION['user']['ID_ROLE']=='3'){
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
@@ -382,7 +400,6 @@ switch ($action){
             unset($_SESSION['user']);
             }
             break;
-
 case 'adherent';
 require('../views/view.header.php');
 require('../views/view.search.php');
