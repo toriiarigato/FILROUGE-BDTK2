@@ -123,7 +123,7 @@
         <?php 
 
 
-    if ($action == 'afficheListUser' or $action == 'resRechercheAd' or $action == 'deleteAd'){ ?>
+    if ($action == 'afficheListUser' or $action == 'resRechercheAd' or $action == 'deleteAd'or $action == 'createUse' or $action == 'updateAd' or $action == 'updateUse'){ ?>
 
 
         <!-- Fonctionnne pour le GESTIONNAIRE DE FOND, LE RESPONSABLE ET LE BIBLIOTHECAIRE vu que les pages sont trés similaires -->
