@@ -53,6 +53,7 @@ if (isset($_GET['recherche'])){
 
 if (isset($_GET['idUse'])){
     $idUse = $_GET['idUse'];
+    $oldUser = UserMgr::getUserById2($idUse);
     print_r($_GET['idUse']);
 }
 
@@ -66,6 +67,10 @@ if (isset($_GET['nom']) || isset($_GET['prenom'])){
     $codePostal = $_GET['codePostal'];
     $villeUse = $_GET['villeUse'];
     
+}
+
+if (isset($_GET['nom'])){
+    $newNom = $_GET['nom'];
 }
 
 print_r($_GET);
@@ -82,6 +87,7 @@ if (isset($_GET['id'],$_GET['motdepass'])){
     $id = $_GET['id'];
     $mdp = $_GET['motdepass'];
 }
+
 
 
 // if (isset($_GET['recherche'])){
@@ -276,9 +282,8 @@ switch ($action){
         //---------------------------------------------------------------- update ADHERENT -------------------------------------------------------------------------
     case'updateAd':
             // echo $idUse;
-            $oldUser = UserMgr::getUserById2($idUse);
             if ($_SESSION['user']['ID_ROLE']=='2'){
-                $tResultats = (UserMgr::getListUser());
+                // $tResultats = (UserMgr::getListUser());
                 require('../views/view.header.php');
                 require('../views/view.formulaire.php');
             }else{
@@ -290,15 +295,44 @@ switch ($action){
         //---------------------------------------------------------------- controle et affiche update ADHERENT -------------------------------------------------------------------------
     case'updateUse':
         if ($_SESSION['user']['ID_ROLE']=='2'){
+            $oldUser = UserMgr::getUserById($_GET['oldemail']);
+            // var_dump($oldUser);
             $resultEmail = UserMgr::checkDoublonEmail($_GET['email']);
             if (is_numeric($_GET['nom'])){
                 $messageCreate = "Le nom ne doit comporter que des lettres";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+            }elseif(is_numeric($_GET['prenom'])){
+                $messageCreate = "Le prenom ne doit comporter que des lettres";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+                
+            }elseif(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $mdpUse)){
+                $messageCreate = "Mot de passe au format invalide";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+
+            }elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/",$emailUse)){
+                $messageCreate = "Email au format invalide";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+
+            }elseif(!is_numeric($codePostal)){
+                $messageCreate = "Le code postal doit comporter des chiffres";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+            
+            }elseif($resultEmail>0){
+                $messageCreate = "L'email existe déjà dans la base de données";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+            
             }else{
                 UserMgr::updateUser($_GET['nom'],$_GET['prenom'],$_GET['mdp'],$_GET['email'],$_GET['dateNaissance'],$_GET['adresse'],$_GET['codePostal'],$_GET['villeUse'],$_GET['datevalcot'],$_GET['oldemail']);
                 require('../views/view.header.php');
                 require('../views/view.formulaire.php');
                 echo "L'adhérent a bien été modifié";
-            }
+                }
 
         }else{
             $action = 'accueil';
@@ -367,7 +401,6 @@ switch ($action){
                 $message = "l'Adhérent N° ". $idUse. " a bien été supprimé";
                 require('../views/view.header.php');
                 require('../views/view.formulaire.php');
-
             }
         }else{
             $action = 'accueil';
