@@ -6,7 +6,7 @@ spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
 });
 
-    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action = "listSerie"){ ?>
+    if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == "listSerie"or $action == "searchSerie"){ ?>
 
 <!--Div centrale-->
 <div id="colonne2"
@@ -35,6 +35,7 @@ spl_autoload_register(function($classe){
             <input type="hidden" name="action" value="auteur">
         </form>
     </div>
+    <?php } ?>
 
     <?php  
     if ($action == 'serie'){ ?>
@@ -53,7 +54,7 @@ spl_autoload_register(function($classe){
         <input type="submit" value="Rechercher">
         <input type="hidden" name="action" value="searchSerie">
     </form>
-   
+
     <?php } ?>
 
     <?php  
@@ -177,7 +178,7 @@ var_dump($tResultat);
     </form>
     <?php } ?>
 
-    <?php } ?>
+
 
 
     <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
@@ -354,6 +355,8 @@ var_dump($tResultat);
             <input type="hidden" name="action" value="gestionAd">
         </form>
     </div>
+    
+    <?php } ?>
 
     <!-- ////////////////////////////////////////////////////////////////////////EMPRUNTS /////////////////////////////////////////////////////////////////////////////// -->
     <?php 
@@ -429,6 +432,7 @@ var_dump($tResultat);
             </form>
         </div>
         <?php } ?>
+        
         <!-- ////////////////////////////////////////////////////////////////////////NOUVEL ADHERENT /////////////////////////////////////////////////////////////////////////////// -->
         <?php 
     if ($action == 'nouvelAd'){ ?>
@@ -635,82 +639,59 @@ if ($action == 'afficheListUser'){ ?>
                     </div>
                     <?php } ?>
 
-                    <!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+<!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+<?php 
+    if ($action == 'resRechercheAd'){ ?>
+    <div id="colonne2"
+        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
+
+
+        <div>
+            <h2>Faire une recherche</h2>
+        </div>
+        <div class="d-flex-wrap text justify-content-center">
+            <form action="" method="get"></form>
+            <div>
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="text"
+                        placeholder="Entrez votre recherche ici" name="recherche" required="required">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit"
+                        id="rechercher">Rechercher</button>
+                    <input type="hidden" name="action" value="resRechercheAd">
+                </form>
+            </div>
+        </div>
+        <div class="d-flex-wrap text justify-content-center">
+            <form action="" method="get"></form>
+            <div>
+                <form class="d-flex">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                        utilisateurs</button>
+                    <input type="hidden" name="action" value="afficheListUser">
+                </form>
+            </div>
+        </div>
+        <div>
+            <h2>Résultats</h2>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center overflow-auto table-responsive "
+            id="affiche">
+            <table class="table table-hover table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">N° Adhérent :</th>
+                        <th scope="col">Nom :</th>
+                        <th scope="col">Prénom :</th>
+                        <th scop="col">Email :</th>
+                        <th scope="col">Date de naissance :</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="album">
                     <?php 
-if ($action == 'resRechercheAd'){ ?>
-                    <div id="colonne2"
-                        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
-
-                        <!-- <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
-                        aria-label="Basic radio toggle button group">
-                        <form action="" method="get">
-                            <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
-                            <input type="hidden" name="action" value="emprunt">
-                        </form>
-                        <form action="" method="get">
-                            <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
-                            <input type="hidden" name="action" value="retour">
-                        </form>
-                        <form action="" method="get">
-                            <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
-                            <input type="hidden" name="action" value="nouvelAd">
-                        </form>
-                        <form action="" method="get">
-                            <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
-                            <input type="hidden" name="action" value="gestionAd">
-                        </form> -->
-                        <!-- </div> -->
-
-                        <div>
-                            <h2>Faire une recherche</h2>
-                        </div>
-                        <div class="d-flex-wrap text justify-content-center">
-                            <form action="" method="get"></form>
-                            <div>
-                                <form class="d-flex">
-                                    <input class="form-control me-sm-2" type="text"
-                                        placeholder="Entrez votre recherche ici" name="recherche" required="required">
-                                    <button class="btn btn-secondary my-2 my-sm-0" type="submit"
-                                        id="rechercher">Rechercher</button>
-                                    <input type="hidden" name="action" value="resRechercheAd">
-                                </form>
-                            </div>
-                        </div>
-                        <div class="d-flex-wrap text justify-content-center">
-                            <form action="" method="get"></form>
-                            <div>
-                                <form class="d-flex">
-                                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
-                                        utilisateurs</button>
-                                    <input type="hidden" name="action" value="afficheListUser">
-                                </form>
-                            </div>
-                        </div>
-                        <div>
-                            <h2>Résultats</h2>
-                        </div>
-                        <div class="d-flex flex-wrap justify-content-center overflow-auto table-responsive "
-                            id="affiche">
-                            <table class="table table-hover table align-middle">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">N° Adhérent :</th>
-                                        <th scope="col">Nom :</th>
-                                        <th scope="col">Prénom :</th>
-                                        <th scop="col">Email :</th>
-                                        <th scope="col">Date de naissance :</th>
-                                        <th scope="col"></th>
-                                        <th scope="col"></th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody id="album">
-                                    <?php 
 
     if (count($resultat)>0){
         foreach($resultat as $lignes){
@@ -728,78 +709,199 @@ if ($action == 'resRechercheAd'){ ?>
             <input type="hidden" name="idUse" value="<?php echo $lignes[\'ID_USE\'];?>">
 
 
+            </td>
+            </form>
+            </tr>';
+            }
+            }
+            }else echo'<p> Aucun résultat </p>';
+            ?>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php } ?>
+<!-- ///////////////////////////////////////////////////////////////vue delete ADHERENTS ///////////////////////////////////////////////////////////////////// -->
+<?php 
+    if ($action == 'deleteAd'){ ?>
+
+        <div>
+            <h2>Faire une recherche</h2>
+        </div>
+        <div class="d-flex-wrap text justify-content-center">
+            <form action="" method="get"></form>
+            <div>
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
+                        name="recherche" required="required">
+                    <input type="hidden" name="action" value="resRechercheAd">
+
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit"
+                        id="rechercher">Rechercher</button>
+
+                </form>
+            </div>
+        </div>
+        <div class="d-flex-wrap text justify-content-center">
+            <form action="" method="get"></form>
+            <div>
+                <form class="d-flex">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
+                        utilisateurs</button>
+                    <input type="hidden" name="action" value="afficheListUser">
+                </form>
+            </div>
+        </div>
+
+
+<?php } ?>
+
+    <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
+    <?php 
+    if ($action == 'responsable'){ ?>
+
+
+    <!--Div centrale-->
+    <div id="colonne2"
+        class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
+
+
+        <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+            <label class="btn btn-outline-primary" for="btnradio1">BD non rapportées à ce jour</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Toutes les BD non rapportées</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Statistiques</label>
+        </div>
+
+        <!--Div de nouvelle entrée-->
+        <div class="d-flex flex-wrap justify-content-center" id="newEntryDiv">
+            <form method="GET" action="../HTML/gestionnaire-de-fond.html" id="form">
+                </br>
+                <fieldset class="d-flex flex-column flex-wrap justify-content-stretch">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ISBN</th>
+                                <th scope="col">Code Exemplaire</th>
+                                <th scope="col">Serie</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">Emprunté par :</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">22</th>
+                                <td>74</td>
+                                <td>Marsupilami</td>
+                                <td>Le papillon des cimes</td>
+                                <td>Lebarbare Conan</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">58</th>
+                                <td>58</td>
+                                <td>Tintin</td>
+                                <td>Tintin en amérique</td>
+                                <td>Lebarbare Conan</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">07</th>
+                                <td>32</td>
+                                <td>Les légendaires</td>
+                                <td>Aube et futur</td>
+                                <td>Lebarbare Conan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                </fieldset>
+            </form>
+        </div>
+
+        <!--Div d'ajout exemplaire-->
+        <div id="addExDiv" class="d-none justify-content-center flex-wrap">
+            <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                </br>
+                <fieldset class="d-flex flex-column justify-content-evenly">
+                    <form method="GET" action="responsable.html">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Jours de retard</th>
+                                    <th scope="col">ISBN</th>
+                                    <th scope="col">Code exemplaire</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Emprunté par :</th>
+                                    <th scope="col">Envoi lettre de rappel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">15</th>
+                                    <td>21</td>
+                                    <td>12</td>
+                                    <td>Toto Tata Titi Tutu</td>
+                                    <td>Tyty</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
                                     </td>
-                                    </form>
-                                    </tr>';
-                                    }
-                                    }
-                                    }else echo'<p> Aucun résultat </p>';
-                                    ?>
+                                </tr>
+                                <tr>
+                                    <th scope="row">9</th>
+                                    <td>11</td>
+                                    <td>06</td>
+                                    <td>Star wars : La guerre des clowns</td>
+                                    <td>Anakin Marcheciel</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">8</th>
+                                    <td>33</td>
+                                    <td>63</td>
+                                    <td>Harry Potter est resté sous l'escalier</td>
+                                    <td>FlyOfDeath</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>78</td>
+                                    <td>96</td>
+                                    <td>Mimi Mathy : "J'ai grandi"</td>
+                                    <td>Mimy Mathy</td>
+                                    <td>
+                                        <p class="d-flex justify-content-center"><input type="checkbox"></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="button" value="Envoyer les lettres de rappel" id="lettreRappel">
+                        <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                    </form>
+                </fieldset>
+            </form>
+        </div>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <?php } ?>
-                    <!-- ///////////////////////////////////////////////////////////////vue delete ADHERENTS ///////////////////////////////////////////////////////////////////// -->
-                    <?php 
-if ($action == 'deleteAd'){ ?>
-                    <!-- <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
-                aria-label="Basic radio toggle button group">
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">Emprunt</label>
-                    <input type="hidden" name="action" value="emprunt">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Retour</label>
-                    <input type="hidden" name="action" value="retour">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio3">Nouvel adhérent</label>
-                    <input type="hidden" name="action" value="nouvelAd">
-                </form>
-                <form action="" method="get">
-                    <input type="submit" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio4">Gestion adhérents</label>
-                    <input type="hidden" name="action" value="gestionAd">
-                </form>
-            </div> -->
+        <!--Div de suppression d'exemplaire-->
+        <div id="delExDiv" class="d-none justify-content-center flex-wrap">
+            <form method="GET" action="../HTML/gestionnaire-de-fond.html">
+                </br>
+                <fieldset class="d-flex flex-column justify-content-evenly">
+                    <p class="text-danger"> FONCTIONNALITE EN TRAVAUX</p>
+                </fieldset>
+            </form>
+        </div>
 
-                    <div>
-                        <h2>Faire une recherche</h2>
-                    </div>
-                    <div class="d-flex-wrap text justify-content-center">
-                        <form action="" method="get"></form>
-                        <div>
-                            <form class="d-flex">
-                                <input class="form-control me-sm-2" type="text" placeholder="Entrez votre recherche ici"
-                                    name="recherche" required="required">
-                                <input type="hidden" name="action" value="resRechercheAd">
-
-                                <button class="btn btn-secondary my-2 my-sm-0" type="submit"
-                                    id="rechercher">Rechercher</button>
-
-                            </form>
-                        </div>
-                    </div>
-                    <div class="d-flex-wrap text justify-content-center">
-                        <form action="" method="get"></form>
-                        <div>
-                            <form class="d-flex">
-                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Afficher la liste des
-                                    utilisateurs</button>
-                                <input type="hidden" name="action" value="afficheListUser">
-                            </form>
-                        </div>
-                    </div>
-                    <div>
-
-                        <?php } ?>
+    </div>
+</div>
+<?php } ?>
 
 
-                    </div>
-                    <?php } ?>
+
+                    
 
