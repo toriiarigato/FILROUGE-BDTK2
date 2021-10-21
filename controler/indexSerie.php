@@ -42,10 +42,8 @@
 <?php        echo  "<hr><li>" . strToUpper($ligne) . "</li>\n" . "<button>Details</button>" . "<button>Modifier</button>" . "<button>Supprimer</button></br></br>"; 
 ?>
         </form>
-<?php  
-      
+<?php      
     }
-
     } catch (PDOException $e) {
         echo $e->getMessage() . RC;
         echo "ECHEC de CONNEXION à la BDD" . RC;

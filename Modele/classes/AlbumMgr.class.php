@@ -124,6 +124,53 @@ class AlbumMgr {
             return $nombre; 
         }
 
+                     /**
+         * Permet de modifier l'album passé en paramètre
+         * @param un objet album
+         * @return nombre d'album mis à jour
+         */
+        public static function getPic($libSerie, $numSaga, $libPoch) {
+            // Prépare la requête SQL
+            $sql = "SELECT CONCAT(s.:libSerie,\"-\", a.:numSaga,\"-\", a.:libPoch)  FROM serie s
+                    JOIN album a ON a.IDENTIFIANT_SERIE = s.IDENTIFIANT_SERIE";
+                    
+            $rs = Bdtk::getConnexion()->prepare($sql);
+
+            // exécution requête
+            $rs->execute(array(":libSerie"=>$libSerie,":libSerie"=>$numSaga,":codeEmp"=>$libPoch));
+            
+            $nombre = $rs->rowCount();
+            
+            // pour faire propre
+            $rs->closeCursor();
+            Bdtk::disconnect();
+            return $nombre; 
+        }
+
+
+                     /**
+         * Permet de modifier l'album passé en paramètre
+         * @param un objet album
+         * @return nombre d'album mis à jour
+         */
+        public static function getLibSerie($idSerie) {
+            // Prépare la requête SQL
+            $sql = "SELECT LIBELLE_SERIE from serie
+                    WHERE IDENTIFIANT_SERIE = :idSerie";
+                    
+            $rs = Bdtk::getConnexion()->prepare($sql);
+
+            // exécution requête
+            $rs->execute(array(":idSerie"=>$idSerie));
+            
+            $nombre = $rs->rowCount();
+            
+            // pour faire propre
+            $rs->closeCursor();
+            Bdtk::disconnect();
+            return $nombre; 
+        }
+ 
 }
 
 ?>

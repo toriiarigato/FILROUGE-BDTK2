@@ -23,7 +23,7 @@ class SerieMgr {
             
         }
 
-//////////////////////////////////////////////////////////////// Cherche une serie dans la liste ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////// Cherche une serie dans la liste avec un NOM ///////////////////////////////////////////////////////////////////
         /**
          * Permet de chercher des series
          * @param le mot clé de la recherche
@@ -37,7 +37,56 @@ class SerieMgr {
                 $connexion = Bdtk::getConnexion();
                 $resultats = $connexion->prepare($sql);
                 $resultats->execute(array('%'.$search.'%'));
-                $records = $resultats->fetchall(pdo::FETCH_ASSOC);
+                $records = $resultats->fetchAll();
+                Bdtk ::disconnect();
+                return $records;
+            }    
+            catch(PDOException $e)
+            {
+            echo $e->getMessage();
+            }
+        }
+
+        
+//////////////////////////////////////////////////////////////// Cherche une serie dans la liste avec un ID ///////////////////////////////////////////////////////////////////
+        /**
+         * Permet de chercher des series
+         * @param le mot clé de la recherche
+         * @return array les series proche de la recherche
+         */
+        public static function searchSerieID($search) : array {
+
+            $sql = "SELECT * FROM `serie` 
+                    WHERE IDENTIFIANT_SERIE = ?";
+            try {        
+                $connexion = Bdtk::getConnexion();
+                $resultats = $connexion->prepare($sql);
+                $resultats->execute(array($search));
+                $records = $resultats->fetchAll();
+                Bdtk ::disconnect();
+                return $records;
+            }    
+            catch(PDOException $e)
+            {
+            echo $e->getMessage();
+            }
+        }
+
+        //////////////////////////////////////////////////////////////// Cherche une serie dans la liste avec un ID ///////////////////////////////////////////////////////////////////
+        /**
+         * Permet de chercher des series
+         * @param le mot clé de la recherche
+         * @return array les series proche de la recherche
+         */
+        public static function searchCodeEmp($search) : array {
+
+            $sql = "SELECT * FROM `emplacement` 
+                    WHERE CODE_EMPLACEMENT = ?";
+            try {        
+                $connexion = Bdtk::getConnexion();
+                $resultats = $connexion->prepare($sql);
+                $resultats->execute(array($search));
+                $records = $resultats->fetchAll();
                 Bdtk ::disconnect();
                 return $records;
             }    
@@ -54,7 +103,7 @@ class SerieMgr {
          * @return nombre de serie ajoutées
          */
         // Doit utiliser un emplacement existant
-        public static function addSerie(Serie $serie)   {
+        public static function addSerie(Serie $serie) : int  {
             
             $sql = "INSERT INTO serie 
                     VALUES (:idSerie, :libSerie, :codeEmp)";
@@ -67,11 +116,16 @@ class SerieMgr {
 
                 $rs->closeCursor();
                 Bdtk::disconnect();
+                
+                if (!$serie){
+                throw new Exception('Erreur : Veuillez remplir les champs correctement'); 
+
+                }
                 return $nombre; 
             }
             catch(PDOException $e)
             {
-                echo $e->getMessage();
+                echo $e->getMessage();    
             }
         }
 
@@ -156,7 +210,32 @@ class SerieMgr {
             catch(PDOException $e){    
                 echo $e->getMessage();
             }
-       }  
+       }
+
+       ////////////////////////////////////////////////////////////////// Verifie si il reste des albums pour une serie //////////////////////////////////////////////////////////////////////////////////
+       
+       public static function checkAlbum($idSerie)  {
+        $sql = "SELECT * FROM album WHERE IDENTIFIANT_SERIE =?";
+        try {
+            $resultats = Bdtk::getConnexion()->prepare($sql);
+
+            // exécution requête
+
+            $resultats->execute(array($idSerie));
+
+            $nombre = $resultats->rowCount();
+            // pour faire propre
+            $resultats->closeCursor();
+            Bdtk::disconnect();
+            $count = $resultats->rowCount();
+    
+        return $count;
+        }
+        
+        catch(PDOException $e){
+            echo $e->getMessage();
+        }
+    }
 
 }
 ?>
