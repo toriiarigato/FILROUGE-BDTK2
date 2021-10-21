@@ -45,6 +45,20 @@ class UserMgr {
         public static function getUserById($id){ 
             echo $id;
             $connexion = Bdtk::getConnexion();
+            $sql = 'SELECT * FROM utilisateur WHERE EMAIL_USE = ?';
+            $resultats = $connexion->prepare($sql);
+            $resultats->execute(array($id));
+            // $resultats->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,"User",array('nomUser','prenomUser','mdpUser','emailUser','idRole','libAvatar','dateNaisseUser','adrUser','cpUser','villeUser','idUserCreate','iduserUpdate','dateValCot','idUserdel'));
+            $records = $resultats->fetch(pdo::FETCH_ASSOC);
+            Bdtk ::disconnect();
+
+            return $records;
+
+        }
+
+        public static function getUserById2($id){ 
+            echo $id;
+            $connexion = Bdtk::getConnexion();
             $sql = 'SELECT * FROM utilisateur WHERE ID_USE = ?';
             $resultats = $connexion->prepare($sql);
             $resultats->execute(array($id));
