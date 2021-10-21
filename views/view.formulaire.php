@@ -6,11 +6,13 @@ spl_autoload_register(function($classe){
     include "../Modele/classes/" . $classe . ".class.php";
 });
 
+
     if ($action == 'gestionnaire' or $action == 'serie' or $action == 'addSerie' or $action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "Modifier Serie" or $action == "modifMaj" or $action == "listSerie"or $action == "searchSerie"){ ?>
+
 
 <!--Div centrale-->
 <div id="colonne2"
-    class="d-flex flex-column column align-items-center overflow-auto border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 ">
+    class="d-flex flex-column column align-items-center border border-3 rounded rounded-3 shadow p-3 bg-body rounded m-2 ">
 
     <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
         aria-label="Basic radio toggle button group">
@@ -35,6 +37,8 @@ spl_autoload_register(function($classe){
             <input type="hidden" name="action" value="auteur">
         </form>
     </div>
+    <?php } ?>
+
     <?php } ?>
 
     <?php  
@@ -71,7 +75,7 @@ spl_autoload_register(function($classe){
 <?php
     foreach($tSerie as $ligne) {
 ?>
-        <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
+        <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2 overflow-auto">
             <?php       echo  $ligne[0] . 
             "<input type=\"hidden\" name=\"libSerieDel\" value=\"<?php echo $ligne[0] ?>\">
             <input type=\"hidden\" name=\"codeEmpDel\" value=\"<?php echo $ligne[1] ?>\">
@@ -99,7 +103,7 @@ spl_autoload_register(function($classe){
 var_dump($tResultat);
     foreach($tResultat as $ligne) {
 ?>
-    <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2">
+    <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2 overflow-auto">
 <?php       echo  $ligne[0] . 
             "<input type=\"hidden\" name=\"libSerieSearch\" value=\"<?php echo $ligne[0] ?>\">
             <input type=\"hidden\" name=\"codeEmpSearch\" value=\"<?php echo $ligne[1] ?>\">
@@ -212,6 +216,8 @@ var_dump($tResultat);
     </div>
     
     <?php } ?>
+
+
 
     <!-- ////////////////////////////////////////////////////////////////////////EMPRUNTS /////////////////////////////////////////////////////////////////////////////// -->
     <?php 
@@ -561,7 +567,6 @@ if ($action == 'afficheListUser'){ ?>
 
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit"
                         id="rechercher">Rechercher</button>
-
                 </form>
             </div>
         </div>
@@ -576,8 +581,8 @@ if ($action == 'afficheListUser'){ ?>
             </div>
         </div>
 
-
 <?php } ?>
+
 
     <!-------------------------------------------------------------------------- RESPONSABLE --------------------------------------------------------------------------------->
     <?php 
@@ -587,6 +592,7 @@ if ($action == 'afficheListUser'){ ?>
     <!--Div centrale-->
     <div id="colonne2"
         class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
+
 
 
         <div class="d-flex flex-wrap btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -722,8 +728,4 @@ if ($action == 'afficheListUser'){ ?>
     </div>
 </div>
 <?php } ?>
-
-
-
-                    
 
