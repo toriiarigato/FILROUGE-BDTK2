@@ -212,25 +212,23 @@ switch ($action){
         }
         break;
         //---------------------------------------------------------------- RECHERCHE ADHERENTS -------------------------------------------------------------------------
-    case 'rechercheAd':
-        if ($_SESSION['user']['ID_ROLE']=='2'){
+    // case 'rechercheAd':
+    //     if ($_SESSION['user']['ID_ROLE']=='2'){
 
-            require('../views/view.header.php');
-            require('../views/view.formulaire.php');
-            require('../views/view.footer.php');
-        }else{
-            $action = 'accueil';
-            header('location:../controler/index.test.aure.php');
-            unset($_SESSION['user']);
-        }
-        break;
+    //         require('../views/view.header.php');
+    //         require('../views/view.formulaire.php');
+    //         require('../views/view.footer.php');
+    //     }else{
+    //         $action = 'accueil';
+    //         header('location:../controler/index.test.aure.php');
+    //         unset($_SESSION['user']);
+    //     }
+    //     break;
         //----------------------------------------------------------------Affiche RECHERCHE ADHERENTS -------------------------------------------------------------------------
     case 'resRechercheAd':
         if ($_SESSION['user']['ID_ROLE']=='2'){
-
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
-
         }else{
             $action = 'accueil';
             header('location:../controler/index.test.aure.php');
