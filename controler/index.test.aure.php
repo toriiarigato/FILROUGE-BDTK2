@@ -231,7 +231,7 @@ switch ($action){
             unset($_SESSION['user']);
         }
         break;
-
+        //---------------------------------------------------------------- controle et affiche nouvel ADHERENT -------------------------------------------------------------------------
         case 'createUse':
             require('../Modele/classes/UserMgr.class.php');
             require('../Modele/classes//User.class.php');
@@ -273,37 +273,39 @@ switch ($action){
                 unset($_SESSION['user']);
             }
             break;
-
+        //---------------------------------------------------------------- update ADHERENT -------------------------------------------------------------------------
     case'updateAd':
-        if ($_SESSION['user']['ID_ROLE']=='2'){
-            echo $idUse;
+            // echo $idUse;
             $oldUser = UserMgr::getUserById2($idUse);
-            require('../views/view.header.php');
-            require('../views/view.formulaire.php');
-            echo $nomUse;
-        }else{
-            $action = 'accueil';
-            header('location:../controler/index.test.aure.php');
-            unset($_SESSION['user']);
-        }
-        break;
-
+            if ($_SESSION['user']['ID_ROLE']=='2'){
+                $tResultats = (UserMgr::getListUser());
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+            }else{
+                $action = 'accueil';
+                header('location:../controler/index.test.aure.php');
+                unset($_SESSION['user']);
+            }
+            break;
+        //---------------------------------------------------------------- controle et affiche update ADHERENT -------------------------------------------------------------------------
     case'updateUse':
         if ($_SESSION['user']['ID_ROLE']=='2'){
-            UserMgr::updateUser($_GET['nom'],$_GET['prenom'],$_GET['mdp'],$_GET['email'],$_GET['dateNaissance'],$_GET['adresse'],$_GET['codePostal'],$_GET['villeUse'],$_GET['datevalcot'],$_GET['oldemail']);
-            UserMgr::searchUser($_GET['nom']);
-            require('../views/view.header.php');
-            require('../views/view.formulaire.php');
-            echo "update ok";
-            
+            $resultEmail = UserMgr::checkDoublonEmail($_GET['email']);
+            if (is_numeric($_GET['nom'])){
+                $messageCreate = "Le nom ne doit comporter que des lettres";
+            }else{
+                UserMgr::updateUser($_GET['nom'],$_GET['prenom'],$_GET['mdp'],$_GET['email'],$_GET['dateNaissance'],$_GET['adresse'],$_GET['codePostal'],$_GET['villeUse'],$_GET['datevalcot'],$_GET['oldemail']);
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+                echo "L'adhérent a bien été modifié";
+            }
+
         }else{
             $action = 'accueil';
             header('location:../controler/index.test.aure.php');
             unset($_SESSION['user']);
         }
         break;
-
-
 
         //---------------------------------------------------------------- GESTION ADHERENTS -------------------------------------------------------------------------
     case 'gestionAd':
@@ -345,6 +347,8 @@ switch ($action){
             unset($_SESSION['user']);
         }
         break;
+
+        //---------------------------------------------------------------- delete ADHERENTS -------------------------------------------------------------------------        
     case 'deleteAd':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             require('../Modele/classes/UserMgr.class.php');
@@ -371,9 +375,6 @@ switch ($action){
             unset($_SESSION['user']);
         }
         break;
-
-        case 'createUse': 
-
 
 
 //////////////////////////////////////////////////////////////////////// GESTIONNAIRE : CRUD SERIE /////////////////////////////////////////////////////////////////////////  

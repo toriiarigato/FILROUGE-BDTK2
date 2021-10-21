@@ -553,7 +553,7 @@ if ($action == 'afficheListUser'){ ?>
 
                         <!-- ///////////////////////////////////////////////////////////////AFFICHE resultat search ADHERENTS ///////////////////////////////////////////////////////////////////// -->
                         <?php 
-    if ($action == 'resRechercheAd' or $action == 'updateUse'){ ?>
+    if ($action == 'resRechercheAd'){ ?>
                         <div id="colonne2"
                             class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 column d-flex flex-nowrap overflow-auto  ">
 
@@ -614,12 +614,10 @@ if ($action == 'afficheListUser'){ ?>
             <td>'.$lignes['PRENOM_USE'].'</td>
             <td>'.$lignes['EMAIL_USE'].'</td>
             <td>'.$lignes['DATENAISS_USE'].'</td>
-            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Modifier</button>
-            <input type="hidden" name="action" value="updateAd">
+            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" name="action" value="updateAd">Modifier</button>
             <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
             </td>
-            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" >Supprimer</button>
-            <input type="hidden" name="action" value="deleteAd">
+            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" value="deleteAd">Supprimer</button>
             <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
 
 
@@ -640,7 +638,7 @@ if ($action == 'afficheListUser'){ ?>
                         <?php } ?>
                         <!-- ///////////////////////////////////////////////////////////////vue delete ADHERENTS ///////////////////////////////////////////////////////////////////// -->
                         <?php 
-    if ($action == 'deleteAd'){ ?>
+    if ($action == 'deleteAd'or $action== 'updateUse'){ ?>
 
                         <div>
                             <h2>Faire une recherche</h2>
@@ -742,7 +740,7 @@ if ($action == 'updateAd'){ ?>
                                         <input type="hidden" name="olddatevalcot"
                                             value="<?php echo $oldUser['DATE_VAL_COTIS'];?>">
                                     </p>
-
+                                    <p><?php echo $messageCreate?></p>
 
                                     <input type="submit" value="Confirmer modification adhérent" id="subEntree">
                                     <input type="hidden" name="action" value="updateUse">
@@ -761,8 +759,6 @@ if ($action == 'updateAd'){ ?>
                     <!--Div centrale-->
                     <div id="colonne2"
                         class="d-flex flex-column align-items-center justify-content-around border border-3 rounded rounded-3 shadow p-3 bg-body rounded h-100 m-2 col-8">
-
-
 
                         <div class="d-flex flex-wrap btn-group" role="group"
                             aria-label="Basic radio toggle button group">
