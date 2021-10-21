@@ -19,6 +19,7 @@ $adresseUse = "";
 $libSerieDel = "";
 $codeEmpDel = "";
 $idSerieDel = "";
+$tSerie = [];
 
 $resultat = [];
 
