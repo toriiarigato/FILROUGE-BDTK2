@@ -1,48 +1,48 @@
 <?php
 class AlbumMgr {
-
+    
+//////////////////////////////////////////////////////////////// Récupère la liste de tous les albums ///////////////////////////////////////////////////////////////////
         /**
          * Permet d'obtenir une liste complète des Albums
          * @param le mode de récupération des données (Tableau associatif par défaut)
          * @return array la liste des albums
          */
-        public static function getListAlbum() {
-            // Requête : la liste des albums
-            $sql = 'SELECT * FROM album ORDER BY NUMERO_ALBUM ASC';
-            // echo $sql; // pour mise au point
+        public static function getListAlbum() : array {
+            $sql = 'SELECT * FROM album 
+                    ORDER BY NUMERO_ALBUM ASC';
 
-            // Etape 1 - Crée une connexion BDD
             $connexionPDO = Bdtk::getConnexion();
-            //var_dump($connexion);
-
-            // Etape 2 - Lance la requête
             $resPDOstt = $connexionPDO->query($sql);
-            //var_dump($resPDOstt);
+            $records = $resPDOstt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Définir le FETCH MODE
-            // if ($choix === PDO::FETCH_CLASS) {
-            //     $resPDOstt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,
-            // 'album',array('pil','pilNom','adr'));
-            // } else {
-            //     $resPDOstt->setFetchMode($choix);
-            // }
-
-            // Etape 3 - Lit un résultat
-            // $record = $resPDOstt->fetch();
-
-            // echo $record['pilNom'];
-            // echo $record[1];
-
-            // Etape 3 - Lit tout le curseur PDOStatement
-            $records = $resPDOstt->fetchAll();
-            //var_dump($records);
-
-            // Etape 4 - Ferme le curseur et la connexion
             $resPDOstt->closeCursor(); // ferme le curseur
             Bdtk::disconnect();     // ferme la connexion
 
-            // Etape 5 - Retourne le tableau
             return $records;
+        }
+
+//////////////////////////////////////////////////////////////// Cherche un album dans la liste avec un NOM ///////////////////////////////////////////////////////////////////
+        /**
+         * Permet de chercher des series
+         * @param le mot clé de la recherche
+         * @return array les series proche de la recherche
+         */
+        public static function searchAlbum($search) : array {
+
+            $sql = "SELECT * FROM `album` 
+                    WHERE (TITRE_ALBUM LIKE ?)";
+            try {        
+                $connexion = Bdtk::getConnexion();
+                $resultats = $connexion->prepare($sql);
+                $resultats->execute(array('%'.$search.'%'));
+                $records = $resultats->fetchAll();
+                Bdtk ::disconnect();
+                return $records;
+            }    
+            catch(PDOException $e)
+            {
+            echo $e->getMessage();
+            }
         }
 
 
