@@ -296,8 +296,9 @@ switch ($action){
     case'updateUse':
         if ($_SESSION['user']['ID_ROLE']=='2'){
             $oldUser = UserMgr::getUserById($_GET['oldemail']);
-            // var_dump($oldUser);
+            // echo $_GET['email'];
             $resultEmail = UserMgr::checkDoublonEmail($_GET['email']);
+            // var_dump($resultEmail) ;
             if (is_numeric($_GET['nom'])){
                 $messageCreate = "Le nom ne doit comporter que des lettres";
                 require('../views/view.header.php');
@@ -322,7 +323,7 @@ switch ($action){
                 require('../views/view.header.php');
                 require('../views/view.formulaire.php');
             
-            }elseif($resultEmail>0){
+            }elseif($resultEmail>0 && ($oldUser['EMAIL_USE'] != $_GET['email'] )){
                 $messageCreate = "L'email existe déjà dans la base de données";
                 require('../views/view.header.php');
                 require('../views/view.formulaire.php');
@@ -385,9 +386,9 @@ switch ($action){
         //---------------------------------------------------------------- delete ADHERENTS -------------------------------------------------------------------------        
     case 'deleteAd':
         if ($_SESSION['user']['ID_ROLE']=='2'){
-            require('../Modele/classes/UserMgr.class.php');
-            require('../Modele/classes//User.class.php');
-            require('../Modele/classes/Bdtk.class.php');
+            // require('../Modele/classes/UserMgr.class.php');
+            // require('../Modele/classes//User.class.php');
+            // require('../Modele/classes/Bdtk.class.php');
             echo $_GET['idUse'];
             $emprunt = UserMgr::checkEmprunt($idUse);
             echo $emprunt;
