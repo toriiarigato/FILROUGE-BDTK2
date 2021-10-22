@@ -72,13 +72,13 @@ class SerieMgr {
             }
         }
 
-        //////////////////////////////////////////////////////////////// Cherche une serie dans la liste avec un ID ///////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////// Cherche une serie dans la liste avec un code ///////////////////////////////////////////////////////////////////
         /**
          * Permet de chercher des series
          * @param le mot clé de la recherche
          * @return array les series proche de la recherche
          */
-        public static function searchCodeEmp($search) : array {
+        public static function searchCodeEmp($search)  {
 
             $sql = "SELECT * FROM `emplacement` 
                     WHERE CODE_EMPLACEMENT = ?";
@@ -86,9 +86,10 @@ class SerieMgr {
                 $connexion = Bdtk::getConnexion();
                 $resultats = $connexion->prepare($sql);
                 $resultats->execute(array($search));
-                $records = $resultats->fetchAll();
                 Bdtk ::disconnect();
-                return $records;
+                $nombre = $resultats->rowCount();
+
+                return $nombre;
             }    
             catch(PDOException $e)
             {
@@ -103,7 +104,7 @@ class SerieMgr {
          * @return nombre de serie ajoutées
          */
         // Doit utiliser un emplacement existant
-        public static function addSerie(Serie $serie) : int  {
+        public static function addSerie(Serie $serie)   {
             
             $sql = "INSERT INTO serie 
                     VALUES (:idSerie, :libSerie, :codeEmp)";
@@ -113,19 +114,17 @@ class SerieMgr {
                 $rs->execute(array(":idSerie"=>$serie->getIdSerie(),":libSerie"=>$serie->getLibSerie(),":codeEmp"=>$serie->getCodeEmp()));
                 
                 $nombre = $rs->rowCount();
+                
 
                 $rs->closeCursor();
                 Bdtk::disconnect();
                 
-                if (!$serie){
-                throw new Exception('Erreur : Veuillez remplir les champs correctement'); 
 
-                }
                 return $nombre; 
             }
             catch(PDOException $e)
             {
-                echo $e->getMessage();    
+                  
             }
         }
 
