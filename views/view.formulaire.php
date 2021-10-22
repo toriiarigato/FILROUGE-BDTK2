@@ -713,7 +713,7 @@ if ($action == 'afficheListUser'){ ?>
             <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" name="action" value="updateAd">Modifier</button>
             <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
             </td>
-            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" value="deleteAd">Supprimer</button>
+            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit" name ="action" value="deleteAd">Supprimer</button>
             <input type="hidden" name="idUse" value="'.$lignes['ID_USE'].'">
 
 

@@ -146,7 +146,7 @@ switch ($action){
             $_SESSION["user"] = $user;
             $role = $user['ID_ROLE'];
             $_SESSION["role"]= $role;
-            var_dump($role);
+            // var_dump($role);
             switch ($role){
                 case "1":
                     $action = 'adherent';

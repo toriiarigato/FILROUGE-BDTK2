@@ -2,7 +2,7 @@
 class UserMgr {
 
         /**
-         * Permet d'obtenir une liste complète des utilisateur
+         * Permet d'obtenir une liste complète des utilisateurs
          * @param le mode de récupération des données (Tableau associatif par défaut)
          * @return array la liste des utilisateurs
          */
@@ -30,7 +30,11 @@ class UserMgr {
             // Etape 5 - Retourne le tableau
             return $records;
         }
-
+        /**
+         * Permet de rechercher un adhérent soit par son NOM son PRENOM ou son numéro utilisateur
+         * @param string $search qui renvoi la value de l'input de recherche
+         * @return array associatif avec tous les adhérents potentiels 
+         */
         public static function searchUser($search){
             $sql = "SELECT * FROM `utilisateur` WHERE (ID_USE LIKE ? or NOM_USE LIKE ? or PRENOM_USE LIKE ?) AND ID_ROLE = '1' ";
             $connexion = Bdtk::getConnexion();
@@ -42,6 +46,11 @@ class UserMgr {
             return $records;
         }
 
+        /**
+         * Permet de retrouver un utilisateur à partir d'un email puisque les emails sont uniques
+         * @param string email utilisateur
+         * @return array associatif de l'utilisateur avec toutes les données de la tables utilisateur
+         */
         public static function getUserById($id){ 
             echo $id;
             $connexion = Bdtk::getConnexion();
@@ -56,6 +65,11 @@ class UserMgr {
 
         }
 
+        /**
+         * Permet de retrouver un utilisateur à partir d'un numéro utilisateur
+         * @param int numéro utlisateur
+         * @return array associatif de l'utiilisateur avec toutes les données de la tables utilisateur
+         */
         public static function getUserById2($id){ 
             echo $id;
             $connexion = Bdtk::getConnexion();
@@ -71,10 +85,10 @@ class UserMgr {
         }
 
 
-        /**
-     * Fonction Add 
+    /**
+     * Permet d'ajouter un utilisateur à la BDD à partir d'un objet user entré en paramètre
      * 
-     * @param object utilisateur 
+     * @param object user 
      * 
      * @return void 
      */
@@ -97,6 +111,11 @@ class UserMgr {
     
     }
 
+    /**
+     * Permet de savoir si un mail donné en paramètre est déjà présent dans la table utilisateur 
+     * @param string email
+     * @return int le nombre de lignes comportant l'email donné en paramètre
+     */
     public static function checkDoublonEmail($email)  {
         $sql = "SELECT * FROM UTILISATEUR WHERE EMAIL_USE =?";
         try {
@@ -122,7 +141,7 @@ class UserMgr {
         }
     }
 
-                /**
+        /**
          * Permet de supprimer l'utilisateur passé en paramètre
          * @param un objet utilisateur
          * @return nombre d'utilisateurs supprimés
@@ -155,7 +174,11 @@ class UserMgr {
             }
             
         }
-
+    /**
+     * Permet de savoir si l'utilisateur dont le numéro est donné en paramètre à des emprunts en cour
+     * @param int numéro utilisateur 
+     * @return int le nombre de lignes comportant le numéro utilisateur donné en paramètre dans la table emprunt
+     */
         public static function checkEmprunt($id)  {
             $sql = "SELECT * FROM EMPRUNT WHERE IDENTIFIANT_UTILISATEUR =?";
             try {
@@ -182,7 +205,7 @@ class UserMgr {
             }
         }
 
-                        /**
+        /**
          * Permet de modifier l'utilisateur passé en paramètre
          * @param un objet user
          * @return nombre d'utilisateur mis à jour
@@ -212,6 +235,12 @@ class UserMgr {
         }
         }
 
+        /**
+         * Permet de vérifier si le mail et le mot de passe donnés en paramètre sont existants et sont associés au même utilisateur
+         * @param string email saisi
+         * @param string mot de passe saisi
+         * @return 
+         */
         public static function connect($id,$mdp){
             // Prépare la requête SQL
             $sql = "SELECT * FROM utilisateur WHERE EMAIL_USE = ? AND MDP_USE = ?";
