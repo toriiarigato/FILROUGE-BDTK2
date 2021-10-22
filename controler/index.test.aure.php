@@ -440,7 +440,7 @@ switch ($action){
         }
         break;
 
-//------------------------------------------------------- Affiche la liste des series correspondant à la recherche ------------------------------------------------
+//------------------------------------------------------- Affiche la liste des series correspondant à une recherche ------------------------------------------------
     case "searchSerie" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
             $tSerie = SerieMgr::getListSerie();
@@ -481,9 +481,10 @@ switch ($action){
         } else{
             $newSerie = new Serie($idSerie, $libSerie, $codeEmp);      
             $ajoutSerie = SerieMgr::addSerie($newSerie);
-            if($ajoutSerie == null){
-                $msgCheck = "Cet emplacement n'existe pas";    
-            }else
+            
+        if($ajoutSerie == null){
+            $msgCheck = "Cet emplacement n'existe pas";    
+        }else
             $tSerie[] = $libSerie;
         }
             require('../views/view.header.php');
@@ -503,13 +504,33 @@ switch ($action){
             $trimmedIdDel = trim($clearedIdSerie[1],'?>');
             $checkAlbums = SerieMgr::checkAlbum($trimmedIdDel);
 
+            if($checkAlbums == 0) {
+                $clearedLibSerie = explode("echo",$libSerieDel);
+                $trimmedDel = trim($clearedLibSerie[1],'?>');
+                SerieMgr::delSerieByName($trimmedDel);
+            } elseif($checkAlbums > 0) $msgCheck = "Erreur : veuillez d'abord supprimer les albums de cette serie";
 
-        if($checkAlbums == 0) {
-            $clearedLibSerie = explode("echo",$libSerieDel);
-            $trimmedDel = trim($clearedLibSerie[1],'?>');
-            SerieMgr::delSerieByName($trimmedDel);
-        } elseif($checkAlbums > 0) $msgCheck = "Erreur : veuillez d'abord supprimer les albums de cette serie";
+                require('../views/view.header.php');
+                require('../views/view.formulaire.php');
+                require('../views/view.footer.php');
+        }else{
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
+        }
+        break;
 
+        //---------------------------------------------------------------- Modifie une serie -----------------------------------------------------------------------
+
+    case "Modifier Serie" :
+        if ($_SESSION['user']['ID_ROLE'] =='3'){
+            $oldLibSerie = explode("echo",$libSerieDel);
+            $ancienLibSerie = $oldLibSerie[1];
+            $trimmed = trim($ancienLibSerie, " ?>");
+            $oldCodeEmp = explode(" ",$codeEmpDel);
+            $ancientCodeEmp = $oldCodeEmp[2];
+            $idSerieFollow = explode(" ",$idSerieDel);
+            $nextIdSerie = $idSerieFollow[2];
             require('../views/view.header.php');
             require('../views/view.formulaire.php');
             require('../views/view.footer.php');
@@ -520,49 +541,28 @@ switch ($action){
         }
         break;
 
-        //---------------------------------------------------------------- Modifie une serie -----------------------------------------------------------------------
-
-        case "Modifier Serie" :
-        if ($_SESSION['user']['ID_ROLE'] =='3'){
-        $oldLibSerie = explode("echo",$libSerieDel);
-        $ancienLibSerie = $oldLibSerie[1];
-        $trimmed = trim($ancienLibSerie, " ?>");
-        $oldCodeEmp = explode(" ",$codeEmpDel);
-        $ancientCodeEmp = $oldCodeEmp[2];
-        $idSerieFollow = explode(" ",$idSerieDel);
-        $nextIdSerie = $idSerieFollow[2];
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
-        }else{
-        $action = 'accueil';
-        header('location:../controler/index.test.aure.php');
-        unset($_SESSION['user']);
-        }
-        break;
-
         //---------------------------------------------------------------- Valide ou invalide la modification d'une serie ----------------------------------------------
 
-        case "modifMaj" :
+    case "modifMaj" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-        $idSerieFollow = $_GET["idSerieFollow"];
-        $modifCodeEmp = $_GET['modifCodeEmp'];
-        $modifLibSerie = $_GET['modifLibSerie'];
-        $ancienCodeEmp = $_GET['ancienCodeEmp'];
-        $ancienLibSerie = $_GET['ancienLibSerie'];
+            $idSerieFollow = $_GET["idSerieFollow"];
+            $modifCodeEmp = $_GET['modifCodeEmp'];
+            $modifLibSerie = $_GET['modifLibSerie'];
+            $ancienCodeEmp = $_GET['ancienCodeEmp'];
+            $ancienLibSerie = $_GET['ancienLibSerie'];
 
-        if(($modifLibSerie == $ancienLibSerie) && ($modifCodeEmp == $ancienCodeEmp)){
-        $msgCheck = "Aucune modification effectuée !";
-        }elseif(!SerieMgr::searchCodeEmp($modifCodeEmp) && SerieMgr::searchSerie($modifLibSerie) != null){
-        $msgCheck = "Cet emplacement n'existe pas";
-        }elseif(SerieMgr::searchSerie($modifLibSerie) != null && SerieMgr::searchSerie($modifLibSerie) != $ancienLibSerie){
-        $msgCheck = "Le libellé de cette serie existe déja !";
-        }elseif (SerieMgr::searchSerie($modifLibSerie) == null) {
-        SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
-        }
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
+            if(($modifLibSerie == $ancienLibSerie) && ($modifCodeEmp == $ancienCodeEmp)){
+                $msgCheck = "Aucune modification effectuée !";
+            }elseif(!SerieMgr::searchCodeEmp($modifCodeEmp) && SerieMgr::searchSerie($modifLibSerie) != null){
+                $msgCheck = "Cet emplacement n'existe pas";
+            }elseif(SerieMgr::searchSerie($modifLibSerie) != null && SerieMgr::searchSerie($modifLibSerie) != $ancienLibSerie){
+                $msgCheck = "Le libellé de cette serie existe déja !";
+            }elseif (SerieMgr::searchSerie($modifLibSerie) == null) {
+                SerieMgr::updateSerie($modifLibSerie, $modifCodeEmp, $idSerieFollow);
+            }
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
         }else{
         $action = 'accueil';
         header('location:../controler/index.test.aure.php');
@@ -572,66 +572,66 @@ switch ($action){
 
         //////////////////////////////////////////////////////////////////////// GESTIONNAIRE : CRUD ALBUM /////////////////////////////////////////////////////////////////////////
 
-        case "album" :
+    case "album" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
             $tAlbum = AlbumMgr::getListAlbum();
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
         }else{
-        $action = 'accueil';
-        header('location:../controler/index.test.aure.php');
-        unset($_SESSION['user']);
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
         }
         break;
 
         //---------------------------------------------------------------- Affiche la liste des albums ----------------------------------------------------------------
 
-        case "listAlbum" :
+    case "listAlbum" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-        $tAlbum = AlbumMgr::getListAlbum();
-        // $resLibSerie = AlbumMgr::getLibSerie($tAlbum["IDENTIFIANT_SERIE"]);
-        // var_dump($resLibSerie);
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
+            $tAlbum = AlbumMgr::getListAlbum();
+            // $resLibSerie = AlbumMgr::getLibSerie($tAlbum["IDENTIFIANT_SERIE"]);
+            // var_dump($resLibSerie);
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
         }else{
-        $action = 'accueil';
-        header('location:../controler/index.test.aure.php');
-        unset($_SESSION['user']);
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
         }
         break;
 
-         //---------------------------------------------------------------- Affiche la liste des albums correspondant à la rechercher ----------------------------
+         //------------------------------------------------------------- Affiche la liste des albums correspondant à une recherche ----------------------------
 
-        case "searchAlbum" :
+    case "searchAlbum" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-        $tAlbum = AlbumMgr::getListAlbum();
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
+            $tAlbum = AlbumMgr::getListAlbum();
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
         }else{
-        $action = 'accueil';
-        header('location:../controler/index.test.aure.php');
-        unset($_SESSION['user']);
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
         }
         break;
 
-         //----------------------------------------------------------------------- Ajoute un album
+         //----------------------------------------------------------------------- Ajoute un album -------------------------------------------------------------
 
-        case "addAlbum" :
+    case "addAlbum" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
-        require('../views/view.header.php');
-        require('../views/view.formulaire.php');
-        require('../views/view.footer.php');
+            require('../views/view.header.php');
+            require('../views/view.formulaire.php');
+            require('../views/view.footer.php');
         }else{
-        $action = 'accueil';
-        header('location:../controler/index.test.aure.php');
-        unset($_SESSION['user']);
+            $action = 'accueil';
+            header('location:../controler/index.test.aure.php');
+            unset($_SESSION['user']);
         }
         break;
 
-        // //---------------------------------------------------------------- Valide ou invalide l'ajout d'un album
+        // //---------------------------------------------------------------- Valide ou invalide l'ajout d'un album -------------------------------------------------------------
 
         // case "addSerieMaj" :
         // if ($_SESSION['user']['ID_ROLE'] =='3'){
@@ -651,7 +651,7 @@ switch ($action){
         // }
         // break;
 
-        // //---------------------------------------------------------------- Supprime un album
+        // //---------------------------------------------------------------- Supprime un album -------------------------------------------------------------
 
         // case "Supprimer Serie" :
         // if ($_SESSION['user']['ID_ROLE'] =='3'){
@@ -675,7 +675,7 @@ switch ($action){
         // }
         // break;
 
-        // //---------------------------------------------------------------- Modifie un album
+        // //---------------------------------------------------------------- Modifie un album -------------------------------------------------------------
 
         // case "Modifier Serie" :
         // if ($_SESSION['user']['ID_ROLE'] =='3'){
@@ -696,7 +696,7 @@ switch ($action){
         // }
         // break;
 
-        // //---------------------------------------------------------------- Valide ou invalide la modification d'un album
+        // //---------------------------------------------------------------- Valide ou invalide la modification d'un album ---------------------------------
 
         // case "modifMaj" :
         // if ($_SESSION['user']['ID_ROLE'] =='3'){
@@ -720,8 +720,7 @@ require('../views/view.search.php');
 require('../views/view.footer.php');
 break;
 
-////////////////////////////////////////////////////////////////////////RESPONSABLE
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////RESPONSABLE///////////////////////////////////////////////////////////////////////////////
 case 'responsable';
 require('../views/view.header.php');
 require('../views/view.formulaire.php');

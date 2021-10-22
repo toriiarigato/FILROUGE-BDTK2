@@ -72,11 +72,11 @@ class SerieMgr {
             }
         }
 
-        //////////////////////////////////////////////////////////////// Cherche une serie dans la liste avec un code ///////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////// Cherche si un emplacement existe ///////////////////////////////////////////////////////////////////
         /**
-         * Permet de chercher des series
-         * @param le mot clé de la recherche
-         * @return array les series proche de la recherche
+         * Permet de chercher des emplacements
+         * @param un code emplacement
+         * @return array le nombre d'emplacement trouvé
          */
         public static function searchCodeEmp($search)  {
 
@@ -211,8 +211,12 @@ class SerieMgr {
             }
        }
 
-       ////////////////////////////////////////////////////////////////// Verifie si il reste des albums pour une serie //////////////////////////////////////////////////////////////////////////////////
-       
+       ////////////////////////////////////////////////////////////////// Verifie s'il reste des albums pour une serie //////////////////////////////////////////////////////////////////////////////////
+        /**
+         * Vérifie si une serie possède des albums
+         * @param un identifiant de serie
+         * @return nombre d'album trouvé
+         */
        public static function checkAlbum($idSerie)  {
         $sql = "SELECT * FROM album WHERE IDENTIFIANT_SERIE =?";
         try {

@@ -34,9 +34,9 @@ spl_autoload_register(function($classe){
             <input type="hidden" name="action" value="auteur">
         </form>
     </div>
-    <?php } ?>
-
-    <?php  
+<?php } ?>
+<!---------------------------------------------------------------------- Menu Serie (par défaut) ----------------------------------------------------------------------------->
+<?php  
     if ($action == 'serie'){ ?>
     <hr>
 
@@ -54,9 +54,9 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="searchSerie">
     </form>
 
-    <?php } ?>
-
-    <?php  
+<?php } ?>
+<!---------------------------------------------------------------------- Liste des Series ---------------------------------------------------------------------------------->
+<?php  
     if ($action == 'listSerie'){ ?>
     <!-- Div de serie-->
     <hr>
@@ -71,15 +71,15 @@ spl_autoload_register(function($classe){
     foreach($tSerie as $ligne) {
 ?>
         <form method="get" action="" class="border-3 rounded center rounded-2 shadow p-3 m-2 overflow-auto">
-            <?php       echo  $ligne[0] . 
+<?php       echo  $ligne[0] . 
             "<input type=\"hidden\" name=\"libSerieDel\" value=\"<?php echo $ligne[0] ?>\">
             <input type=\"hidden\" name=\"codeEmpDel\" value=\"<?php echo $ligne[1] ?>\">
             <input type=\"hidden\" name=\"idSerieDel\" value=\"<?php echo $ligne[2] ?>\">
             <br><input type=\"submit\" name=\"action\" value=\"Modifier Serie\">
             <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">";
-            ?>
+?>
         </form>
-        <?php    
+<?php    
     }
 ?>
 
@@ -89,10 +89,11 @@ spl_autoload_register(function($classe){
         <input type="submit" value="Retour">
         <input type="hidden" name="action" value="serie">
     </form>
-    <?php } ?>
+<?php } ?>
 
-    <?php if ($action == 'searchSerie') { ?>
-    <?php if (count($tResultat)>0){
+<!---------------------------------------------------------------------- Recherche de Serie ---------------------------------------------------------------------------------->
+<?php if ($action == 'searchSerie') { ?>
+<?php if (count($tResultat)>0){
     foreach($tResultat as $ligne) {
 ?>
     <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2 overflow-auto">
@@ -102,9 +103,9 @@ spl_autoload_register(function($classe){
         <input type=\"hidden\" name=\"idSerieDel\" value=\"<?php echo $ligne[0] ?>\">
         <br><input type=\"submit\" name=\"action\" value=\"Modifier Serie\">
         <input type=\"submit\" name=\"action\" value=\"Supprimer Serie\">";
-        ?>
+?>
     </form>
-    <?php    
+<?php    
     }
 }else echo'<p> Aucun résultat </p>';
 ?>
@@ -114,14 +115,14 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="serie">
     </form>
 
-    <?php } ?>
+<?php } ?>
 
-
-    <?php  if ($action == 'addSerie' or $action == "Modifier Serie"){ ?>
+<!---------------------------------------------------------------------- Formulaire d'ajout ou modif de serie ------------------------------------------------------------------->
+<?php  if ($action == 'addSerie' or $action == "Modifier Serie"){ ?>
 
     <form method="get" action="">
         <fieldset class="">
-            <?php  if ($action != "Modifier Serie"){ ?>
+<?php  if ($action != "Modifier Serie"){ ?>
             <label for="idSerie"> Identifiant serie</label>
             <input type="text" name="idSerie" id="idSerie" required="required" />
             <br />
@@ -135,10 +136,10 @@ spl_autoload_register(function($classe){
 
             <input type="submit" value="Ajouter nouvelle serie" />
             <input type="hidden" name="action" value="addSerieMaj">
-            <?php } ?>
+<?php } ?>
 
 
-            <?php  if($action == "Modifier Serie"){ ?>
+<?php  if($action == "Modifier Serie"){ ?>
 
             <label for="libSerie">Libellé serie</label>
             <input type="text" name="modifLibSerie" id="libSerie" required="required" value="<?php echo $trimmed; ?>" />
@@ -153,7 +154,7 @@ spl_autoload_register(function($classe){
             <input type="hidden" name="idSerieFollow" value="<?php echo $nextIdSerie; ?>" />
             <input type="hidden" name="ancienLibSerie" value="<?php echo $trimmed; ?>" />
             <input type="hidden" name="ancienCodeEmp" value="<?php echo $ancientCodeEmp; ?>" />
-            <?php } ?>
+<?php } ?>
 
         </fieldset>
     </form>
@@ -163,19 +164,19 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="serie">
     </form>
 
-
-    <?php } ?>
-
-    <?php  
+<?php } ?>
+<!------------------------------------------------------------- Fenetre de confirmation d'ajout, de modif ou de suppression ------------------------------------------------------>
+<?php  
     if ($action == 'addSerieMaj' or $action == 'Supprimer Serie' or $action == "modifMaj"){ ?>
-    <?php echo $msgCheck; ?>
+<?php echo $msgCheck; ?>
     <form action="">
         <input type="submit" value="Retour">
         <input type="hidden" name="action" value="serie">
     </form>
-    <?php } ?>
+<?php } ?>
 
-    <?php  
+    <!---------------------------------------------------------------------- Menu Album -------------------------------------------------------------------------------------------->
+<?php  
     if ($action == 'album'){ ?>
     <hr>
 
@@ -192,9 +193,10 @@ spl_autoload_register(function($classe){
         <input type="submit" value="Rechercher">
         <input type="hidden" name="action" value="searchAlbum">
     </form>
-    <?php } ?>
+<?php } ?>
 
-    <?php  
+<!---------------------------------------------------------------------- Liste des Albums ---------------------------------------------------------------------------------->
+<?php  
     if ($action == 'listAlbum'){ ?>
     <!-- Div de serie-->
     <hr>
@@ -218,9 +220,9 @@ spl_autoload_register(function($classe){
             <br><input type=\"submit\" name=\"action\" value=\"Détails\">
             <input type=\"submit\" name=\"action\" value=\"Modifier Album\">
             <input type=\"submit\" name=\"action\" value=\"Supprimer Album\">";
-            ?>
+?>
         </form>
-        <?php    
+<?php    
     }
 ?>
     </div>
@@ -229,14 +231,14 @@ spl_autoload_register(function($classe){
         <input type="submit" value="Retour">
         <input type="hidden" name="action" value="album">
     </form>
-    <?php } ?>
-
+<?php } ?>
+<!---------------------------------------------------------------------- Recherche d'Albums ---------------------------------------------------------------------------------->
 <?php if ($action == 'searchAlbum') { ?>
-    <?php if (count($tResultat)>0){
+<?php if (count($tResultat)>0){
     foreach($tResultat as $ligne) {
 ?>
     <form method="get" action="" class="d-flex flex-column column align-items-center">
-        <?php       echo "<form method=\"get\" action=\"\" class=\"d-flex flex-column column align-items-center\">".
+<?php       echo "<form method=\"get\" action=\"\" class=\"d-flex flex-column column align-items-center\">".
                      $ligne["TITRE_ALBUM"]  .
             "<img src=\"../SRC/albumsMini/" .$ligne["LIB_POCH_ALB"] ."\">\n".
             "<input type=\"hidden\" name=\"numAlb\" value=".$ligne['NUMERO_ALBUM'] . ">
@@ -246,9 +248,9 @@ spl_autoload_register(function($classe){
             <br><input type=\"submit\" name=\"action\" value=\"Détails\">
             <input type=\"submit\" name=\"action\" value=\"Modifier Album\">
             <input type=\"submit\" name=\"action\" value=\"Supprimer Album\">";
-        ?>
+?>
     </form>
-    <?php    
+<?php    
     }
 }else echo'<p> Aucun résultat </p>';
 ?>
@@ -258,14 +260,15 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="action" value="album">
     </form>
 
-    <?php } ?>
+<?php } ?>
 
+<!---------------------------------------------------------------------- formulaire d'ajout ou de modification d'Album ----------------------------------------------------->
     
 <?php  if ($action == 'addAlbum' or $action == "Modifier Album"){ ?>
 
 <form method="get" action="">
     <fieldset class="">
-        <?php  if ($action != "Modifier Album"){ ?>
+<?php  if ($action != "Modifier Album"){ ?>
         <label for="numAlb"> Numéro Album</label>
         <input type="text" name="numAlb" id="numAlb" required="required" />
         <br />
@@ -301,10 +304,10 @@ spl_autoload_register(function($classe){
 
         <input type="submit" value="Ajouter nouvelle serie" />
         <input type="hidden" name="action" value="addSerieMaj">
-        <?php } ?>
+<?php } ?>
 
 
-        <?php  if($action == "Modifier Serie"){ ?>
+<?php  if($action == "Modifier Serie"){ ?>
 
         <label for="libSerie">Libellé serie</label>
         <input type="text" name="modifLibSerie" id="libSerie" required="required" value="<?php echo $trimmed; ?>" />
@@ -319,7 +322,7 @@ spl_autoload_register(function($classe){
         <input type="hidden" name="idSerieFollow" value="<?php echo $nextIdSerie; ?>" />
         <input type="hidden" name="ancienLibSerie" value="<?php echo $trimmed; ?>" />
         <input type="hidden" name="ancienCodeEmp" value="<?php echo $ancientCodeEmp; ?>" />
-        <?php } ?>
+<?php } ?>
 
     </fieldset>
 </form>
@@ -333,7 +336,7 @@ spl_autoload_register(function($classe){
 <?php } ?>
 
 
-    <?php
+<?php
 
     if ($action == 'bibli'or $action == 'emprunt'or $action == 'retour'or $action == 'nouvelAd'or $action == 'gestionAd'or $action == 'rechercheAd' or $action == "afficheListUser" or $action == 'resRechercheAd' or $action == 'deleteAd'or $action == 'createUse'or $action == 'updateAd'or $action == 'updateUse'){?>
     <!-- ////////////////////////////////////////////////////////////////////////BIBLIOTHECAIRE /////////////////////////////////////////////////////////////////////////////// -->
@@ -365,10 +368,10 @@ spl_autoload_register(function($classe){
             </form>
         </div>
 
-        <?php } ?>
+<?php } ?>
 
         <!-- ////////////////////////////////////////////////////////////////////////EMPRUNTS /////////////////////////////////////////////////////////////////////////////// -->
-        <?php 
+<?php 
     if ($action == 'emprunt'){ ?>
         <div class="d-flex justify-content-center d-flex flex-wrap btn-group" role="group"
             aria-label="Basic radio toggle button group">
