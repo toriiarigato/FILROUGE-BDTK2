@@ -110,12 +110,12 @@ class UserMgr {
             $resultats->closeCursor();
             Bdtk::disconnect();
             $count = $resultats->rowCount();
-    if ($count ==0){
-        return "Parametres erronnés ou inconnus";
+    // if ($count ==0){
+    //     return "Parametres erronnés ou inconnus";
 
-    }else{
+    // }else{
         return $count;
-    }
+    // }
         }
         catch(PDOException $e)
         {
