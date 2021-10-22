@@ -6,7 +6,7 @@ spl_autoload_register(function($classe){
 session_start();
 
 $action = 'accueil';
-print_r($action);
+// print_r($action);
 
 $id = $mdp = $role = '';
 $msgErreur = '';
@@ -55,7 +55,7 @@ if (isset($_GET['recherche'])){
 if (isset($_GET['idUse'])){
     $idUse = $_GET['idUse'];
     $oldUser = UserMgr::getUserById2($idUse);
-    print_r($_GET['idUse']);
+    // print_r($_GET['idUse']);
 }
 
 if (isset($_GET['nom']) || isset($_GET['prenom'])){
@@ -74,10 +74,10 @@ if (isset($_GET['nom'])){
     $newNom = $_GET['nom'];
 }
 
-print_r($_GET);
-if (isset($_SESSION['user'])){
-    print_r($_SESSION['user']);
-}
+// print_r($_GET);
+// if (isset($_SESSION['user'])){
+//     print_r($_SESSION['user']);
+// }
 
 if (isset($_GET['action'])){
     $action=$_GET['action'];
@@ -162,9 +162,9 @@ switch ($action){
                     break;
             }
             $_SESSION["action"] = $action;
-            var_dump($action);
+            // var_dump($action);
             header('location:../controler/index.test.aure.php?action='.$_SESSION["action"]);
-            var_dump($_SESSION["user"]);
+            // var_dump($_SESSION["user"]);
             
             break;
         } else{
@@ -261,7 +261,7 @@ switch ($action){
                 $messageCreate = "L'email existe déjà dans la base de données";
             }else{
             $newUser = new User($nomUse,$prenomUse,$mdpUse,$emailUse,$idRole,$libAvatar,$dateNaissance,$adresseUse,$codePostal,$villeUse,$idUserCreate,$idUserUpdate,$dateValCot,$idUserdel);
-            var_dump($newUser);
+            // var_dump($newUser);
             try{
                 UserMgr ::addUser($newUser);
             $messageCreate = "l'adhérent ". $newUser->getNomUser().",".$newUser->getPrenomUser(). " a bien été créé";
@@ -389,9 +389,9 @@ switch ($action){
             // require('../Modele/classes/UserMgr.class.php');
             // require('../Modele/classes//User.class.php');
             // require('../Modele/classes/Bdtk.class.php');
-            echo $_GET['idUse'];
+            // echo $_GET['idUse'];
             $emprunt = UserMgr::checkEmprunt($idUse);
-            echo $emprunt;
+            // echo $emprunt;
             if ($emprunt >0){
                 $message = "l'adhérent à encore des emprunts en cours et ne peux pas être supprimé";
                 require('../views/view.header.php');
