@@ -471,19 +471,21 @@ switch ($action){
     case "addSerieMaj" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
         if(!is_numeric($idSerie)){
-            $msgCheck = "Veuillez respecter les champs !";
-        }elseif(SerieMgr::searchSerieID($idSerie)){
+            $msgCheck = "Veuillez entrer un identifiant correct (en chiffres!!)";
+        }elseif(SerieMgr::searchSerieID($idSerie !=0)){
             $msgCheck = "L'identifiant de cette serie existe déja !";
+        }elseif(SerieMgr::searchCodeEmp($codeEmp == 0)){
+            $msgCheck = "Cet emplacement n'existe pas";    
         }elseif(SerieMgr::searchSerie($libSerie)){
             $msgCheck = "Le libellé de cette serie existe déja !";
         } else{
             $newSerie = new Serie($idSerie, $libSerie, $codeEmp);      
             $ajoutSerie = SerieMgr::addSerie($newSerie);
-            var_dump($ajoutSerie);
+            if($ajoutSerie == null){
+                $msgCheck = "Cet emplacement n'existe pas";    
+            }else
             $tSerie[] = $libSerie;
         }
-
-
             require('../views/view.header.php');
             require('../views/view.formulaire.php'); 
             require('../views/view.footer.php');
@@ -588,9 +590,8 @@ switch ($action){
         case "listAlbum" :
         if ($_SESSION['user']['ID_ROLE'] =='3'){
         $tAlbum = AlbumMgr::getListAlbum();
-
-
-
+        // $resLibSerie = AlbumMgr::getLibSerie($tAlbum["IDENTIFIANT_SERIE"]);
+        // var_dump($resLibSerie);
         require('../views/view.header.php');
         require('../views/view.formulaire.php');
         require('../views/view.footer.php');
@@ -637,7 +638,6 @@ switch ($action){
         // if(is_numeric($idSerie)) {
         // $newSerie = new Serie($idSerie, $libSerie, $codeEmp);
         // $ajoutSerie = SerieMgr::addSerie($newSerie);
-        // var_dump($ajoutSerie);
         // $tSerie[] = $libSerie;
         // }else $msgCheck = "Veuillez respecter les champs !";
 

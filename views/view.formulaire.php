@@ -235,13 +235,17 @@ spl_autoload_register(function($classe){
     <?php if (count($tResultat)>0){
     foreach($tResultat as $ligne) {
 ?>
-    <form method="get" action="" class="border-3 rounded rounded-2 shadow p-3 m-2 overflow-auto">
-        <?php       echo  $ligne[1] . 
-        "<input type=\"hidden\" name=\"numAlb\" value=\"<?php echo $ligne[0] ?>\">
-        <input type=\"hidden\" name=\"titreAlb\" value=\"<?php echo $ligne[1] ?>\">
-        <input type=\"hidden\" name=\"numSaga\" value=\"<?php echo $ligne[2] ?>\">
-        <br><input type=\"submit\" name=\"action\" value=\"Modifier Album\">
-        <input type=\"submit\" name=\"action\" value=\"Supprimer Album\">";
+    <form method="get" action="" class="d-flex flex-column column align-items-center">
+        <?php       echo "<form method=\"get\" action=\"\" class=\"d-flex flex-column column align-items-center\">".
+                     $ligne["TITRE_ALBUM"]  .
+            "<img src=\"../SRC/albumsMini/" .$ligne["LIB_POCH_ALB"] ."\">\n".
+            "<input type=\"hidden\" name=\"numAlb\" value=".$ligne['NUMERO_ALBUM'] . ">
+            <input type=\"hidden\" name=\"titreAlb\" value=" . $ligne["TITRE_ALBUM"] . ">
+            <input type=\"hidden\" name=\"numSaga\" value=". $ligne["NUMERO_SAGA"] . ">
+            <input type=\"hidden\" name=\"idSerieAlb\" value=" . $ligne["IDENTIFIANT_SERIE"] .">
+            <br><input type=\"submit\" name=\"action\" value=\"Détails\">
+            <input type=\"submit\" name=\"action\" value=\"Modifier Album\">
+            <input type=\"submit\" name=\"action\" value=\"Supprimer Album\">";
         ?>
     </form>
     <?php    
