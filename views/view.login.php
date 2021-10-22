@@ -49,7 +49,6 @@ if ($action == 'accueil' or $action == 'erreur'){?>
             bg-body
             rounded
             text-center
-            d-flex
             justify-content-center
             w-50
             col-md-offset-1
