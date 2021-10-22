@@ -35,6 +35,7 @@ spl_autoload_register(function($classe){
             <input type="hidden" name="action" value="auteur">
         </form>
     </div>
+    <?php } ?>
 
     <?php  
     if ($action == 'serie'){ ?>
